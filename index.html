@@ -413,8 +413,11 @@ footer .bottom a{display:inline-block;margin-left:16px}
 .tab-switch button.active{background:var(--gold);color:var(--ink)}
 .phone-input{display:flex;gap:8px}
 .phone-prefix{padding:clamp(12px,1.8vw,14px) clamp(12px,1.8vw,14px);background:var(--ink2);border:1px solid var(--line);border-radius:6px;color:var(--gold);font-weight:700;display:flex;align-items:center;flex-shrink:0;font-size:var(--fs-body)}
-#authCode{text-align:center;font-size:clamp(1.4rem,4vw,1.8rem);font-weight:700;letter-spacing:.5em;padding-left:.5em;color:var(--gold)}
-#authCode::placeholder{letter-spacing:.4em;color:#4a5f72;font-weight:600}
+.pw-wrap{position:relative;display:flex}
+.pw-wrap input{padding-right:50px}
+.pw-eye{position:absolute;right:2px;top:50%;transform:translateY(-50%);width:44px;height:44px;display:grid;place-items:center;color:var(--muted);border-radius:6px;transition:.25s}
+.pw-eye:hover,.pw-eye.on{color:var(--gold)}
+.pw-eye svg{width:20px;height:20px}
 
 /* Bus layout */
 .seat-legend{display:flex;gap:clamp(12px,2vw,20px);justify-content:center;margin-bottom:16px;font-size:var(--fs-small);color:var(--muted);flex-wrap:wrap}
@@ -975,7 +978,7 @@ body.app-on{overflow:hidden!important}
 <div class="modal-overlay" id="authModal" onclick="if(event.target===this)closeModal('authModal')">
   <div class="modal">
     <div class="modal-header">
-      <div><h3 id="authTitle">Connexion</h3><p id="authSubtitle">Recevez un code par SMS</p></div>
+      <div><h3 id="authTitle">Connexion</h3><p id="authSubtitle">Entrez votre numéro et votre mot de passe</p></div>
       <button class="modal-close" onclick="closeModal('authModal')" aria-label="Fermer">✕</button>
     </div>
     <div class="modal-body">
@@ -986,24 +989,27 @@ body.app-on{overflow:hidden!important}
       <div id="stepPhone">
         <div class="field" id="nameField" style="display:none">
           <label>Nom complet</label>
-          <input type="text" id="authName" placeholder="Ex : Merveille Ngoma">
+          <input type="text" id="authName" placeholder="Ex : Merveille Ngoma" autocomplete="name">
         </div>
         <div class="field">
           <label>Numéro de téléphone</label>
           <div class="phone-input">
             <span class="phone-prefix">+242</span>
-            <input type="tel" id="authPhone" placeholder="06 XXX XX XX" autocomplete="tel">
+            <input type="tel" id="authPhone" placeholder="06 XXX XX XX" autocomplete="tel-national" inputmode="tel">
           </div>
         </div>
-        <button type="button" class="btn gold block" id="authSubmit" onclick="sendSmsCode()">Recevoir le code</button>
-      </div>
-      <div id="stepCode" style="display:none">
         <div class="field">
-          <label>Code de vérification</label>
-          <input type="tel" id="authCode" placeholder="000000" maxlength="6" inputmode="numeric" autocomplete="one-time-code">
+          <label>Mot de passe</label>
+          <div class="pw-wrap">
+            <input type="password" id="authPass" placeholder="Votre mot de passe" autocomplete="current-password">
+            <button type="button" class="pw-eye" id="pwEye" onclick="togglePw()" aria-label="Afficher le mot de passe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+          </div>
         </div>
-        <button type="button" class="btn gold block" onclick="verifySmsCode()">Vérifier et se connecter</button>
-        <button type="button" class="btn line block" style="margin-top:8px" onclick="switchAuthTab(authMode)">Renvoyer un code</button>
+        <div class="field" id="pass2Field" style="display:none">
+          <label>Confirmer le mot de passe</label>
+          <input type="password" id="authPass2" placeholder="Retapez le mot de passe" autocomplete="new-password">
+        </div>
+        <button type="button" class="btn gold block" id="authSubmit" onclick="submitAuth()">Se connecter</button>
       </div>
       <p id="authError" style="color:var(--danger);font-size:var(--fs-small);margin-top:10px;display:none"></p>
     </div>
@@ -1341,7 +1347,7 @@ window.confirmBooking = async function(){
       const { doc, setDoc, serverTimestamp } = window.FB;
       await setDoc(doc(window.firebaseDb, 'bookings', ref), {
         userId: window.NZOKO.currentUser.uid,
-        userPhone: window.NZOKO.currentUser.phoneNumber,
+        userPhone: (window.phoneOf ? window.phoneOf(window.NZOKO.currentUser) : window.NZOKO.currentUser.phoneNumber),
         userName: window.NZOKO.currentUser.displayName || 'Voyageur',
         trip: window.NZOKO.currentTrip,
         date: window.NZOKO.currentDate,
@@ -1669,7 +1675,7 @@ window.confirmBooking = async function(){ await oc(); setTimeout(load, 700); };
 window.enterApp = function(){
   if(document.body.classList.contains('app-on')) return;
   const u = N.currentUser, nm = u.displayName || 'Voyageur';
-  $('#apNm').textContent = nm; $('#apPh').textContent = u.phoneNumber || '+242';
+  $('#apNm').textContent = nm; $('#apPh').textContent = (window.phoneOf ? window.phoneOf(u) : u.phoneNumber) || '+242';
   $('#apAv').textContent = nm.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
   document.body.classList.add('app-on'); go('trajets'); load();
 };
@@ -1680,7 +1686,7 @@ window.leaveApp = function(){ document.body.classList.remove('app-on'); bookings
 <!-- ==================== SCRIPT FIREBASE (module) ==================== -->
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js';
-import { getAuth, RecaptchaVerifier, signInWithPhoneNumber, onAuthStateChanged, signOut, updateProfile } from 'https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from 'https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js';
 import { getFirestore, doc, setDoc, getDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js';
 
 const firebaseConfig = {
@@ -1698,7 +1704,23 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 window.firebaseAuth = auth;
 window.firebaseDb = db;
-window.FB = { signInWithPhoneNumber, RecaptchaVerifier, signOut, updateProfile, doc, setDoc, getDoc, serverTimestamp };
+window.FB = { signOut, updateProfile, doc, setDoc, getDoc, serverTimestamp };
+
+/* Connexion par numéro + mot de passe : le numéro sert d'identifiant (e-mail technique interne) */
+const AUTH_DOMAIN = 'tel.nzoko.app';
+const cleanPhone = raw => {
+  let d = String(raw).replace(/\D/g, '');
+  if (d.startsWith('00242')) d = d.slice(5);
+  else if (d.startsWith('242') && d.length > 9) d = d.slice(3);
+  return d;
+};
+const toEmail = d => '242' + d + '@' + AUTH_DOMAIN;
+window.phoneOf = u => {
+  if (!u) return '';
+  if (u.phoneNumber) return u.phoneNumber;
+  const m = (u.email || '').match(/^242(\d+)@/);
+  return m ? '+242 ' + m[1] : '';
+};
 
 onAuthStateChanged(auth, async (user) => {
   if (user) {
@@ -1728,7 +1750,7 @@ function updateAuthUI(isLoggedIn){
     loginBtn.style.display = 'none';
     logoutBtn.style.display = 'inline-flex';
     badge.style.display = 'inline-flex';
-    document.getElementById('userPhone').textContent = user.phoneNumber || '+242';
+    document.getElementById('userPhone').textContent = window.phoneOf(user) || '+242';
   } else {
     if (window.leaveApp) window.leaveApp();
     loginBtn.style.display = 'inline-flex';
@@ -1739,110 +1761,98 @@ function updateAuthUI(isLoggedIn){
 
 window.openAuth = function(){
   if (window.NZOKO.currentUser) { openMyBookings(); return; }
-  initRecaptcha();
   openModal('authModal');
 };
 window.logout = async function(){
   try { await signOut(auth); window.NZOKO.currentUser = null; updateAuthUI(false); } catch(e){}
 };
 
-function initRecaptcha(){
-  if (window.NZOKO.recaptchaVerifier) return;
-  let container = document.getElementById('recaptcha-container');
-  if (!container) {
-    container = document.createElement('div');
-    container.id = 'recaptcha-container';
-    document.body.appendChild(container);
-  }
-  window.NZOKO.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
-    size:'invisible', callback:()=>{}, 'expired-callback':()=>{}
-  });
-}
+const authErr = msg => { const e = document.getElementById('authError'); e.textContent = msg; e.style.display = msg ? 'block' : 'none'; };
 
-window.sendSmsCode = async function(){
-  const phone = document.getElementById('authPhone').value.trim();
-  const err = document.getElementById('authError');
-  err.style.display = 'none';
-  if (!phone || phone.replace(/\s/g,'').length < 6) {
-    err.textContent = 'Numéro invalide (min. 6 chiffres).';
-    err.style.display = 'block'; return;
+window.submitAuth = async function(){
+  const mode = window.NZOKO.authMode;
+  const digits = cleanPhone(document.getElementById('authPhone').value);
+  const pass = document.getElementById('authPass').value;
+  authErr('');
+  if (digits.length < 6) return authErr('Numéro invalide (min. 6 chiffres).');
+  if (!pass) return authErr('Entrez votre mot de passe.');
+  let name = '';
+  if (mode === 'signup') {
+    name = document.getElementById('authName').value.trim();
+    if (!name) return authErr('Veuillez indiquer votre nom complet.');
+    if (pass.length < 6) return authErr('Le mot de passe doit contenir au moins 6 caractères.');
+    if (pass !== document.getElementById('authPass2').value) return authErr('Les mots de passe ne correspondent pas.');
   }
-  if (window.NZOKO.authMode === 'signup') {
-    const name = document.getElementById('authName').value.trim();
-    if (!name) { err.textContent = 'Veuillez indiquer votre nom complet.'; err.style.display = 'block'; return; }
-  }
-  const fullPhone = '+242' + phone.replace(/\s/g, '');
-  const submitBtn = document.getElementById('authSubmit');
-  submitBtn.disabled = true;
-  submitBtn.textContent = 'Envoi en cours…';
+  const btn = document.getElementById('authSubmit');
+  btn.disabled = true;
+  btn.textContent = mode === 'signup' ? 'Création du compte…' : 'Connexion…';
   try {
-    initRecaptcha();
-    window.NZOKO.confirmationResult = await signInWithPhoneNumber(auth, fullPhone, window.NZOKO.recaptchaVerifier);
-    document.getElementById('stepPhone').style.display = 'none';
-    document.getElementById('stepCode').style.display = 'block';
-    document.getElementById('authSubtitle').textContent = `Code envoyé au ${fullPhone}`;
-    document.getElementById('authCode').focus();
+    if (mode === 'signup') {
+      const cred = await createUserWithEmailAndPassword(auth, toEmail(digits), pass);
+      const user = cred.user;
+      await updateProfile(user, { displayName: name });
+      await setDoc(doc(db, 'users', user.uid), { uid:user.uid, name, phone:'+242' + digits, createdAt:serverTimestamp(), role:'user' }, { merge:true });
+      window.NZOKO.currentUser.displayName = name;
+      const nm = document.getElementById('apNm'), av = document.getElementById('apAv');
+      if (nm) nm.textContent = name;
+      if (av) av.textContent = name.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
+    } else {
+      await signInWithEmailAndPassword(auth, toEmail(digits), pass);
+    }
+    document.getElementById('authPass').value = '';
+    document.getElementById('authPass2').value = '';
   } catch (e) {
     console.error(e);
-    err.textContent = mapFirebaseError(e.code);
-    err.style.display = 'block';
-    if (window.NZOKO.recaptchaVerifier) {
-      try { window.NZOKO.recaptchaVerifier.clear(); } catch(_){}
-      window.NZOKO.recaptchaVerifier = null;
-      const c = document.getElementById('recaptcha-container');
-      if (c) c.innerHTML = '';
-    }
+    authErr(mapFirebaseError(e.code));
   } finally {
-    submitBtn.disabled = false;
-    submitBtn.textContent = 'Recevoir le code';
+    btn.disabled = false;
+    btn.textContent = mode === 'signup' ? 'Créer mon compte' : 'Se connecter';
   }
 };
 
-window.verifySmsCode = async function(){
-  const code = document.getElementById('authCode').value.trim();
-  const err = document.getElementById('authError');
-  err.style.display = 'none';
-  if (!code || code.length < 6) { err.textContent = 'Entrez le code à 6 chiffres.'; err.style.display = 'block'; return; }
-  try {
-    const result = await window.NZOKO.confirmationResult.confirm(code);
-    const user = result.user;
-    if (window.NZOKO.authMode === 'signup') {
-      const name = document.getElementById('authName').value.trim() || 'Voyageur';
-      await updateProfile(user, { displayName: name });
-      await setDoc(doc(db, 'users', user.uid), { uid:user.uid, name, phone:user.phoneNumber, createdAt:serverTimestamp(), role:'user' }, { merge:true });
-    }
-  } catch (e) {
-    console.error(e);
-    err.textContent = mapFirebaseError(e.code);
-    err.style.display = 'block';
-  }
+window.togglePw = function(){
+  const i = document.getElementById('authPass'), show = i.type === 'password';
+  i.type = show ? 'text' : 'password';
+  const p2 = document.getElementById('authPass2'); if (p2) p2.type = i.type;
+  const b = document.getElementById('pwEye');
+  b.classList.toggle('on', show);
+  b.setAttribute('aria-label', show ? 'Masquer le mot de passe' : 'Afficher le mot de passe');
 };
 
 window.switchAuthTab = function(mode){
   window.NZOKO.authMode = mode;
-  document.getElementById('tabLogin').classList.toggle('active', mode === 'login');
-  document.getElementById('tabSignup').classList.toggle('active', mode === 'signup');
-  document.getElementById('authTitle').textContent = mode === 'login' ? 'Connexion' : 'Créer un compte';
-  document.getElementById('authSubtitle').textContent = mode === 'login' ? 'Recevez un code par SMS' : 'Inscrivez-vous en 30 secondes';
-  document.getElementById('nameField').style.display = mode === 'signup' ? 'block' : 'none';
-  document.getElementById('stepPhone').style.display = 'block';
-  document.getElementById('stepCode').style.display = 'none';
-  document.getElementById('authError').style.display = 'none';
-  document.getElementById('authCode').value = '';
+  const signup = mode === 'signup';
+  document.getElementById('tabLogin').classList.toggle('active', !signup);
+  document.getElementById('tabSignup').classList.toggle('active', signup);
+  document.getElementById('authTitle').textContent = signup ? 'Créer un compte' : 'Connexion';
+  document.getElementById('authSubtitle').textContent = signup ? 'Inscrivez-vous en 30 secondes' : 'Entrez votre numéro et votre mot de passe';
+  document.getElementById('nameField').style.display = signup ? 'flex' : 'none';
+  document.getElementById('pass2Field').style.display = signup ? 'flex' : 'none';
+  const pw = document.getElementById('authPass');
+  pw.autocomplete = signup ? 'new-password' : 'current-password';
+  pw.placeholder = signup ? '6 caractères minimum' : 'Votre mot de passe';
+  pw.value = ''; document.getElementById('authPass2').value = '';
+  document.getElementById('authSubmit').textContent = signup ? 'Créer mon compte' : 'Se connecter';
+  authErr('');
 };
+
+document.getElementById('stepPhone').addEventListener('keydown', e => {
+  if (e.key === 'Enter' && e.target.tagName === 'INPUT') { e.preventDefault(); window.submitAuth(); }
+});
 
 function mapFirebaseError(code){
   const map = {
-    'auth/invalid-phone-number':'Numéro invalide.',
-    'auth/missing-phone-number':'Veuillez entrer un numéro.',
-    'auth/quota-exceeded':'Quota SMS dépassé.',
-    'auth/captcha-check-failed':'Échec reCAPTCHA.',
-    'auth/invalid-verification-code':'Code SMS incorrect.',
-    'auth/invalid-verification-id':'Session expirée. Renvoyez un code.',
-    'auth/too-many-requests':'Trop de tentatives.',
+    'auth/invalid-email':'Numéro invalide.',
+    'auth/missing-password':'Entrez votre mot de passe.',
+    'auth/invalid-credential':'Numéro ou mot de passe incorrect.',
+    'auth/wrong-password':'Numéro ou mot de passe incorrect.',
+    'auth/user-not-found':'Numéro ou mot de passe incorrect.',
+    'auth/email-already-in-use':'Un compte existe déjà avec ce numéro. Connectez-vous.',
+    'auth/weak-password':'Mot de passe trop faible (6 caractères minimum).',
+    'auth/too-many-requests':'Trop de tentatives. Réessayez dans quelques minutes.',
     'auth/user-disabled':'Compte désactivé.',
     'auth/network-request-failed':'Problème de connexion.',
-    'auth/operation-not-allowed':'Auth téléphone non activée.',
+    'auth/operation-not-allowed':'Connexion par mot de passe non activée (Firebase).',
     'auth/unauthorized-domain':'Domaine non autorisé.'
   };
   return map[code] || 'Une erreur est survenue.';
