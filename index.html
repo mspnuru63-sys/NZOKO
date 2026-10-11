@@ -434,6 +434,8 @@ footer .bottom a{display:inline-block;margin-left:16px}
 .seat:hover:not(.taken){border-color:var(--gold);color:var(--gold);transform:scale(1.05)}
 .seat.selected{background:var(--gold);color:var(--ink);border-color:var(--gold);transform:scale(1.05);font-weight:800}
 .seat.taken{background:#1a1a1a;color:#444;cursor:not-allowed;border-color:#222}
+.seats.seats-loading{opacity:.45;pointer-events:none}
+#seatNotice{display:none;color:var(--danger);font-size:var(--fs-small);text-align:center;margin-bottom:12px}
 .booking-summary{background:var(--ink2);border:1px solid var(--line);border-radius:10px;padding:clamp(14px,2vw,18px);margin-bottom:16px;font-size:var(--fs-small)}
 .booking-summary .row{display:flex;justify-content:space-between;padding:5px 0;color:var(--muted);gap:12px}
 .booking-summary .row strong{color:#fff;text-align:right;word-break:break-word}
@@ -1029,6 +1031,7 @@ body.app-on{overflow:hidden!important}
         <span><i class="selected"></i> Sélectionnée</span>
         <span><i class="taken"></i> Occupée</span>
       </div>
+      <p id="seatNotice" role="status"></p>
       <div class="bus-layout">
         <div class="bus-front">↑ Avant du bus</div>
         <div class="seats" id="seatsGrid"></div>
@@ -1269,12 +1272,12 @@ window.quickSearch = function(city){
    MODALS
    ===================================================================== */
 window.openModal = function(id){ document.getElementById(id).classList.add('open'); document.body.style.overflow = 'hidden'; };
-window.closeModal = function(id){ document.getElementById(id).classList.remove('open'); document.body.style.overflow = ''; };
+window.closeModal = function(id){ document.getElementById(id).classList.remove('open'); document.body.style.overflow = ''; if(id === 'bookingModal' && window.unwatchSeats) window.unwatchSeats(); };
 
 /* =====================================================================
    PLAN DU BUS — 70 PLACES
    ===================================================================== */
-window.NZOKO.TAKEN_SEATS = [3, 7, 12, 18, 25, 31, 36, 42, 48, 55, 61, 67];
+window.NZOKO.TAKEN_SEATS = [];
 function renderSeats(){
   const grid = document.getElementById('seatsGrid');
   let html = '';
@@ -1293,9 +1296,29 @@ function renderSeats(){
   grid.innerHTML = html;
 }
 function buildSeatBtn(num){
-  const taken = window.NZOKO.TAKEN_SEATS.includes(num);
-  return `<button class="${taken ? 'seat taken' : 'seat'}" data-seat="${num}" ${taken ? 'disabled' : `onclick="toggleSeat(${num}, this)"`}>${num}</button>`;
+  return `<button class="seat" data-seat="${num}" onclick="toggleSeat(${num}, this)">${num}</button>`;
 }
+function seatNotice(msg){
+  const el = document.getElementById('seatNotice');
+  el.textContent = msg || ''; el.style.display = msg ? 'block' : 'none';
+}
+/* Met à jour le plan en direct : appelée à chaque changement dans Firestore */
+window.applyTakenSeats = function(list){
+  const N = window.NZOKO; N.TAKEN_SEATS = list;
+  const grid = document.getElementById('seatsGrid');
+  grid.classList.remove('seats-loading');
+  const lost = [];
+  grid.querySelectorAll('.seat').forEach(b => {
+    const n = +b.dataset.seat, t = list.includes(n);
+    b.classList.toggle('taken', t); b.disabled = t;
+    if(t && b.classList.contains('selected')){ b.classList.remove('selected'); lost.push(n); }
+  });
+  if(lost.length){
+    N.selectedSeats = N.selectedSeats.filter(n => !lost.includes(n));
+    updateSeatSummary();
+    seatNotice((lost.length > 1 ? 'Les places ' : 'La place ') + lost.sort((x,y)=>x-y).join(', ') + (lost.length > 1 ? ' viennent' : ' vient') + ' d\'être réservée' + (lost.length > 1 ? 's' : '') + ' par un autre voyageur.');
+  }
+};
 
 /* =====================================================================
    RÉSERVATION
@@ -1317,9 +1340,31 @@ window.openBooking = function(trip, date){
   document.getElementById('confirmBookingBtn').disabled = true;
   document.getElementById('bookingMsg').style.display = 'none';
   renderSeats();
+  seatNotice('');
+  if(window.watchSeats){
+    document.getElementById('seatsGrid').classList.add('seats-loading');
+    window.watchSeats(trip, window.NZOKO.currentDate, window.applyTakenSeats, () => {
+      document.getElementById('seatsGrid').classList.remove('seats-loading');
+      seatNotice('Impossible de charger l\'état des places en temps réel. Vérifiez votre connexion.');
+    });
+  }
   openModal('bookingModal');
 };
+function updateSeatSummary(){
+  const N = window.NZOKO;
+  if(N.selectedSeats.length){
+    document.getElementById('sumSeats').textContent = N.selectedSeats.slice().sort((a,b)=>a-b).join(', ');
+    document.getElementById('sumTotal').textContent = (N.selectedSeats.length * N.currentTrip.price).toLocaleString('fr-FR') + ' FCFA';
+    document.getElementById('confirmBookingBtn').disabled = false;
+  } else {
+    document.getElementById('sumSeats').textContent = '—';
+    document.getElementById('sumTotal').textContent = '0 FCFA';
+    document.getElementById('confirmBookingBtn').disabled = true;
+  }
+}
 window.toggleSeat = function(num, btn){
+  if(btn.classList.contains('taken')) return;
+  seatNotice('');
   const idx = window.NZOKO.selectedSeats.indexOf(num);
   if(idx > -1){ window.NZOKO.selectedSeats.splice(idx, 1); btn.classList.remove('selected'); }
   else {
@@ -1327,40 +1372,44 @@ window.toggleSeat = function(num, btn){
     window.NZOKO.selectedSeats.push(num);
     btn.classList.add('selected');
   }
-  if(window.NZOKO.selectedSeats.length){
-    document.getElementById('sumSeats').textContent = window.NZOKO.selectedSeats.slice().sort((a,b)=>a-b).join(', ');
-    document.getElementById('sumTotal').textContent = (window.NZOKO.selectedSeats.length * window.NZOKO.currentTrip.price).toLocaleString('fr-FR') + ' FCFA';
-    document.getElementById('confirmBookingBtn').disabled = false;
-  } else {
-    document.getElementById('sumSeats').textContent = '—';
-    document.getElementById('sumTotal').textContent = '0 FCFA';
-    document.getElementById('confirmBookingBtn').disabled = true;
-  }
+  updateSeatSummary();
 };
 window.confirmBooking = async function(){
   if(!window.NZOKO.selectedSeats.length || !window.NZOKO.currentTrip) return;
   const total = window.NZOKO.selectedSeats.length * window.NZOKO.currentTrip.price;
   const ref = 'NZK-' + Date.now().toString().slice(-8);
   const seats = window.NZOKO.selectedSeats.slice().sort((a,b)=>a-b);
-  if(window.firebaseDb && window.NZOKO.currentUser){
+  const btn = document.getElementById('confirmBookingBtn');
+  if(window.bookSeats && window.NZOKO.currentUser){
+    btn.disabled = true;
     try {
-      const { doc, setDoc, serverTimestamp } = window.FB;
-      await setDoc(doc(window.firebaseDb, 'bookings', ref), {
+      await window.bookSeats(ref, {
         userId: window.NZOKO.currentUser.uid,
         userPhone: (window.phoneOf ? window.phoneOf(window.NZOKO.currentUser) : window.NZOKO.currentUser.phoneNumber),
         userName: window.NZOKO.currentUser.displayName || 'Voyageur',
         trip: window.NZOKO.currentTrip,
         date: window.NZOKO.currentDate,
-        seats, total, reference: ref, status: 'pending',
-        createdAt: serverTimestamp()
+        seats, total, reference: ref, status: 'pending'
       });
-    } catch(e) { console.error('Erreur enregistrement:', e); }
+    } catch(e) {
+      console.error('Erreur enregistrement:', e);
+      if(e && e.code === 'seats-taken'){
+        seatNotice((e.seats.length > 1 ? 'Les places ' : 'La place ') + e.seats.join(', ') + ' ' + (e.seats.length > 1 ? 'ont' : 'a') + ' été réservée' + (e.seats.length > 1 ? 's' : '') + ' à l\'instant par un autre voyageur. Choisissez-en d\'autres.');
+        window.NZOKO.selectedSeats = window.NZOKO.selectedSeats.filter(n => !e.seats.includes(n));
+        document.querySelectorAll('.seat.selected').forEach(b => { if(e.seats.includes(+b.dataset.seat)) b.classList.remove('selected'); });
+        updateSeatSummary();
+      } else {
+        seatNotice('Impossible d\'enregistrer la réservation. Vérifiez votre connexion et réessayez.');
+        btn.disabled = false;
+      }
+      return;
+    }
   }
-  document.getElementById('bookingMsg').innerHTML = `✓ Réservation enregistrée !<br>Statut : En cours de validation<br>Référence : <strong>${ref}</strong><br>${seats.length} place(s) : ${seats.join(', ')}<br>Total : ${total.toLocaleString('fr-FR')} FCFA<br>Un SMS a été envoyé au ${window.NZOKO.currentUser.phoneNumber || '+242'}`;
+  document.getElementById('bookingMsg').innerHTML = `✓ Réservation enregistrée !<br>Statut : En cours de validation<br>Référence : <strong>${ref}</strong><br>${seats.length} place(s) : ${seats.join(', ')}<br>Total : ${total.toLocaleString('fr-FR')} FCFA<br>Un SMS a été envoyé au ${(window.phoneOf && window.phoneOf(window.NZOKO.currentUser)) || '+242'}`;
   document.getElementById('bookingMsg').style.display = 'block';
   document.getElementById('confirmBookingBtn').disabled = true;
-  seats.forEach(s => { if(!window.NZOKO.TAKEN_SEATS.includes(s)) window.NZOKO.TAKEN_SEATS.push(s); });
-  setTimeout(() => { document.querySelectorAll('.seat.selected').forEach(s => s.classList.remove('selected')); window.NZOKO.selectedSeats = []; }, 1500);
+  window.NZOKO.selectedSeats = [];
+  document.querySelectorAll('.seat.selected').forEach(s => s.classList.remove('selected'));
 };
 
 /* =====================================================================
@@ -1398,7 +1447,10 @@ window.cancelBooking = async function(bookingId){
   if(!confirm('Voulez-vous vraiment annuler cette réservation ?')) return;
   try {
     const { doc, updateDoc } = await import('https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js');
-    await updateDoc(doc(window.firebaseDb, 'bookings', bookingId), { status: 'cancelled' });
+    const bref = doc(window.firebaseDb, 'bookings', bookingId);
+    let prev = null; try { const sn = await window.FB.getDoc(bref); prev = sn.exists() ? sn.data() : null; } catch(_){}
+    await updateDoc(bref, { status: 'cancelled' });
+    if(prev && prev.status !== 'cancelled' && window.releaseSeats) await window.releaseSeats(prev);
     openMyBookings();
   } catch(e) { alert('Impossible d\'annuler pour le moment.'); }
 };
@@ -1593,8 +1645,10 @@ async function cancel(id){
   if(!confirm('Voulez-vous vraiment annuler cette réservation ?')) return;
   try {
     const { doc, updateDoc } = await import('https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js');
+    const b = bookings.find(x => x.id === id);
     await updateDoc(doc(window.firebaseDb,'bookings',id), {status:'cancelled'});
-    const b = bookings.find(x => x.id === id); if(b) b.status = 'cancelled';
+    if(b && b.status !== 'cancelled' && window.releaseSeats) await window.releaseSeats(b);
+    if(b) b.status = 'cancelled';
     badge(); view === 'dash' ? rDash() : rBillets();
   } catch(e){ alert('Impossible d\'annuler pour le moment.'); }
 }
@@ -1687,7 +1741,7 @@ window.leaveApp = function(){ document.body.classList.remove('app-on'); bookings
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from 'https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js';
-import { getFirestore, doc, setDoc, getDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js';
+import { getFirestore, doc, setDoc, getDoc, updateDoc, deleteField, onSnapshot, runTransaction, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js';
 
 const firebaseConfig = {
   apiKey: "AIzaSyClroC5HglFKrIiLVukXR64EVFjY-bs3NQ",
@@ -1705,6 +1759,37 @@ const db = getFirestore(app);
 window.firebaseAuth = auth;
 window.firebaseDb = db;
 window.FB = { signOut, updateProfile, doc, setDoc, getDoc, serverTimestamp };
+
+/* Places d'un bus : un document seatmaps/{trajet}__{date} partagé par tous les voyageurs */
+const slug = x => String(x).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
+const seatKey = (trip, date) => slug(trip.from) + '__' + slug(trip.to) + '__' + date;
+let seatUnsub = null;
+window.unwatchSeats = function(){ if (seatUnsub) { seatUnsub(); seatUnsub = null; } };
+window.watchSeats = function(trip, date, onData, onErr){
+  window.unwatchSeats();
+  seatUnsub = onSnapshot(doc(db, 'seatmaps', seatKey(trip, date)), snap => {
+    const taken = snap.exists() ? (snap.data().taken || {}) : {};
+    onData(Object.keys(taken).map(Number));
+  }, err => { console.error(err); if (onErr) onErr(err); });
+};
+/* Réserve les places ET crée la réservation en une seule opération atomique : impossible de réserver 2 fois la même place */
+window.bookSeats = async function(ref, data){
+  const mapRef = doc(db, 'seatmaps', seatKey(data.trip, data.date));
+  await runTransaction(db, async tx => {
+    const snap = await tx.get(mapRef);
+    const taken = snap.exists() ? (snap.data().taken || {}) : {};
+    const clash = data.seats.filter(n => taken[n]);
+    if (clash.length) { const e = new Error('seats-taken'); e.code = 'seats-taken'; e.seats = clash; throw e; }
+    const add = {}; data.seats.forEach(n => { add[n] = data.userId; });
+    tx.set(mapRef, { taken: add }, { merge: true });
+    tx.set(doc(db, 'bookings', ref), { ...data, createdAt: serverTimestamp() });
+  });
+};
+window.releaseSeats = async function(b){
+  if (!b || !b.trip || !b.date || !b.seats) return;
+  const upd = {}; b.seats.forEach(n => { upd['taken.' + n] = deleteField(); });
+  try { await updateDoc(doc(db, 'seatmaps', seatKey(b.trip, b.date)), upd); } catch(e){ console.error(e); }
+};
 
 /* Connexion par numéro + mot de passe : le numéro sert d'identifiant (e-mail technique interne) */
 const AUTH_DOMAIN = 'tel.nzoko.app';
