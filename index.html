@@ -1,0 +1,1851 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nzoko Transport – Voyagez à travers le Congo</title>
+<meta name="description" content="Réservez votre billet de bus en ligne au Congo-Brazzaville. Brazzaville, Pointe-Noire, Dolisie, Ouesso. Choix de place, horaires précis, réservation sécurisée.">
+<meta name="theme-color" content="#0d2b2b">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' rx='30' fill='%230d2b2b'/%3E%3Cpath d='M 35 60 L 80 25 L 110 65 L 85 120 L 45 120 Z M 165 60 L 120 25 L 90 65 L 115 120 L 155 120 Z M 80 25 L 120 25 L 120 85 L 100 110 L 80 85 Z' fill='none' stroke='%23d4af37' stroke-width='6'/%3E%3C/svg%3E">
+
+<style>
+:root{
+  --ink:#0d2b2b; --ink2:#133a3a; --gold:#d4af37; --gold-l:#e8c96a;
+  --amber:#ffc107; --text:#e0e6ed; --muted:#8ba0b3; --line:#1f4a4a;
+  --success:#2ecc71; --danger:#e74c3c;
+  --shadow-sm:0 2px 8px rgba(0,0,0,.3);
+  --shadow-md:0 12px 32px rgba(0,0,0,.4);
+  --shadow-lg:0 24px 60px rgba(0,0,0,.5);
+  --sp-section: clamp(48px, 9vw, 100px);
+  --sp-wrap: clamp(16px, 4vw, 28px);
+  --sp-gap: clamp(16px, 3vw, 24px);
+  --fs-h1: clamp(1.6rem, 6.5vw, 3.6rem);
+  --fs-h2: clamp(1.35rem, 4.5vw, 2.6rem);
+  --fs-h3: clamp(1rem, 2.2vw, 1.25rem);
+  --fs-body: clamp(.9rem, 1.8vw, 1rem);
+  --fs-small: clamp(.75rem, 1.5vw, .85rem);
+  --fs-micro: clamp(.65rem, 1.3vw, .78rem);
+  --fs-btn: clamp(.82rem, 1.6vw, .95rem);
+  --fs-stat: clamp(1.7rem, 6vw, 2.8rem);
+  --fs-price: clamp(1.2rem, 3vw, 1.55rem);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{
+  font-family:'DM Sans',system-ui,-apple-system,sans-serif;
+  font-size:var(--fs-body);color:var(--text);background:var(--ink);
+  line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+body.splash-active{overflow:hidden}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:0;background:none}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:2px}
+img,svg{max-width:100%;display:block}
+
+h1,h2,h3,h4{color:#fff;line-height:1.15;font-weight:700;letter-spacing:-.4px}
+h1{font-size:var(--fs-h1)}
+h2{font-size:var(--fs-h2);margin-bottom:.7em}
+h3{font-size:var(--fs-h3);margin-bottom:.4em;font-weight:600}
+
+.wrap{max-width:1200px;margin:auto;padding:0 var(--sp-wrap)}
+section{padding:var(--sp-section) 0;position:relative}
+.lead{max-width:660px;color:var(--muted);font-size:var(--fs-body);line-height:1.7}
+.eyebrow{display:inline-block;color:var(--gold);font-weight:700;font-size:var(--fs-micro);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px}
+
+/* ============================================================
+   SPLASH SCREEN — Logo complet NZOKO TRANSPORT
+   ============================================================ */
+.splash{
+  position:fixed;inset:0;z-index:9999;
+  background:#0d2b2b;
+  display:flex;align-items:center;justify-content:center;
+  transition:opacity .7s ease, transform .7s ease;
+}
+.splash.done{opacity:0;transform:scale(1.04);pointer-events:none}
+.splash.removed{display:none}
+
+.splash-logo{
+  width:min(78vw, 460px);
+  height:auto;
+  max-height:88vh;
+  filter:drop-shadow(0 12px 40px rgba(212,175,55,.15));
+  animation:splashLogoGlow 3s ease-in-out 2.4s infinite;
+}
+@keyframes splashLogoGlow{
+  0%,100%{filter:drop-shadow(0 12px 40px rgba(212,175,55,.15))}
+  50%{filter:drop-shadow(0 12px 60px rgba(212,175,55,.35))}
+}
+
+/* Dessin progressif des traits de l'éléphant */
+.splash-stroke{
+  stroke-dasharray:700;
+  stroke-dashoffset:700;
+  animation:splashDraw 1s cubic-bezier(.5,0,.25,1) forwards;
+}
+.splash-stroke:nth-of-type(1){animation-delay:.15s}
+.splash-stroke:nth-of-type(2){animation-delay:.35s}
+.splash-stroke:nth-of-type(3){animation-delay:.5s}
+.splash-stroke:nth-of-type(4){animation-delay:.65s}
+.splash-stroke:nth-of-type(5){animation-delay:.8s}
+.splash-stroke:nth-of-type(6){animation-delay:.95s}
+.splash-stroke:nth-of-type(7){animation-delay:1.05s}
+.splash-stroke:nth-of-type(8){animation-delay:1.15s}
+.splash-stroke:nth-of-type(9){animation-delay:1.3s}
+@keyframes splashDraw{to{stroke-dashoffset:0}}
+
+/* Yeux */
+.splash-eye{
+  opacity:0;
+  transform-origin:center;
+  transform:scale(0);
+  animation:splashEyeIn .45s cubic-bezier(.34,1.56,.64,1) 1.45s forwards;
+}
+.splash-eye:nth-of-type(2){animation-delay:1.55s}
+@keyframes splashEyeIn{to{opacity:1;transform:scale(1)}}
+
+/* Lettres NZOKO (N Z K) */
+.splash-char{
+  opacity:0;
+  transform:translateY(15px);
+  animation:splashCharIn .55s cubic-bezier(.34,1.56,.64,1) 1.75s forwards;
+}
+.splash-char:nth-of-type(1){animation-delay:1.75s}
+.splash-char:nth-of-type(2){animation-delay:1.9s}
+.splash-char:nth-of-type(3){animation-delay:2.2s}
+
+/* Les deux O — cercle + route */
+.splash-o-1,.splash-o-2{
+  stroke-dasharray:280;
+  stroke-dashoffset:280;
+  animation:splashDraw .8s cubic-bezier(.5,0,.25,1) forwards;
+}
+.splash-o-1{animation-delay:2.05s}
+.splash-o-2{animation-delay:2.35s}
+.splash-road-1,.splash-road-2{
+  opacity:0;
+  animation:splashCharIn .4s ease-out forwards;
+}
+.splash-road-1{animation-delay:2.4s}
+.splash-road-2{animation-delay:2.7s}
+
+@keyframes splashCharIn{to{opacity:1;transform:translateY(0)}}
+
+/* TRANSPORT + tirets */
+.splash-transport-text{
+  opacity:0;
+  animation:splashCharIn .6s ease-out 2.85s forwards;
+}
+.splash-dash-1,.splash-dash-2{
+  stroke-dasharray:120;
+  stroke-dashoffset:120;
+  animation:splashDraw .55s cubic-bezier(.5,0,.25,1) forwards;
+}
+.splash-dash-1{animation-delay:3s}
+.splash-dash-2{animation-delay:3.15s}
+
+/* Barre de chargement */
+.splash-bar{
+  position:absolute;bottom:clamp(28px,6vh,60px);
+  left:50%;transform:translateX(-50%);
+  width:min(220px, 55vw);height:2px;
+  background:rgba(212,175,55,.15);border-radius:2px;overflow:hidden;
+}
+.splash-bar span{
+  display:block;height:100%;width:0;
+  background:linear-gradient(90deg, transparent, #d4af37, #f5d76e, #d4af37, transparent);
+  border-radius:2px;
+  animation:splashBarFill 3.2s cubic-bezier(.5,0,.2,1) forwards;
+}
+@keyframes splashBarFill{
+  0%{width:0}
+  70%{width:80%}
+  100%{width:100%}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .splash,.splash *{
+    animation-duration:.01ms !important;
+    transition-duration:.01ms !important;
+  }
+  .splash-stroke,.splash-o-1,.splash-o-2,.splash-dash-1,.splash-dash-2{stroke-dashoffset:0}
+  .splash-eye,.splash-char,.splash-road-1,.splash-road-2,.splash-transport-text{opacity:1;transform:none}
+}
+
+/* ============================================================
+   BOUTONS
+   ============================================================ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:clamp(11px,2vw,14px) clamp(18px,3.5vw,28px);border-radius:6px;font-weight:600;font-size:var(--fs-btn);transition:all .3s cubic-bezier(.2,.8,.2,1);border:1.5px solid transparent;letter-spacing:.2px;white-space:nowrap;line-height:1.3}
+.btn.gold{background:var(--gold);color:var(--ink)}
+.btn.gold:hover{background:var(--gold-l);transform:translateY(-2px);box-shadow:0 12px 28px rgba(212,175,55,.35)}
+.btn.line{border-color:rgba(255,255,255,.25);color:#fff;background:rgba(255,255,255,.05)}
+.btn.line:hover{background:#fff;color:var(--ink)}
+.btn.dark{background:var(--ink2);color:#fff;border-color:var(--line)}
+.btn.dark:hover{border-color:var(--gold);color:var(--gold)}
+.btn.block{width:100%}
+.btn.sm{padding:10px 16px;font-size:var(--fs-small)}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+header{position:fixed;inset:0 0 auto 0;z-index:100;transition:all .4s cubic-bezier(.2,.8,.2,1);color:#fff;background:transparent}
+header.solid{background:rgba(13,43,43,.97);backdrop-filter:blur(14px) saturate(180%);-webkit-backdrop-filter:blur(14px) saturate(180%);box-shadow:0 4px 30px rgba(0,0,0,.4)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:clamp(64px,9vw,84px);gap:16px}
+.logo{display:flex;align-items:center;gap:clamp(8px,1.5vw,12px);color:#fff;flex-shrink:0}
+.logo svg{width:clamp(36px,6vw,46px);height:clamp(36px,6vw,46px);flex-shrink:0}
+.logo-text{display:flex;flex-direction:column}
+.logo-text b{font-size:clamp(.95rem,2.2vw,1.25rem);letter-spacing:2px;font-weight:800;line-height:1;color:var(--gold)}
+.logo-text small{font-size:clamp(.5rem,1.1vw,.58rem);font-weight:600;letter-spacing:clamp(2px,3vw,3.5px);text-transform:uppercase;color:var(--gold);margin-top:2px;display:flex;align-items:center;gap:4px}
+.logo-text small::before, .logo-text small::after{content:'';width:8px;height:1px;background:var(--gold)}
+nav ul{display:flex;gap:clamp(20px,3vw,32px);list-style:none;font-size:var(--fs-small);font-weight:500}
+nav a{opacity:.85;padding:8px 0;border-bottom:2px solid transparent;transition:.25s}
+nav a:hover,nav a.active{opacity:1;color:var(--gold);border-color:var(--gold)}
+.burger{display:none;color:#fff;font-size:clamp(1.4rem,3.5vw,1.7rem);padding:8px;line-height:1;width:44px;height:44px;align-items:center;justify-content:center;border-radius:8px}
+.burger:active{background:rgba(255,255,255,.08)}
+.header-cta{display:flex;gap:10px;align-items:center;flex-shrink:0}
+.user-badge{display:none;align-items:center;gap:8px;padding:6px 12px;background:rgba(212,175,55,.12);border:1px solid rgba(212,175,55,.35);border-radius:40px;font-size:var(--fs-small);color:var(--gold);font-weight:600;white-space:nowrap;cursor:pointer;transition:.25s}
+.user-badge:hover{background:rgba(212,175,55,.22)}
+.user-badge .dot{width:8px;height:8px;border-radius:50%;background:var(--success)}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{position:relative;min-height:100svh;overflow:hidden;background:var(--ink);color:#fff;display:flex;flex-direction:column;padding:clamp(90px,14vw,120px) 0 clamp(24px,4vw,40px)}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity 1.6s cubic-bezier(.45,0,.2,1);z-index:1;will-change:opacity}
+.slide.on{opacity:1;z-index:2}
+.slide .bg{position:absolute;inset:0;transform:scale(1);transition:transform 0s 1.7s;background-size:cover;background-position:center}
+.slide.on .bg{transform:scale(1.1);transition:transform 9s cubic-bezier(.2,.6,.3,1)}
+.slide::after{content:"";position:absolute;inset:0;background:
+  linear-gradient(95deg,rgba(13,43,43,.95) 0%,rgba(13,43,43,.72) 45%,rgba(13,43,43,.35) 100%),
+  linear-gradient(0deg,rgba(13,43,43,.9) 0%,transparent 55%)}
+.hero-inner{position:relative;z-index:5;flex:1;display:flex;flex-direction:column;justify-content:center;gap:clamp(24px,4vw,40px);max-width:1200px;width:100%;margin:0 auto;padding:0 var(--sp-wrap)}
+.cap{max-width:720px}
+.cap > *{opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.2,.8,.2,1), transform .9s cubic-bezier(.2,.8,.2,1)}
+.cap.animate > *{opacity:1;transform:none}
+.cap.animate > :nth-child(1){transition-delay:.1s}
+.cap.animate > :nth-child(2){transition-delay:.35s}
+.cap.animate > :nth-child(3){transition-delay:.6s}
+.cap.animate > :nth-child(4){transition-delay:.85s}
+.cap .tag{display:inline-flex;align-items:center;gap:8px;background:rgba(212,175,55,.15);color:var(--gold);border:1px solid rgba(212,175,55,.45);padding:clamp(6px,1.2vw,8px) clamp(12px,2.4vw,18px);border-radius:40px;font-size:var(--fs-micro);font-weight:600;letter-spacing:1.3px;text-transform:uppercase;margin-bottom:clamp(14px,2.5vw,22px);backdrop-filter:blur(8px);line-height:1.4}
+.cap .tag::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold);flex-shrink:0}
+.cap h1{margin-bottom:clamp(12px,2.5vw,18px);line-height:1.05;letter-spacing:-1.2px;font-weight:800}
+.cap h1 em{color:var(--gold);font-style:normal}
+.cap p{font-size:var(--fs-body);opacity:.9;margin-bottom:clamp(18px,3vw,24px);max-width:560px;line-height:1.6}
+.cap .cta-row{display:flex;gap:10px;flex-wrap:wrap}
+.search-wrapper{width:100%;max-width:1140px;align-self:center}
+.search-card{background:rgba(19,58,58,.95);backdrop-filter:blur(20px);border:1px solid rgba(212,175,55,.3);border-radius:14px;padding:clamp(14px,2.5vw,24px);box-shadow:var(--shadow-lg);width:100%}
+.search-grid{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:clamp(10px,1.5vw,14px);align-items:end}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.field label{font-size:var(--fs-micro);text-transform:uppercase;letter-spacing:1.3px;color:var(--gold);font-weight:700;display:flex;align-items:center;gap:6px}
+.field input,.field select{width:100%;padding:clamp(11px,1.8vw,14px) clamp(12px,1.8vw,16px);border:1px solid rgba(255,255,255,.12);background:rgba(13,43,43,.7);color:#fff;font:inherit;font-size:var(--fs-body);border-radius:6px;transition:.3s;min-height:44px}
+.field input::placeholder{color:#6b8399}
+.field input:focus,.field select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,175,55,.15)}
+.search-btn{padding:clamp(11px,1.8vw,14px) clamp(20px,3vw,32px);background:var(--gold);color:var(--ink);border-radius:6px;font-weight:700;font-size:var(--fs-btn);display:flex;align-items:center;justify-content:center;gap:8px;transition:.3s;min-height:48px;white-space:nowrap}
+.search-btn:hover{background:var(--gold-l);transform:translateY(-2px);box-shadow:0 8px 20px rgba(212,175,55,.3)}
+.slide-ctrl{position:absolute;z-index:6;right:max(var(--sp-wrap),calc((100vw - 1200px)/2 + var(--sp-wrap)));top:clamp(90px,13vw,130px);display:flex;gap:12px;align-items:center}
+.slide-ctrl .dots{display:flex;gap:8px}
+.slide-ctrl .dots button{width:clamp(28px,4vw,46px);height:3px;background:rgba(255,255,255,.3);position:relative;overflow:hidden;cursor:pointer;border-radius:2px;transition:.3s;padding:0}
+.slide-ctrl .dots button:hover{background:rgba(255,255,255,.5)}
+.slide-ctrl .dots button.on::after{content:"";position:absolute;inset:0;background:var(--gold);transform-origin:left;animation:fill 7s linear forwards}
+@keyframes fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.slide-ctrl .count{font-size:var(--fs-micro);color:rgba(255,255,255,.7);font-weight:600;letter-spacing:1px;white-space:nowrap}
+
+/* ============================================================
+   STATS
+   ============================================================ */
+.stats{background:var(--ink2);padding:clamp(40px,7vw,70px) 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stats .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,3vw,40px);text-align:center}
+.stats b{display:block;font-size:var(--fs-stat);color:var(--gold);line-height:1;font-weight:800;letter-spacing:-1.5px;margin-bottom:8px}
+.stats span{font-size:var(--fs-small);opacity:.8;display:block;line-height:1.4}
+
+/* ============================================================
+   SECTION HEAD
+   ============================================================ */
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:clamp(32px,5vw,52px);flex-wrap:wrap}
+.section-head > div{flex:1;min-width:0}
+
+/* ============================================================
+   TRIPS
+   ============================================================ */
+.trips-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-gap)}
+.trip-card{background:var(--ink2);border:1px solid var(--line);border-radius:12px;overflow:hidden;transition:.4s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;opacity:0;transform:translateY(60px)}
+.trip-card.in{opacity:1;transform:none}
+.trip-card:hover{transform:translateY(-8px);border-color:var(--gold);box-shadow:var(--shadow-lg)}
+.trip-card .top{padding:clamp(18px,2.5vw,24px);padding-bottom:clamp(16px,2.2vw,20px);display:flex;flex-direction:column;gap:clamp(12px,1.8vw,16px);border-bottom:1px dashed var(--line)}
+.trip-card .badge{align-self:flex-start;background:rgba(212,175,55,.15);color:var(--gold);border:1px solid rgba(212,175,55,.4);padding:4px 10px;border-radius:20px;font-size:var(--fs-micro);font-weight:700;letter-spacing:1px;text-transform:uppercase;line-height:1.4}
+.trip-route{display:flex;align-items:center;gap:clamp(8px,1.5vw,12px)}
+.trip-city{font-size:clamp(.9rem,1.8vw,1rem);font-weight:700;color:#fff;line-height:1.25;flex:1;min-width:0;word-break:break-word}
+.trip-city small{display:block;font-size:var(--fs-micro);color:var(--muted);font-weight:400;letter-spacing:0;text-transform:uppercase;margin-top:2px}
+.trip-city.to{text-align:right}
+.trip-arrow{color:var(--gold);font-size:clamp(.95rem,2vw,1.1rem);flex-shrink:0;font-weight:700}
+.trip-meta{display:flex;gap:clamp(10px,1.8vw,16px);font-size:var(--fs-small);color:var(--muted);flex-wrap:wrap}
+.trip-meta span{display:flex;align-items:center;gap:5px;white-space:nowrap}
+.trip-card .bottom{padding:clamp(16px,2.2vw,20px) clamp(18px,2.5vw,24px) clamp(18px,2.5vw,24px);display:flex;justify-content:space-between;align-items:center;margin-top:auto;gap:clamp(10px,2vw,16px)}
+.trip-price{font-size:var(--fs-price);font-weight:800;color:var(--gold);letter-spacing:-.5px;line-height:1;white-space:nowrap}
+.trip-price small{display:block;font-size:var(--fs-micro);color:var(--muted);font-weight:500;letter-spacing:.5px;text-transform:uppercase;margin-top:4px}
+.trip-card .btn{padding:clamp(8px,1.5vw,10px) clamp(14px,2.4vw,22px);font-size:var(--fs-small);flex-shrink:0}
+
+/* ============================================================
+   AVANTAGES
+   ============================================================ */
+.adv{background:var(--ink2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.adv-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--sp-gap);margin-top:clamp(32px,5vw,52px)}
+.adv-card{background:var(--ink);border:1px solid var(--line);border-radius:12px;padding:clamp(20px,3vw,32px) clamp(18px,2.5vw,26px);transition:.4s cubic-bezier(.2,.8,.2,1);opacity:0;transform:translateY(60px)}
+.adv-card.in{opacity:1;transform:none}
+.adv-card:hover{transform:translateY(-6px);border-color:var(--gold);box-shadow:var(--shadow-md)}
+.adv-icon{width:clamp(44px,6vw,56px);height:clamp(44px,6vw,56px);border-radius:12px;background:linear-gradient(135deg,rgba(212,175,55,.2),rgba(212,175,55,.05));border:1px solid rgba(212,175,55,.3);display:grid;place-items:center;color:var(--gold);margin-bottom:clamp(14px,2vw,20px)}
+.adv-icon svg{width:clamp(20px,3vw,26px);height:clamp(20px,3vw,26px)}
+.adv-card h3{color:#fff;margin-bottom:8px;font-size:clamp(1rem,2vw,1.1rem)}
+.adv-card p{font-size:var(--fs-small);color:var(--muted);line-height:1.6}
+
+/* ============================================================
+   DESTINATIONS
+   ============================================================ */
+.dest-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(10px,1.5vw,16px);margin-top:clamp(28px,4vw,44px)}
+.dest-card{position:relative;background:var(--ink2);border:1px solid var(--line);border-radius:10px;padding:clamp(16px,2.2vw,22px) clamp(14px,2vw,20px);transition:.35s;cursor:pointer;overflow:hidden;opacity:0;transform:translateY(40px)}
+.dest-card.in{opacity:1;transform:none}
+.dest-card:hover{border-color:var(--gold);transform:translateY(-4px)}
+.dest-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold);transform:scaleY(0);transition:.3s;transform-origin:top}
+.dest-card:hover::before{transform:scaleY(1)}
+.dest-card .city{font-size:clamp(.9rem,1.8vw,1rem);font-weight:700;color:#fff;display:flex;align-items:center;gap:8px}
+.dest-card .city svg{color:var(--gold);flex-shrink:0;width:14px;height:14px}
+.dest-card .info{font-size:var(--fs-micro);color:var(--muted);margin-top:6px}
+
+/* ============================================================
+   COMMENT
+   ============================================================ */
+.how{background:var(--ink2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,2.5vw,20px);margin-top:clamp(32px,5vw,52px);position:relative}
+.steps::before{content:"";position:absolute;top:32px;left:12%;right:12%;height:2px;background:repeating-linear-gradient(90deg,var(--line) 0 8px,transparent 8px 16px);z-index:0}
+.step{position:relative;z-index:1;text-align:center;padding:0 8px;opacity:0;transform:translateY(40px)}
+.step.in{opacity:1;transform:none}
+.step-num{width:clamp(52px,7vw,64px);height:clamp(52px,7vw,64px);border-radius:50%;background:var(--ink);border:2px solid var(--gold);color:var(--gold);display:grid;place-items:center;font-size:clamp(1.1rem,2.5vw,1.4rem);font-weight:800;margin:0 auto clamp(14px,2vw,20px);transition:.3s}
+.step:hover .step-num{background:var(--gold);color:var(--ink);transform:scale(1.1)}
+.step h3{color:#fff;font-size:clamp(.9rem,1.8vw,1rem);margin-bottom:6px}
+.step p{font-size:var(--fs-small);color:var(--muted);line-height:1.5}
+
+/* ============================================================
+   GARAGES
+   ============================================================ */
+.garages-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-gap);margin-top:clamp(32px,5vw,52px)}
+.garage-card{background:var(--ink2);border:1px solid var(--line);border-radius:12px;padding:clamp(20px,2.8vw,28px) clamp(18px,2.5vw,26px);transition:.35s;opacity:0;transform:translateY(50px)}
+.garage-card.in{opacity:1;transform:none}
+.garage-card:hover{border-color:var(--gold);transform:translateY(-4px)}
+.garage-card .city-tag{display:inline-block;background:rgba(212,175,55,.12);color:var(--gold);padding:4px 10px;border-radius:20px;font-size:var(--fs-micro);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
+.garage-card h3{color:#fff;font-size:clamp(.95rem,1.9vw,1.05rem);margin-bottom:12px}
+.garage-card .info{display:flex;flex-direction:column;gap:10px;font-size:var(--fs-small);color:var(--muted)}
+.garage-card .info span{display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+.garage-card .info svg{color:var(--gold);flex-shrink:0;margin-top:3px;width:14px;height:14px}
+
+/* ============================================================
+   TEMOIGNAGES
+   ============================================================ */
+.tem .qs{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,4vw,44px);margin-top:clamp(32px,5vw,52px)}
+blockquote{font-size:var(--fs-body);line-height:1.6;color:var(--text);padding-top:clamp(18px,2.5vw,26px);border-top:3px solid var(--gold);font-weight:500;position:relative;opacity:0;transform:translateY(50px)}
+blockquote.in{opacity:1;transform:none}
+blockquote::before{content:"\201C";position:absolute;top:-10px;left:0;font-size:clamp(2.5rem,5vw,4rem);color:var(--gold);opacity:.3;font-family:Georgia,serif;line-height:1}
+cite{display:block;margin-top:clamp(14px,2vw,20px);font-style:normal;font-size:var(--fs-small);color:var(--muted);font-weight:500}
+cite::before{content:"— ";color:var(--gold)}
+
+/* ============================================================
+   CTA BAND
+   ============================================================ */
+.cta-band{background:linear-gradient(120deg,var(--gold) 0%,var(--amber) 100%);padding:clamp(48px,7vw,70px) 0;text-align:center;color:var(--ink)}
+.cta-band h2{color:var(--ink);margin-bottom:12px}
+.cta-band p{max-width:600px;margin:0 auto 24px;color:rgba(13,43,43,.8);font-size:var(--fs-body);font-weight:500;padding:0 4px}
+.cta-band .btn{background:var(--ink);color:#fff;border-color:var(--ink)}
+.cta-band .btn:hover{background:#000;transform:translateY(-3px)}
+
+/* ============================================================
+   CONTACT
+   ============================================================ */
+.ct{background:var(--ink2);border-top:1px solid var(--line)}
+.ct .wrap{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(40px,6vw,80px)}
+.ct p{color:var(--muted)}
+.ct ul{list-style:none;margin-top:clamp(24px,3vw,34px)}
+.ct li{padding:clamp(12px,2vw,16px) 0;border-bottom:1px solid rgba(255,255,255,.08);color:var(--text);font-size:var(--fs-small);word-break:break-word}
+.ct li b{color:var(--gold);display:block;font-size:var(--fs-micro);text-transform:uppercase;letter-spacing:1.3px;margin-bottom:4px;font-weight:700}
+form{display:grid;gap:clamp(12px,1.8vw,16px)}
+form .r{display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,1.8vw,16px)}
+input,select,textarea{width:100%;padding:clamp(12px,1.8vw,14px) clamp(12px,1.8vw,16px);border:1px solid var(--line);background:var(--ink);color:#fff;font:inherit;font-size:var(--fs-body);border-radius:6px;transition:.3s;min-height:44px}
+select option{color:#000}
+input::placeholder,textarea::placeholder{color:#6b8399}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,175,55,.15)}
+textarea{resize:vertical;min-height:110px;font-family:inherit}
+#ok{display:none;color:var(--gold);font-weight:600;padding:14px 16px;background:rgba(212,175,55,.12);border:1px solid rgba(212,175,55,.4);border-radius:6px;margin-top:8px;font-size:var(--fs-small)}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer{background:#081a1a;color:var(--muted);padding:clamp(40px,6vw,60px) 0 24px;font-size:var(--fs-small);border-top:1px solid var(--line)}
+footer .grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:clamp(28px,4vw,50px);margin-bottom:clamp(32px,4vw,44px)}
+footer h4{color:#fff;font-size:var(--fs-micro);text-transform:uppercase;letter-spacing:1.8px;margin-bottom:clamp(14px,2vw,20px);font-weight:700}
+footer ul{list-style:none;display:grid;gap:10px}
+footer a{transition:.25s;font-size:var(--fs-small)}
+footer a:hover{color:var(--gold)}
+footer .brand{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+footer .brand svg{width:clamp(36px,5vw,44px);height:clamp(36px,5vw,44px);flex-shrink:0}
+footer .brand b{color:#fff;font-size:clamp(.95rem,2vw,1.05rem);display:block;line-height:1.2}
+footer .brand small{color:var(--muted);font-size:var(--fs-micro);letter-spacing:.4px;font-weight:400}
+footer .bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:20px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:var(--fs-micro)}
+footer .bottom a{display:inline-block;margin-left:16px}
+
+/* ============================================================
+   MODALS
+   ============================================================ */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);z-index:1000;display:none;align-items:center;justify-content:center;padding:clamp(12px,3vw,20px);opacity:0;transition:opacity .3s}
+.modal-overlay.open{display:flex;opacity:1}
+.modal{background:var(--ink);border:1px solid var(--line);border-radius:14px;max-width:520px;width:100%;max-height:92vh;overflow-y:auto;box-shadow:var(--shadow-lg);transform:translateY(20px);transition:transform .3s;position:relative}
+.modal-overlay.open .modal{transform:translateY(0)}
+.modal-lg{max-width:760px}
+.modal-header{padding:clamp(20px,3vw,26px) clamp(20px,3vw,28px) 0;display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.modal-header h3{color:#fff;font-size:clamp(1.1rem,2.6vw,1.4rem);margin-bottom:6px}
+.modal-header p{font-size:var(--fs-small);color:var(--muted)}
+.modal-close{background:rgba(255,255,255,.06);border:1px solid var(--line);color:#fff;width:36px;height:36px;border-radius:50%;font-size:1rem;display:grid;place-items:center;flex-shrink:0;transition:.3s;line-height:1}
+.modal-close:hover{background:var(--danger);border-color:var(--danger)}
+.modal-body{padding:clamp(18px,3vw,24px) clamp(20px,3vw,28px) clamp(20px,3vw,28px)}
+.modal-body .field{margin-bottom:14px}
+.tab-switch{display:flex;background:var(--ink2);border-radius:8px;padding:4px;margin-bottom:18px;border:1px solid var(--line)}
+.tab-switch button{flex:1;padding:10px;color:var(--muted);font-weight:600;font-size:var(--fs-small);border-radius:6px;transition:.3s}
+.tab-switch button.active{background:var(--gold);color:var(--ink)}
+.phone-input{display:flex;gap:8px}
+.phone-prefix{padding:clamp(12px,1.8vw,14px) clamp(12px,1.8vw,14px);background:var(--ink2);border:1px solid var(--line);border-radius:6px;color:var(--gold);font-weight:700;display:flex;align-items:center;flex-shrink:0;font-size:var(--fs-body)}
+#authCode{text-align:center;font-size:clamp(1.4rem,4vw,1.8rem);font-weight:700;letter-spacing:.5em;padding-left:.5em;color:var(--gold)}
+#authCode::placeholder{letter-spacing:.4em;color:#4a5f72;font-weight:600}
+
+/* Bus layout */
+.seat-legend{display:flex;gap:clamp(12px,2vw,20px);justify-content:center;margin-bottom:16px;font-size:var(--fs-small);color:var(--muted);flex-wrap:wrap}
+.seat-legend span{display:flex;align-items:center;gap:6px}
+.seat-legend i{width:14px;height:14px;border-radius:4px;display:inline-block}
+.seat-legend .free{background:var(--ink2);border:1px solid var(--line)}
+.seat-legend .taken{background:#2a2a2a;border:1px solid #333}
+.seat-legend .selected{background:var(--gold)}
+.bus-layout{background:var(--ink2);border:1px solid var(--line);border-radius:12px;padding:clamp(12px,2vw,20px);margin-bottom:16px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.bus-front{text-align:center;padding:6px;font-size:var(--fs-micro);color:var(--gold);letter-spacing:2px;text-transform:uppercase;border-bottom:1px dashed var(--line);margin-bottom:14px}
+.seats{display:grid;grid-template-columns:1fr 1fr 28px 1fr 1fr;gap:6px;max-width:360px;margin:0 auto;min-width:280px}
+.seats .aisle{grid-column:span 1}
+.seat{aspect-ratio:1;background:var(--ink);border:1px solid var(--line);border-radius:6px;color:var(--muted);font-size:var(--fs-micro);font-weight:600;display:grid;place-items:center;transition:.2s;padding:0;min-height:36px}
+.seat:hover:not(.taken){border-color:var(--gold);color:var(--gold);transform:scale(1.05)}
+.seat.selected{background:var(--gold);color:var(--ink);border-color:var(--gold);transform:scale(1.05);font-weight:800}
+.seat.taken{background:#1a1a1a;color:#444;cursor:not-allowed;border-color:#222}
+.booking-summary{background:var(--ink2);border:1px solid var(--line);border-radius:10px;padding:clamp(14px,2vw,18px);margin-bottom:16px;font-size:var(--fs-small)}
+.booking-summary .row{display:flex;justify-content:space-between;padding:5px 0;color:var(--muted);gap:12px}
+.booking-summary .row strong{color:#fff;text-align:right;word-break:break-word}
+.booking-summary .row.total{border-top:1px dashed var(--line);margin-top:8px;padding-top:12px;font-size:clamp(.95rem,2vw,1.1rem)}
+.booking-summary .row.total strong{color:var(--gold)}
+
+/* Mes réservations */
+.bookings-list{display:flex;flex-direction:column;gap:14px}
+.booking-item{background:var(--ink2);border:1px solid var(--line);border-radius:10px;padding:clamp(14px,2vw,18px);transition:.3s}
+.booking-item:hover{border-color:var(--gold)}
+.booking-item .head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px;flex-wrap:wrap}
+.booking-item .ref{font-size:var(--fs-micro);color:var(--gold);font-weight:700;letter-spacing:1px;background:rgba(212,175,55,.12);padding:3px 10px;border-radius:20px}
+.booking-item .status{font-size:var(--fs-micro);font-weight:700;padding:3px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:.8px}
+.booking-item .status.confirmed{background:rgba(46,204,113,.15);color:var(--success)}
+.booking-item .status.pending{background:rgba(255,193,7,.15);color:var(--amber)}
+.booking-item .status.cancelled{background:rgba(231,76,60,.15);color:var(--danger)}
+.booking-item .route{font-size:clamp(.95rem,2vw,1.05rem);font-weight:700;color:#fff;margin-bottom:8px}
+.booking-item .route span{color:var(--gold)}
+.booking-item .meta{display:flex;flex-wrap:wrap;gap:14px;font-size:var(--fs-small);color:var(--muted);margin-bottom:10px}
+.booking-item .meta span{display:flex;align-items:center;gap:5px}
+.booking-item .seats-tag{display:inline-flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.booking-item .seats-tag i{background:rgba(212,175,55,.12);color:var(--gold);font-style:normal;padding:2px 8px;border-radius:4px;font-size:var(--fs-micro);font-weight:700;border:1px solid rgba(212,175,55,.3)}
+.booking-item .total{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);display:flex;justify-content:space-between;align-items:center;gap:12px}
+.booking-item .total b{color:var(--gold);font-size:clamp(1rem,2.2vw,1.15rem);font-weight:800}
+.booking-item .total button{color:var(--danger);font-size:var(--fs-micro);font-weight:700;padding:6px 12px;border-radius:6px;border:1px solid rgba(231,76,60,.3);background:rgba(231,76,60,.08);transition:.25s;text-transform:uppercase;letter-spacing:.5px}
+.booking-item .total button:hover{background:var(--danger);color:#fff;border-color:var(--danger)}
+.empty-state{text-align:center;padding:clamp(30px,6vw,60px) 20px;color:var(--muted)}
+.empty-state svg{color:var(--gold);opacity:.5;margin:0 auto 16px;width:56px;height:56px}
+.empty-state p{margin-bottom:6px;font-size:var(--fs-body)}
+.empty-state small{font-size:var(--fs-small);opacity:.7}
+
+/* ============================================================
+   ANIMATIONS AU SCROLL
+   ============================================================ */
+.rv{opacity:0;transform:translateY(40px);transition:opacity 1s cubic-bezier(.2,.8,.2,1),transform 1s cubic-bezier(.2,.8,.2,1)}
+.rv.in{opacity:1;transform:none}
+.rv.delay-1{transition-delay:.1s}
+.rv.delay-2{transition-delay:.2s}
+.rv.delay-3{transition-delay:.3s}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  .rv,.trip-card,.adv-card,.step,.garage-card,.dest-card,.cap>*{opacity:1!important;transform:none!important}
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media(max-width:1024px){
+  .trips-grid,.adv-grid{grid-template-columns:repeat(2,1fr)}
+  .dest-grid{grid-template-columns:repeat(3,1fr)}
+  .garages-grid{grid-template-columns:repeat(2,1fr)}
+  .tem .qs{grid-template-columns:1fr;gap:32px}
+  .search-grid{grid-template-columns:1fr 1fr}
+  .search-btn{grid-column:span 2;justify-content:center}
+  footer .grid{grid-template-columns:1fr 1fr;gap:32px}
+  .ct .wrap{grid-template-columns:1fr;gap:40px}
+  .slide-ctrl{top:clamp(84px,11vw,110px)}
+}
+@media(max-width:860px){
+  nav{position:fixed;inset:clamp(64px,9vw,84px) 0 auto 0;background:var(--ink);max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.2,.8,.2,1);box-shadow:0 20px 40px rgba(0,0,0,.5);border-top:1px solid var(--line)}
+  nav.open{max-height:520px;overflow-y:auto}
+  nav ul{flex-direction:column;padding:20px var(--sp-wrap);gap:4px;font-size:var(--fs-body)}
+  nav ul li a{padding:14px 0;display:block;border-bottom:1px solid rgba(255,255,255,.05)}
+  .burger{display:flex}
+  .header-cta .btn-header{display:none}
+  .header-cta .btn.sm{padding:8px 14px;font-size:var(--fs-micro)}
+  .hero{padding:clamp(80px,11vw,100px) 0 24px;min-height:auto}
+  .hero-inner{gap:clamp(20px,3vw,30px)}
+  .slide-ctrl{position:relative;top:auto;right:auto;order:-1;justify-content:center;padding:0;margin-bottom:8px}
+  .stats .wrap{grid-template-columns:1fr 1fr;gap:24px;row-gap:32px}
+  .stats b{font-size:clamp(1.7rem,6vw,2.2rem)}
+  .steps{grid-template-columns:1fr 1fr;gap:24px;row-gap:32px}
+  .steps::before{display:none}
+  .section-head{flex-direction:column;align-items:flex-start;gap:20px}
+  .section-head .btn{width:100%;justify-content:center}
+  .search-grid{grid-template-columns:1fr}
+  .search-btn{grid-column:span 1}
+  .seats{grid-template-columns:1fr 1fr 22px 1fr 1fr;gap:5px;max-width:300px;min-width:250px}
+  .seat{min-height:32px;font-size:.7rem}
+}
+@media(max-width:560px){
+  .trips-grid,.adv-grid,.dest-grid,.garages-grid,.ct .wrap,.stats .wrap,.steps{grid-template-columns:1fr}
+  .dest-grid{grid-template-columns:repeat(2,1fr)}
+  form .r{grid-template-columns:1fr}
+  footer .grid{grid-template-columns:1fr;gap:28px}
+  footer .bottom{flex-direction:column;text-align:center;gap:10px}
+  footer .bottom a{margin:0 8px}
+  .hero{padding:clamp(76px,12vw,90px) 0 20px}
+  .hero-inner{padding:0 var(--sp-wrap);gap:20px}
+  .cap .cta-row{flex-direction:column;width:100%}
+  .cap .cta-row .btn{width:100%;justify-content:center}
+  .search-card{padding:14px}
+  .search-wrapper{padding:0 var(--sp-wrap)}
+  .trip-card .bottom{flex-direction:column;align-items:stretch;gap:12px}
+  .trip-card .btn{width:100%;padding:12px 18px}
+  .trip-price{text-align:center}
+  .adv-card{padding:20px 18px}
+  .garage-card{padding:20px 18px}
+  .modal-header,.modal-body{padding-left:16px;padding-right:16px}
+  .modal-lg{max-width:100%}
+  .bus-layout{padding:10px}
+  .seats{grid-template-columns:1fr 1fr 18px 1fr 1fr;gap:4px;max-width:280px;min-width:220px}
+  .seat{min-height:28px;font-size:.65rem;border-radius:4px}
+  .cta-band .btn{width:100%}
+  .booking-item .head{flex-direction:column;align-items:flex-start;gap:8px}
+}
+@media(max-width:380px){
+  :root{--fs-h1:1.5rem;--fs-h2:1.25rem;--fs-stat:1.5rem;--fs-price:1.15rem;--sp-wrap:14px}
+  .logo-text small{display:none}
+  .logo-text b{font-size:.9rem;letter-spacing:1.5px}
+  .logo svg{width:34px;height:34px}
+  .dest-grid{grid-template-columns:1fr}
+  .stats .wrap{grid-template-columns:1fr;gap:20px}
+  .stats b{font-size:1.6rem}
+  .stats span{font-size:.8rem}
+  .trip-route{flex-direction:column;align-items:flex-start;gap:6px}
+  .trip-arrow{transform:rotate(90deg);align-self:flex-start;margin-left:2px}
+  .trip-city.to{text-align:left}
+  .modal-header h3{font-size:1.05rem}
+  .seat-legend{font-size:.72rem;gap:10px}
+  .seats{grid-template-columns:1fr 1fr 14px 1fr 1fr;gap:3px;max-width:250px;min-width:200px}
+  .seat{min-height:24px;font-size:.6rem}
+}
+@media(hover:none){
+  .trip-card:hover,.adv-card:hover,.dest-card:hover,.garage-card:hover{transform:none}
+  .btn.gold:hover,.btn.dark:hover{transform:none}
+}
+
+/* ===== ESPACE CLIENT ===== */
+#app{position:fixed;inset:0;z-index:900;display:none;background:var(--ink);--ok:#2ecc71;--wn:#ffc107;--ko:#e74c3c}
+body.app-on #app{display:flex}
+body.app-on{overflow:hidden!important}
+.ap-ico{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.ap-side{width:252px;background:#0a2323;border-right:1px solid var(--line);display:flex;flex-direction:column;flex-shrink:0}
+.ap-brand{display:flex;gap:10px;align-items:center;padding:20px 18px}
+.ap-brand svg{width:40px;height:40px}
+.ap-brand b{color:#fff;display:block;line-height:1.1;letter-spacing:1px}
+.ap-brand small{color:var(--gold);font-size:.62rem;letter-spacing:3px;font-weight:700}
+.ap-nav{padding:6px 12px;display:flex;flex-direction:column;gap:4px;flex:1}
+.ap-lbl{font-size:.68rem;letter-spacing:2px;color:var(--muted);font-weight:700;padding:12px 12px 6px;text-transform:uppercase}
+.ap-nav button{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:10px;color:var(--muted);font-weight:600;font-size:.92rem;text-align:left;transition:.25s;position:relative}
+.ap-nav button:hover{background:rgba(255,255,255,.05);color:#fff}
+.ap-nav button.on{background:rgba(212,175,55,.13);color:var(--gold)}
+.ap-nav button.on::before{content:'';position:absolute;left:-12px;top:10px;bottom:10px;width:3px;border-radius:3px;background:var(--gold)}
+.ap-nav .n{margin-left:auto;background:var(--gold);color:var(--ink);font-size:.68rem;font-weight:800;border-radius:20px;padding:1px 8px}
+.ap-user{display:flex;align-items:center;gap:10px;padding:14px 16px;border-top:1px solid var(--line)}
+.ap-av{width:38px;height:38px;border-radius:50%;background:rgba(212,175,55,.18);color:var(--gold);display:grid;place-items:center;font-weight:800;font-size:.85rem;flex-shrink:0}
+.ap-user div{min-width:0;flex:1;line-height:1.25}
+.ap-user b{color:#fff;font-size:.85rem;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ap-user small{color:var(--muted);font-size:.72rem}
+.ap-lo{width:36px;height:36px;border-radius:10px;border:1px solid var(--line);color:var(--muted);display:grid;place-items:center;transition:.25s;flex-shrink:0}
+.ap-lo:hover{color:#fff;background:var(--danger);border-color:var(--danger)}
+.ap-main{flex:1;display:flex;flex-direction:column;min-width:0}
+.ap-top{height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;border-bottom:1px solid var(--line);background:rgba(10,35,35,.7);backdrop-filter:blur(12px);flex-shrink:0;gap:12px}
+.ap-top h2{font-size:1.1rem;margin:0}
+.ap-pills{display:flex;gap:8px;align-items:center}
+.ap-pill{display:flex;align-items:center;gap:7px;padding:6px 12px;border:1px solid var(--line);border-radius:30px;font-size:.78rem;color:var(--muted);white-space:nowrap}
+.ap-pill .ap-ico{width:15px;height:15px}
+.ap-pill i{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 rgba(46,204,113,.6);animation:apPulse 2s infinite}
+@keyframes apPulse{70%{box-shadow:0 0 0 8px rgba(46,204,113,0)}100%{box-shadow:0 0 0 0 rgba(46,204,113,0)}}
+.ap-lo-m{display:none}
+.ap-body{flex:1;overflow:auto;padding:24px;scroll-behavior:smooth}
+.ap-view{display:none;max-width:1180px;margin:auto}
+.ap-view.on{display:block;animation:apIn .5s cubic-bezier(.2,.8,.2,1)}
+@keyframes apIn{from{opacity:0;transform:translateY(14px)}}
+.ap-h{margin-bottom:18px}.ap-h h3{font-size:1.5rem;margin:0 0 4px}.ap-h p{color:var(--muted);font-size:.9rem}
+.ap-card{background:var(--ink2);border:1px solid var(--line);border-radius:14px;padding:18px;transition:.3s}
+.ap-card h4{font-size:.95rem;margin-bottom:14px;color:#fff;display:flex;justify-content:space-between;align-items:center}
+.ap-card h4 small{color:var(--muted);font-weight:500;font-size:.75rem}
+.ap-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}
+.ap-kpi{position:relative;overflow:hidden}
+.ap-kpi:hover{border-color:var(--gold);transform:translateY(-3px)}
+.ap-kpi .ib{position:absolute;right:14px;top:14px;width:36px;height:36px;border-radius:10px;background:rgba(212,175,55,.13);color:var(--gold);display:grid;place-items:center}
+.ap-kpi span{font-size:.78rem;color:var(--muted)}
+.ap-kpi b{display:block;font-size:1.7rem;color:#fff;margin:6px 0 2px;letter-spacing:-.5px;line-height:1.1}
+.ap-kpi small{font-size:.74rem;color:var(--muted)}
+.ap-g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}
+.ap-g2{display:grid;grid-template-columns:1.7fr 1fr;gap:14px;margin-bottom:14px}
+.ap-gauge{text-align:center}
+.ap-gauge svg{width:100%;max-width:210px;margin:auto;filter:drop-shadow(0 0 7px var(--c))}
+.ap-gauge .tr{fill:none;stroke:rgba(255,255,255,.08);stroke-width:9;stroke-linecap:round}
+.ap-gauge .gv{fill:none;stroke:var(--c);stroke-width:9;stroke-linecap:round;stroke-dasharray:0 100;transition:stroke-dasharray 1.6s cubic-bezier(.2,.8,.2,1)}
+.ap-gauge .tk{fill:none;stroke:rgba(255,255,255,.22);stroke-width:3;stroke-dasharray:.4 9.6}
+.ap-gauge .nd{stroke:#fff;stroke-width:2.5;stroke-linecap:round;transform:rotate(-90deg);transform-origin:60px 60px;transition:transform 1.6s cubic-bezier(.34,1.3,.5,1)}
+.ap-gauge .hb{fill:var(--ink2);stroke:#fff;stroke-width:2.5}
+.ap-gauge .v{font-size:1.9rem;font-weight:800;color:#fff;margin-top:-6px;line-height:1}
+.ap-gauge .t{font-size:.82rem;color:var(--muted);margin-top:6px}
+.ap-bars{width:100%;height:auto;overflow:visible}
+.ap-bar{transform-box:fill-box;transform-origin:bottom;transform:scaleY(0);transition:transform 1s cubic-bezier(.2,.8,.2,1)}
+.ap-bars.in .ap-bar{transform:scaleY(1)}
+.ap-bars text{fill:var(--muted);font-size:9px;font-family:inherit}
+.ap-bars .vl{fill:#fff;font-weight:700;opacity:0;transition:opacity .6s 1s}
+.ap-bars.in .vl{opacity:1}
+.ap-don{display:flex;align-items:center;gap:18px;flex-wrap:wrap;justify-content:center}
+.ap-don svg{width:150px;height:150px;transform:rotate(-90deg)}
+.ap-don circle{fill:none;stroke-width:5;transition:stroke-dasharray 1.4s cubic-bezier(.2,.8,.2,1)}
+.ap-leg{display:flex;flex-direction:column;gap:10px;font-size:.82rem;color:var(--muted)}
+.ap-leg span{display:flex;align-items:center;gap:8px}.ap-leg i{width:10px;height:10px;border-radius:3px}.ap-leg b{color:#fff;margin-left:auto;padding-left:12px}
+.ap-hb{display:flex;flex-direction:column;gap:14px}
+.ap-hb div{font-size:.84rem}
+.ap-hb .r{display:flex;justify-content:space-between;margin-bottom:6px;color:#fff}.ap-hb .r span{color:var(--muted)}
+.ap-hb .t{height:8px;border-radius:8px;background:rgba(255,255,255,.07);overflow:hidden}
+.ap-hb .f{height:100%;width:0;border-radius:8px;background:linear-gradient(90deg,#b8860b,#f5d76e);transition:width 1.3s cubic-bezier(.2,.8,.2,1)}
+.ap-search{display:grid;grid-template-columns:1fr auto 1fr 1fr auto;gap:12px;align-items:end;border-color:rgba(212,175,55,.3)}
+.ap-sw{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);color:var(--gold);display:grid;place-items:center;transition:.4s}
+.ap-sw:hover{background:var(--gold);color:var(--ink);transform:rotate(180deg)}
+.ap-go{display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 24px;background:var(--gold);color:var(--ink);font-weight:700;border-radius:8px;transition:.3s}
+.ap-go:hover{background:var(--gold-l);transform:translateY(-2px);box-shadow:0 8px 20px rgba(212,175,55,.3)}
+.ap-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px;margin-top:16px}
+.ap-it{animation:apIn .5s both;display:flex;flex-direction:column;gap:12px}
+.ap-it:hover{border-color:var(--gold);transform:translateY(-4px);box-shadow:var(--shadow-md)}
+.ap-tag{align-self:flex-start;background:rgba(212,175,55,.14);color:var(--gold);padding:4px 11px;border-radius:20px;font-size:.68rem;font-weight:800;letter-spacing:1px;text-transform:uppercase}
+.ap-rt{display:flex;align-items:center;gap:10px;color:#fff;font-weight:700;font-size:1.02rem}.ap-rt .ap-ico{color:var(--gold)}
+.ap-mt{display:flex;flex-wrap:wrap;gap:14px;color:var(--muted);font-size:.82rem}.ap-mt span{display:flex;gap:6px;align-items:center}.ap-mt .ap-ico{width:15px;height:15px;color:var(--gold)}
+.ap-ft{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:12px;border-top:1px dashed var(--line)}
+.ap-ft b{color:var(--gold);font-size:1.15rem}.ap-ft small{color:var(--muted);font-size:.7rem}
+.ap-ft button,.ap-ft .bt{padding:9px 18px;background:var(--gold);color:var(--ink);font-weight:700;border-radius:8px;font-size:.84rem;transition:.3s}
+.ap-ft button:hover{background:var(--gold-l)}
+.ap-chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.ap-chip{padding:8px 16px;border-radius:30px;border:1px solid var(--line);color:var(--muted);font-weight:600;font-size:.82rem;transition:.25s;display:flex;gap:7px;align-items:center}
+.ap-chip:hover{color:#fff;border-color:var(--gold)}.ap-chip.on{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.ap-chip em{font-style:normal;background:rgba(0,0,0,.2);border-radius:20px;padding:0 7px;font-size:.7rem}
+.ap-st{display:inline-flex;align-items:center;gap:6px;font-size:.7rem;font-weight:800;padding:4px 11px;border-radius:20px;text-transform:uppercase;letter-spacing:.7px}
+.ap-st .ap-ico{width:13px;height:13px}
+.ap-st.pending{background:rgba(255,193,7,.14);color:var(--wn)}.ap-st.confirmed{background:rgba(46,204,113,.14);color:var(--ok)}.ap-st.cancelled{background:rgba(231,76,60,.14);color:var(--ko)}.ap-st.open{background:rgba(46,204,113,.14);color:var(--ok)}.ap-st.closed{background:rgba(231,76,60,.14);color:var(--ko)}
+.ap-st.open::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--ok);animation:apPulse 2s infinite}
+.ap-hr{font-size:.82rem;color:var(--muted);display:grid;gap:5px}
+.ap-hr div{display:flex;justify-content:space-between}.ap-hr b{color:#fff;font-weight:600}.ap-hr .today b{color:var(--gold)}
+.ap-tk{display:flex;padding:0;overflow:hidden;position:relative;animation:apIn .5s both}
+.ap-tk:hover{border-color:var(--gold)}
+.ap-stub{width:92px;background:rgba(212,175,55,.08);border-right:2px dashed var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--gold);padding:12px 6px;text-align:center}
+.ap-stub small{font-size:.62rem;letter-spacing:.8px;font-weight:800;word-break:break-all}
+.ap-stub .ap-ico{width:28px;height:28px}
+.ap-tk::before,.ap-tk::after{content:'';position:absolute;left:80px;width:24px;height:24px;border-radius:50%;background:var(--ink);border:1px solid var(--line)}
+.ap-tk::before{top:-13px}.ap-tk::after{bottom:-13px}
+.ap-tkb{flex:1;padding:16px 18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.ap-tkh{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center}
+.ap-seats{display:flex;gap:5px;flex-wrap:wrap}.ap-seats i{font-style:normal;background:rgba(212,175,55,.12);border:1px solid rgba(212,175,55,.3);color:var(--gold);border-radius:5px;padding:1px 8px;font-size:.72rem;font-weight:800}
+.ap-x{color:var(--ko);border:1px solid rgba(231,76,60,.35);background:rgba(231,76,60,.08);padding:6px 12px;border-radius:8px;font-size:.72rem;font-weight:700;text-transform:uppercase;transition:.25s}
+.ap-x:hover{background:var(--ko);color:#fff}
+.ap-empty{grid-column:1/-1;text-align:center;padding:50px 16px;color:var(--muted)}
+.ap-empty .ap-ico{width:46px;height:46px;margin:0 auto 12px;color:var(--gold);opacity:.7}
+.ap-empty b{color:#fff;display:block;margin-bottom:4px}
+.ap-sk{height:120px;border-radius:14px;background:linear-gradient(90deg,var(--ink2) 25%,#1a4848 50%,var(--ink2) 75%);background-size:200% 100%;animation:apSk 1.3s infinite}
+@keyframes apSk{to{background-position:-200% 0}}
+@media(max-width:1000px){.ap-kpis{grid-template-columns:repeat(2,1fr)}.ap-g2{grid-template-columns:1fr}.ap-search{grid-template-columns:1fr 1fr}.ap-sw{display:none}.ap-go{grid-column:span 2}}
+@media(max-width:760px){
+ #app{flex-direction:column-reverse}
+ .ap-side{width:100%;flex-direction:row;border-right:0;border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+ .ap-brand,.ap-user,.ap-lbl{display:none}
+ .ap-nav{flex-direction:row;padding:6px;gap:2px;justify-content:space-around}
+ .ap-nav button{flex-direction:column;gap:3px;padding:7px 8px;font-size:.62rem;flex:1;align-items:center;text-align:center}
+ .ap-nav button.on::before{display:none}.ap-nav .n{position:absolute;top:2px;right:8px;margin:0;padding:0 6px}
+ .ap-top{padding:0 14px;padding-top:env(safe-area-inset-top,0px);height:auto;min-height:58px}.ap-pill.hd-m{display:none}
+ .ap-lo-m{display:grid}.ap-body{padding:16px 14px}
+ .ap-g3{grid-template-columns:1fr}.ap-search{grid-template-columns:1fr}.ap-go{grid-column:auto}
+ .ap-kpi b{font-size:1.35rem}.ap-tk{flex-direction:column}.ap-stub{width:auto;flex-direction:row;border-right:0;border-bottom:2px dashed var(--line)}
+ .ap-tk::before,.ap-tk::after{display:none}
+}
+@media(prefers-reduced-motion:reduce){#app *{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<!-- ==================== SPLASH SCREEN — Logo complet ==================== -->
+<div class="splash" id="splash" aria-hidden="true">
+  <svg class="splash-logo" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="splashGold" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#f0c34a"/>
+        <stop offset="50%" stop-color="#d4a640"/>
+        <stop offset="100%" stop-color="#c1962f"/>
+      </linearGradient>
+    </defs>
+
+    <!-- === ÉLÉPHANT === -->
+    <g stroke="url(#splashGold)" stroke-width="5.5" fill="none" stroke-linejoin="round" stroke-linecap="round">
+      <!-- Oreille gauche -->
+      <path class="splash-stroke" d="M 75 120 L 120 62 L 178 52 L 218 100 L 198 175 L 148 218 L 88 198 Z"/>
+      <!-- Oreille droite -->
+      <path class="splash-stroke" d="M 425 120 L 380 62 L 322 52 L 282 100 L 302 175 L 352 218 L 412 198 Z"/>
+      <!-- Tête -->
+      <path class="splash-stroke" d="M 178 52 L 322 52 L 322 145 L 278 195 L 250 218 L 222 195 L 178 145 Z"/>
+      <!-- Détails oreille gauche -->
+      <path class="splash-stroke" d="M 105 100 L 148 85 L 178 130"/>
+      <!-- Détails oreille droite -->
+      <path class="splash-stroke" d="M 395 100 L 352 85 L 322 130"/>
+      <!-- Défense gauche -->
+      <path class="splash-stroke" d="M 208 182 L 192 258 L 228 220"/>
+      <!-- Défense droite -->
+      <path class="splash-stroke" d="M 292 182 L 308 258 L 272 220"/>
+      <!-- Trompe -->
+      <path class="splash-stroke" d="M 225 215 C 218 295, 275 348, 348 322 C 390 306, 412 272, 392 248 C 378 230, 355 238, 350 262"/>
+      <!-- Ligne médiane trompe -->
+      <path class="splash-stroke" d="M 250 218 C 248 288, 298 322, 352 305"/>
+    </g>
+
+    <!-- Yeux -->
+    <polygon class="splash-eye" points="194,118 214,128 194,138" fill="url(#splashGold)"/>
+    <polygon class="splash-eye" points="306,118 286,128 306,138" fill="url(#splashGold)"/>
+
+    <!-- === NZOKO === -->
+    <g fill="url(#splashGold)" font-family="'DM Sans', 'Helvetica Neue', Arial, sans-serif" font-weight="800" font-size="108" letter-spacing="-2">
+      <text class="splash-char" x="55" y="405">N</text>
+      <text class="splash-char" x="132" y="405">Z</text>
+      <text class="splash-char" x="308" y="405">K</text>
+    </g>
+
+    <!-- Premier O avec route -->
+    <circle class="splash-o-1" cx="245" cy="368" r="44" stroke="url(#splashGold)" stroke-width="7" fill="none"/>
+    <path class="splash-road-1" d="M 228 340 Q 248 368, 240 400" stroke="url(#splashGold)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path class="splash-road-1" d="M 262 340 Q 244 368, 252 400" stroke="url(#splashGold)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+    <!-- Deuxième O avec route -->
+    <circle class="splash-o-2" cx="412" cy="368" r="44" stroke="url(#splashGold)" stroke-width="7" fill="none"/>
+    <path class="splash-road-2" d="M 395 340 Q 415 368, 407 400" stroke="url(#splashGold)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path class="splash-road-2" d="M 429 340 Q 411 368, 419 400" stroke="url(#splashGold)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+    <!-- === TRANSPORT + tirets === -->
+    <g class="splash-transport-text" fill="url(#splashGold)" font-family="'DM Sans', sans-serif" font-weight="600" font-size="26" letter-spacing="7">
+      <text x="250" y="470" text-anchor="middle">TRANSPORT</text>
+    </g>
+    <line class="splash-dash-1" x1="52" y1="462" x2="120" y2="462" stroke="url(#splashGold)" stroke-width="3" stroke-linecap="round"/>
+    <line class="splash-dash-2" x1="380" y1="462" x2="448" y2="462" stroke="url(#splashGold)" stroke-width="3" stroke-linecap="round"/>
+  </svg>
+
+  <div class="splash-bar"><span></span></div>
+</div>
+
+<!-- ==================== HEADER ==================== -->
+<header id="hd"><div class="wrap bar">
+  <a href="#accueil" class="logo" aria-label="Nzoko Transport – Accueil">
+    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f5d76e"/><stop offset="50%" stop-color="#d4af37"/><stop offset="100%" stop-color="#b8860b"/></linearGradient></defs>
+      <path d="M 35 60 L 80 25 L 110 65 L 85 120 L 45 120 Z" stroke="url(#goldGrad)" stroke-width="4.5" stroke-linejoin="round"/>
+      <path d="M 55 65 L 80 40 L 95 65" stroke="url(#goldGrad)" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M 165 60 L 120 25 L 90 65 L 115 120 L 155 120 Z" stroke="url(#goldGrad)" stroke-width="4.5" stroke-linejoin="round"/>
+      <path d="M 145 65 L 120 40 L 105 65" stroke="url(#goldGrad)" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M 80 25 L 120 25 L 120 85 L 100 110 L 80 85 Z" stroke="url(#goldGrad)" stroke-width="4.5" stroke-linejoin="round"/>
+      <path d="M 80 85 L 70 130 L 85 110" stroke="url(#goldGrad)" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 120 85 L 130 130 L 115 110" stroke="url(#goldGrad)" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 90 85 C 90 130, 105 160, 130 155 C 145 150, 150 135, 140 125" stroke="url(#goldGrad)" stroke-width="4.5" stroke-linecap="round"/>
+      <path d="M 100 85 C 100 140, 115 170, 140 165 C 155 160, 160 145, 150 135" stroke="url(#goldGrad)" stroke-width="4.5" stroke-linecap="round"/>
+      <path d="M 80 85 L 120 85" stroke="url(#goldGrad)" stroke-width="3" stroke-linecap="round"/>
+      <path d="M 85 55 L 92 60 L 85 65 Z" fill="url(#goldGrad)"/>
+      <path d="M 115 55 L 108 60 L 115 65 Z" fill="url(#goldGrad)"/>
+    </svg>
+    <span class="logo-text"><b>NZOKO</b><small>TRANSPORT</small></span>
+  </a>
+  <button class="burger" id="bg" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+  <nav id="nv" aria-label="Navigation principale"><ul>
+    <li><a href="#accueil">Accueil</a></li>
+    <li><a href="#trajets">Trajets</a></li>
+    <li><a href="#garages">Garages</a></li>
+    <li><a href="#aide">Aide</a></li>
+  </ul></nav>
+  <div class="header-cta">
+    <span class="user-badge" id="userBadge" onclick="openMyBookings()" title="Voir mes réservations">
+      <span class="dot"></span>
+      <span id="userPhone">+242</span>
+    </span>
+    <button class="btn gold sm" id="loginBtn" onclick="openAuth()">Connexion</button>
+    <button class="btn line sm" id="logoutBtn" style="display:none" onclick="logout()">Déconnexion</button>
+  </div>
+</div></header>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero" id="accueil">
+  <div id="slides"></div>
+  <div class="slide-ctrl">
+    <div class="dots" id="dots" role="tablist" aria-label="Navigation du diaporama"></div>
+    <span class="count" id="slideCount">01 / 04</span>
+  </div>
+  <div class="hero-inner">
+    <div class="cap" id="cap"></div>
+    <div class="search-wrapper">
+      <div class="search-card">
+        <div class="search-grid">
+          <div class="field"><label for="depart">Ville de départ</label><select id="depart"><option value="">Choisir…</option></select></div>
+          <div class="field"><label for="arrivee">Ville d'arrivée</label><select id="arrivee"><option value="">Choisir…</option></select></div>
+          <div class="field"><label for="date">Date de voyage</label><input type="date" id="date"></div>
+          <button class="search-btn" onclick="searchTrips()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+            Rechercher
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats"><div class="wrap">
+  <div><b data-n="25" data-s="+">0</b><span>Destinations desservies</span></div>
+  <div><b data-n="500000" data-s="">0</b><span>Passagers par an</span></div>
+  <div><b data-n="98" data-s="%">0</b><span>Départs à l'heure</span></div>
+  <div><b data-n="15" data-s="">0</b><span>Garages au Congo</span></div>
+</div></div>
+
+<!-- TRAJETS -->
+<section id="trajets"><div class="wrap">
+  <div class="section-head rv">
+    <div>
+      <span class="eyebrow">Trajets populaires</span>
+      <h2>Les destinations les plus demandées</h2>
+      <p class="lead">Des bus climatisés, des horaires précis et un service pensé pour votre confort.</p>
+    </div>
+    <button class="btn dark" onclick="document.getElementById('depart').focus()">Voir tous les trajets →</button>
+  </div>
+  <div class="trips-grid" id="popularTrips"></div>
+</div></section>
+
+<!-- AVANTAGES -->
+<section class="adv"><div class="wrap">
+  <div class="rv" style="text-align:center;max-width:640px;margin:0 auto">
+    <span class="eyebrow">Nos garanties</span>
+    <h2>Pourquoi choisir Nzoko Transport ?</h2>
+    <p class="lead" style="margin:0 auto">Quatre engagements forts pour faire de chaque voyage une expérience agréable.</p>
+  </div>
+  <div class="adv-grid">
+    <div class="adv-card"><div class="adv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6v6"/><path d="M15 6v6"/><path d="M2 12h19.6"/><path d="M18 18h3s.5-1.7.8-2.8c.1-.4.2-.8.2-1.2 0-.4-.1-.8-.2-1.2l-1.4-5C20.1 6.8 19.1 6 18 6H4a2 2 0 0 0-2 2v10h3"/><circle cx="7" cy="18" r="2"/><path d="M9 18h5"/><circle cx="16" cy="18" r="2"/></svg></div><h3>Bus confortables</h3><p>Des véhicules climatisés de 70 places, entretenus régulièrement et équipés pour votre sécurité.</p></div>
+    <div class="adv-card"><div class="adv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></div><h3>Garages proches</h3><p>Un réseau de 15 garages répartis dans tout le Congo pour vos départs.</p></div>
+    <div class="adv-card"><div class="adv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><h3>Horaires précis</h3><p>Départs et arrivées annoncés à l'heure. 98 % de nos bus partent à l'heure.</p></div>
+    <div class="adv-card"><div class="adv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div><h3>Réservation sécurisée</h3><p>Vos données sont protégées et vos paiements sont 100 % sécurisés.</p></div>
+  </div>
+</div></section>
+
+<!-- DESTINATIONS -->
+<section id="destinations"><div class="wrap">
+  <div class="rv" style="text-align:center;max-width:640px;margin:0 auto 44px">
+    <span class="eyebrow">Notre réseau</span>
+    <h2>Toutes les destinations</h2>
+    <p class="lead" style="margin:0 auto">Nzoko Transport dessert les principales villes du Congo-Brazzaville.</p>
+  </div>
+  <div class="dest-grid" id="destinationsGrid"></div>
+</div></section>
+
+<!-- COMMENT -->
+<section class="how"><div class="wrap">
+  <div class="rv" style="text-align:center;max-width:640px;margin:0 auto">
+    <span class="eyebrow">Simple et rapide</span>
+    <h2>Comment réserver ?</h2>
+    <p class="lead" style="margin:0 auto">Quatre étapes suffisent pour obtenir votre billet électronique.</p>
+  </div>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><h3>Recherchez</h3><p>Choisissez votre ville de départ, d'arrivée et votre date.</p></div>
+    <div class="step"><div class="step-num">2</div><h3>Choisissez votre place</h3><p>Sélectionnez votre siège parmi les 70 places disponibles.</p></div>
+    <div class="step"><div class="step-num">3</div><h3>Connectez-vous</h3><p>Identifiez-vous avec votre numéro congolais (+242).</p></div>
+    <div class="step"><div class="step-num">4</div><h3>Voyagez</h3><p>Recevez votre billet électronique et présentez-le au départ.</p></div>
+  </div>
+</div></section>
+
+<!-- GARAGES -->
+<section id="garages"><div class="wrap">
+  <div class="section-head rv">
+    <div>
+      <span class="eyebrow">Nos agences</span>
+      <h2>Trouvez le garage le plus proche</h2>
+      <p class="lead">Présentez-vous dans l'un de nos 15 garages pour acheter votre billet.</p>
+    </div>
+  </div>
+  <div class="garages-grid" id="garagesGrid"></div>
+</div></section>
+
+<!-- TEMOIGNAGES -->
+<section class="tem"><div class="wrap">
+  <div class="rv"><span class="eyebrow">Témoignages</span><h2>Ils voyagent avec Nzoko</h2></div>
+  <div class="qs">
+    <blockquote>J'ai réservé mon billet Brazzaville – Pointe-Noire en 3 minutes sur mon téléphone. Bus propre, climatisé, départ à l'heure !<cite>Merveille, Brazzaville</cite></blockquote>
+    <blockquote>Le choix de la place est un vrai plus. J'ai pu réserver près de la fenêtre pour admirer le paysage jusqu'à Dolisie.<cite>Christian, Pointe-Noire</cite></blockquote>
+    <blockquote>Le garage de Ouesso est facile à trouver et le personnel est très accueillant. Un service client au top.<cite>Aurélie, Ouesso</cite></blockquote>
+  </div>
+</div></section>
+
+<!-- CTA -->
+<section class="cta-band">
+  <div class="wrap">
+    <h2>Prêt à réserver votre prochain voyage ?</h2>
+    <p>Trouvez votre trajet, choisissez votre place et voyagez l'esprit tranquille à travers le Congo.</p>
+    <button class="btn" onclick="document.getElementById('depart').focus()">Réserver maintenant →</button>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="ct" id="aide"><div class="wrap">
+  <div class="rv">
+    <span class="eyebrow">Aide & Contact</span>
+    <h2>Besoin d'assistance ?</h2>
+    <p style="max-width:440px">Notre service client vous répond 7j/7 de 6h à 22h.</p>
+    <ul>
+      <li><b>Service client</b>+242 06 XXX XX XX</li>
+      <li><b>Courriel</b>contact@nzoko-transport.cg</li>
+      <li><b>Siège social</b>Avenue de la Paix, Brazzaville, Congo</li>
+      <li><b>Horaires</b>Lun–Dim · 6h–22h</li>
+    </ul>
+  </div>
+  <form class="rv delay-1" id="fm" novalidate>
+    <div class="r">
+      <input required placeholder="Nom complet" aria-label="Nom complet" name="nom">
+      <input required type="tel" placeholder="Téléphone (+242)" aria-label="Téléphone" name="telephone">
+    </div>
+    <input required type="email" placeholder="Courriel" aria-label="Courriel" name="email">
+    <select aria-label="Sujet" name="sujet">
+      <option value="">Choisissez un sujet…</option>
+      <option>Question sur une réservation</option>
+      <option>Modification / annulation</option>
+      <option>Réclamation</option>
+      <option>Partenariat</option>
+      <option>Autre</option>
+    </select>
+    <textarea rows="4" placeholder="Décrivez votre demande…" aria-label="Message" name="message"></textarea>
+    <button class="btn gold" type="submit">Envoyer le message</button>
+    <p id="ok" role="status">✓ Message envoyé. Notre équipe vous répondra sous 24h.</p>
+  </form>
+</div></section>
+
+<!-- FOOTER -->
+<footer><div class="wrap">
+  <div class="grid">
+    <div>
+      <div class="brand">
+        <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs><linearGradient id="gF" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f5d76e"/><stop offset="50%" stop-color="#d4af37"/><stop offset="100%" stop-color="#b8860b"/></linearGradient></defs>
+          <path d="M 35 60 L 80 25 L 110 65 L 85 120 L 45 120 Z M 165 60 L 120 25 L 90 65 L 115 120 L 155 120 Z M 80 25 L 120 25 L 120 85 L 100 110 L 80 85 Z M 80 85 L 70 130 L 85 110 M 120 85 L 130 130 L 115 110 M 90 85 C 90 130, 105 160, 130 155 C 145 150, 150 135, 140 125" stroke="url(#gF)" stroke-width="4.5" stroke-linejoin="round" fill="none"/>
+        </svg>
+        <b>NZOKO<small>Transport · Congo Brazzaville</small></b>
+      </div>
+      <p style="color:var(--muted);font-size:var(--fs-small);line-height:1.7;max-width:340px">La plateforme de réservation de billets de bus qui connecte les villes du Congo depuis 2024.</p>
+    </div>
+    <div><h4>Navigation</h4><ul><li><a href="#accueil">Accueil</a></li><li><a href="#trajets">Trajets</a></li><li><a href="#destinations">Destinations</a></li><li><a href="#garages">Garages</a></li></ul></div>
+    <div><h4>Aide</h4><ul><li><a href="#aide">Centre d'aide</a></li><li><a href="#aide">Nous contacter</a></li><li><a href="#">Conditions générales</a></li><li><a href="#">Confidentialité</a></li></ul></div>
+    <div><h4>Contact</h4><ul><li>+242 06 XXX XX XX</li><li>contact@nzoko-transport.cg</li><li>Brazzaville, Congo</li><li>7j/7 · 6h–22h</li></ul></div>
+  </div>
+  <div class="bottom">
+    <span>© 2024 Nzoko Transport - Congo Brazzaville</span>
+    <span><a href="#">Mentions légales</a><a href="#">Confidentialité</a><a href="#">Plan du site</a></span>
+  </div>
+</div></footer>
+
+<!-- MODAL AUTH -->
+<div class="modal-overlay" id="authModal" onclick="if(event.target===this)closeModal('authModal')">
+  <div class="modal">
+    <div class="modal-header">
+      <div><h3 id="authTitle">Connexion</h3><p id="authSubtitle">Recevez un code par SMS</p></div>
+      <button class="modal-close" onclick="closeModal('authModal')" aria-label="Fermer">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="tab-switch">
+        <button id="tabLogin" class="active" onclick="switchAuthTab('login')">Connexion</button>
+        <button id="tabSignup" onclick="switchAuthTab('signup')">S'inscrire</button>
+      </div>
+      <div id="stepPhone">
+        <div class="field" id="nameField" style="display:none">
+          <label>Nom complet</label>
+          <input type="text" id="authName" placeholder="Ex : Merveille Ngoma">
+        </div>
+        <div class="field">
+          <label>Numéro de téléphone</label>
+          <div class="phone-input">
+            <span class="phone-prefix">+242</span>
+            <input type="tel" id="authPhone" placeholder="06 XXX XX XX" autocomplete="tel">
+          </div>
+        </div>
+        <button type="button" class="btn gold block" id="authSubmit" onclick="sendSmsCode()">Recevoir le code</button>
+      </div>
+      <div id="stepCode" style="display:none">
+        <div class="field">
+          <label>Code de vérification</label>
+          <input type="tel" id="authCode" placeholder="000000" maxlength="6" inputmode="numeric" autocomplete="one-time-code">
+        </div>
+        <button type="button" class="btn gold block" onclick="verifySmsCode()">Vérifier et se connecter</button>
+        <button type="button" class="btn line block" style="margin-top:8px" onclick="switchAuthTab(authMode)">Renvoyer un code</button>
+      </div>
+      <p id="authError" style="color:var(--danger);font-size:var(--fs-small);margin-top:10px;display:none"></p>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL RÉSERVATION -->
+<div class="modal-overlay" id="bookingModal" onclick="if(event.target===this)closeModal('bookingModal')">
+  <div class="modal modal-lg">
+    <div class="modal-header">
+      <div><h3>Choisissez votre place</h3><p id="bookingTripInfo">—</p></div>
+      <button class="modal-close" onclick="closeModal('bookingModal')" aria-label="Fermer">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="seat-legend">
+        <span><i class="free"></i> Libre</span>
+        <span><i class="selected"></i> Sélectionnée</span>
+        <span><i class="taken"></i> Occupée</span>
+      </div>
+      <div class="bus-layout">
+        <div class="bus-front">↑ Avant du bus</div>
+        <div class="seats" id="seatsGrid"></div>
+      </div>
+      <div class="booking-summary">
+        <div class="row"><span>Trajet</span><strong id="sumTrip">—</strong></div>
+        <div class="row"><span>Date</span><strong id="sumDate">—</strong></div>
+        <div class="row"><span>Place(s)</span><strong id="sumSeats">—</strong></div>
+        <div class="row total"><span>Total</span><strong id="sumTotal">0 FCFA</strong></div>
+      </div>
+      <button class="btn gold block" id="confirmBookingBtn" onclick="confirmBooking()" disabled>Confirmer la réservation</button>
+      <p id="bookingMsg" style="color:var(--success);font-size:var(--fs-small);margin-top:10px;display:none;text-align:center"></p>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL MES RÉSERVATIONS -->
+<div class="modal-overlay" id="myBookingsModal" onclick="if(event.target===this)closeModal('myBookingsModal')">
+  <div class="modal modal-lg">
+    <div class="modal-header">
+      <div><h3>Mes réservations</h3><p id="myBookingsSub">Historique de vos voyages</p></div>
+      <button class="modal-close" onclick="closeModal('myBookingsModal')" aria-label="Fermer">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="myBookingsList" class="bookings-list"><div class="empty-state"><p>Chargement…</p></div></div>
+      <button class="btn gold block" style="margin-top:20px" onclick="closeModal('myBookingsModal')">Réserver un nouveau trajet</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ==================== ESPACE CLIENT ==================== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-dash" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></symbol>
+<symbol id="i-bus" viewBox="0 0 24 24"><path d="M8 6v6"/><path d="M15 6v6"/><path d="M2 12h19.6"/><path d="M18 18h3s.5-1.7.8-2.8c.1-.4.2-.8.2-1.2 0-.4-.1-.8-.2-1.2l-1.4-5C20.1 6.8 19.1 6 18 6H4a2 2 0 0 0-2 2v10h3"/><circle cx="7" cy="18" r="2"/><path d="M9 18h5"/><circle cx="16" cy="18" r="2"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+<symbol id="i-ticket" viewBox="0 0 24 24"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2M13 17v2M13 11v2"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></symbol>
+<symbol id="i-out" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></symbol>
+<symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+<symbol id="i-wallet" viewBox="0 0 24 24"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></symbol>
+<symbol id="i-ok" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></symbol>
+<symbol id="i-ko" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></symbol>
+<symbol id="i-wait" viewBox="0 0 24 24"><path d="M5 22h14M5 2h14"/><path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22"/><path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"/></symbol>
+<symbol id="i-swap" viewBox="0 0 24 24"><path d="m16 3 4 4-4 4"/><path d="M20 7H4"/><path d="m8 21-4-4 4-4"/><path d="M4 17h16"/></symbol>
+<symbol id="i-trend" viewBox="0 0 24 24"><path d="m22 7-8.5 8.5-5-5L2 17"/><path d="M16 7h6v6"/></symbol>
+<symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+<symbol id="i-arr" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
+</defs></svg>
+<div id="app" aria-label="Espace client Nzoko"></div>
+
+<script>
+/* =====================================================================
+   SPLASH — Retire l'écran de chargement après 3.4s
+   ===================================================================== */
+(function(){
+  const splash = document.getElementById('splash');
+  if (!splash) return;
+  document.body.classList.add('splash-active');
+  const DURATION = 3400;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    splash.classList.add('done');
+    document.body.classList.remove('splash-active');
+    setTimeout(() => splash.classList.add('removed'), 100);
+    return;
+  }
+  setTimeout(() => {
+    splash.classList.add('done');
+    document.body.classList.remove('splash-active');
+    setTimeout(() => splash.classList.add('removed'), 750);
+  }, DURATION);
+})();
+
+/* =====================================================================
+   ÉTAT GLOBAL
+   ===================================================================== */
+window.NZOKO = {
+  currentUser:null, authMode:'login', pendingBooking:null,
+  confirmationResult:null, recaptchaVerifier:null,
+  selectedSeats:[], currentTrip:null, currentDate:null,
+  TAKEN_SEATS:[], TOTAL_SEATS:70
+};
+
+/* =====================================================================
+   DONNÉES
+   ===================================================================== */
+const CITIES = [
+  {name:'Brazzaville', info:'Capitale · Pool'},
+  {name:'Pointe-Noire', info:'Kouilou'},
+  {name:'Dolisie', info:'Niari'},
+  {name:'Nkayi', info:'Bouenza'},
+  {name:'Ouesso', info:'Sangha'},
+  {name:'Owando', info:'Cuvette'},
+  {name:'Impfondo', info:'Likouala'},
+  {name:'Gamboma', info:'Plateaux'},
+  {name:'Mossendjo', info:'Niari'},
+  {name:'Makoua', info:'Cuvette'},
+  {name:'Djambala', info:'Plateaux'},
+  {name:'Kinkala', info:'Pool'}
+];
+const TRIPS = [
+  {from:'Brazzaville', to:'Pointe-Noire', duration:'6h30', price:8500, popular:true, tag:'Le plus demandé'},
+  {from:'Brazzaville', to:'Dolisie', duration:'4h00', price:4500, popular:true, tag:'Rapide'},
+  {from:'Brazzaville', to:'Ouesso', duration:'10h00', price:12000, popular:true, tag:'Longue distance'},
+  {from:'Brazzaville', to:'Nkayi', duration:'3h30', price:3500},
+  {from:'Brazzaville', to:'Owando', duration:'7h00', price:7500},
+  {from:'Brazzaville', to:'Impfondo', duration:'12h00', price:15000},
+  {from:'Pointe-Noire', to:'Dolisie', duration:'2h30', price:3000},
+  {from:'Pointe-Noire', to:'Brazzaville', duration:'6h30', price:8500},
+  {from:'Dolisie', to:'Brazzaville', duration:'4h00', price:4500},
+  {from:'Dolisie', to:'Pointe-Noire', duration:'2h30', price:3000},
+  {from:'Ouesso', to:'Brazzaville', duration:'10h00', price:12000}
+];
+const GARAGES = [
+  {city:'Brazzaville', name:'Garage Central Nzoko', address:'Avenue de la Paix, près du marché Total', phone:'+242 06 100 20 30'},
+  {city:'Pointe-Noire', name:'Garage Nzoko Océan', address:'Boulevard du Général de Gaulle', phone:'+242 06 200 30 40'},
+  {city:'Dolisie', name:'Garage Nzoko Niari', address:'Route de Pointe-Noire, quartier Mavré', phone:'+242 06 300 40 50'},
+  {city:'Ouesso', name:'Garage Nzoko Sangha', address:'Centre-ville, face à la mairie', phone:'+242 06 400 50 60'},
+  {city:'Nkayi', name:'Garage Nzoko Bouenza', address:'Avenue principale, quartier Mouyondzi', phone:'+242 06 500 60 70'},
+  {city:'Owando', name:'Garage Nzoko Cuvette', address:'Route de Boundji, près du stade', phone:'+242 06 600 70 80'}
+];
+
+/* =====================================================================
+   DIAPORAMA HERO
+   ===================================================================== */
+const SLIDES = [
+  {img:'images/elephant.jpg', tag:'Réservation en ligne · Congo-Brazzaville', titre:'Voyagez à travers <em>le Congo</em> en toute sérénité', texte:'Réservez votre billet de bus en quelques clics et voyagez confortablement entre Brazzaville, Pointe-Noire, Dolisie et Ouesso.'},
+  {img:'https://images.unsplash.com/photo-1570125909232-eb263c188f7e?w=1920&q=80&auto=format&fit=crop', tag:'Bus climatisés · 70 places', titre:'Choisissez <em>votre place</em> avant de monter', texte:'Sélectionnez le siège qui vous convient parmi les 70 places disponibles. Fenêtre, couloir, avant ou arrière : c\'est vous qui décidez.'},
+  {img:'https://images.unsplash.com/photo-1494515843206-f3117d3f51b7?w=1920&q=80&auto=format&fit=crop', tag:'Horaires précis · 98% à l\'heure', titre:'Des départs <em>toujours ponctuels</em>', texte:'Nos bus partent à l\'heure annoncée. Vous pouvez planifier votre voyage en toute confiance, sans stress ni mauvaise surprise.'},
+  {img:'images/bus.jpg', tag:'15 garages · Tout le Congo', titre:'Un réseau <em>partout au Congo</em>', texte:'Brazzaville, Pointe-Noire, Dolisie, Ouesso, Nkayi, Owando… Retrouvez nos garages dans les principales villes du pays.'}
+];
+const slidesBox = document.getElementById('slides');
+const dotsBox = document.getElementById('dots');
+const slideCountEl = document.getElementById('slideCount');
+const capEl = document.getElementById('cap');
+const DUREE = 7000;
+
+SLIDES.forEach((s,i)=>{
+  slidesBox.insertAdjacentHTML('beforeend', `<div class="slide" role="group" aria-label="${i+1} sur ${SLIDES.length}"><div class="bg" style="background-image:url('${s.img}')"></div></div>`);
+  dotsBox.insertAdjacentHTML('beforeend', `<button role="tab" aria-label="Slide ${i+1}"></button>`);
+});
+const slides = [...slidesBox.children];
+const dots = [...dotsBox.children];
+let current = 0, autoTimer;
+function renderCap(s){
+  capEl.innerHTML = `<span class="tag">${s.tag}</span><h1>${s.titre}</h1><p>${s.texte}</p><div class="cta-row"><button class="btn gold" onclick="document.getElementById('depart').focus()">Réserver un trajet</button><a class="btn line" href="#trajets">Voir les trajets populaires</a></div>`;
+  capEl.classList.remove('animate');
+  void capEl.offsetWidth;
+  capEl.classList.add('animate');
+}
+function goSlide(n){
+  current = (n + slides.length) % slides.length;
+  slides.forEach((s,k)=>s.classList.toggle('on', k === current));
+  dots.forEach((d,k)=>{
+    d.classList.remove('on');
+    d.setAttribute('aria-selected', k === current);
+    if(k === current){ void d.offsetWidth; d.classList.add('on'); }
+  });
+  slideCountEl.textContent = String(current+1).padStart(2,'0') + ' / ' + String(slides.length).padStart(2,'0');
+  renderCap(SLIDES[current]);
+  clearTimeout(autoTimer);
+  autoTimer = setTimeout(() => goSlide(current+1), DUREE);
+}
+dots.forEach((d,k) => d.onclick = () => goSlide(k));
+goSlide(0);
+
+/* =====================================================================
+   RECHERCHE & DONNÉES
+   ===================================================================== */
+const departSel = document.getElementById('depart');
+const arriveeSel = document.getElementById('arrivee');
+CITIES.forEach(c => {
+  departSel.insertAdjacentHTML('beforeend', `<option value="${c.name}">${c.name}</option>`);
+  arriveeSel.insertAdjacentHTML('beforeend', `<option value="${c.name}">${c.name}</option>`);
+});
+document.getElementById('popularTrips').innerHTML = TRIPS.filter(t=>t.popular).map(t => `
+  <div class="trip-card">
+    <div class="top">
+      <span class="badge">${t.tag}</span>
+      <div class="trip-route">
+        <div class="trip-city">${t.from}<small>Départ</small></div>
+        <span class="trip-arrow">→</span>
+        <div class="trip-city to">${t.to}<small>Arrivée</small></div>
+      </div>
+      <div class="trip-meta"><span>🕐 ${t.duration}</span><span>🚌 70 places</span></div>
+    </div>
+    <div class="bottom">
+      <div class="trip-price">${t.price.toLocaleString('fr-FR')} <small>FCFA / place</small></div>
+      <button class="btn gold" onclick='openBooking(${JSON.stringify(t).replace(/'/g,"&apos;")})'>Réserver</button>
+    </div>
+  </div>
+`).join('');
+document.getElementById('destinationsGrid').innerHTML = CITIES.map(c => `
+  <div class="dest-card" onclick="quickSearch('${c.name}')">
+    <div class="city"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>${c.name}</div>
+    <div class="info">${c.info}</div>
+  </div>
+`).join('');
+document.getElementById('garagesGrid').innerHTML = GARAGES.map(g => `
+  <div class="garage-card">
+    <span class="city-tag">${g.city}</span>
+    <h3>${g.name}</h3>
+    <div class="info">
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>${g.address}</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>${g.phone}</span>
+    </div>
+  </div>
+`).join('');
+
+/* =====================================================================
+   RECHERCHE DE TRAJETS
+   ===================================================================== */
+window.searchTrips = function(){
+  const from = departSel.value, to = arriveeSel.value;
+  const date = document.getElementById('date').value;
+  if(!from || !to){ alert('Veuillez sélectionner une ville de départ et une ville d\'arrivée.'); return; }
+  if(from === to){ alert('Les villes doivent être différentes.'); return; }
+  const found = TRIPS.find(t => t.from === from && t.to === to);
+  if(found){ openBooking(found, date); }
+  else {
+    const alt = TRIPS.filter(t => t.from === from);
+    if(alt.length){
+      let msg = `Aucun trajet direct ${from} → ${to}.\n\nTrajets disponibles depuis ${from} :\n`;
+      alt.forEach(a => msg += `• ${a.from} → ${a.to} (${a.duration}) : ${a.price.toLocaleString('fr-FR')} FCFA\n`);
+      alert(msg);
+    } else alert(`Aucun trajet trouvé depuis ${from}.`);
+  }
+};
+window.quickSearch = function(city){
+  arriveeSel.value = city;
+  if(!departSel.value) departSel.value = 'Brazzaville';
+  document.getElementById('trajets').scrollIntoView({behavior:'smooth'});
+};
+
+/* =====================================================================
+   MODALS
+   ===================================================================== */
+window.openModal = function(id){ document.getElementById(id).classList.add('open'); document.body.style.overflow = 'hidden'; };
+window.closeModal = function(id){ document.getElementById(id).classList.remove('open'); document.body.style.overflow = ''; };
+
+/* =====================================================================
+   PLAN DU BUS — 70 PLACES
+   ===================================================================== */
+window.NZOKO.TAKEN_SEATS = [3, 7, 12, 18, 25, 31, 36, 42, 48, 55, 61, 67];
+function renderSeats(){
+  const grid = document.getElementById('seatsGrid');
+  let html = '';
+  let seatNum = 0;
+  for (let row = 1; row <= 17; row++) {
+    seatNum++; html += buildSeatBtn(seatNum);
+    seatNum++; html += buildSeatBtn(seatNum);
+    html += `<div class="aisle"></div>`;
+    seatNum++; html += buildSeatBtn(seatNum);
+    seatNum++; html += buildSeatBtn(seatNum);
+  }
+  html += `<div class="aisle"></div>`;
+  seatNum++; html += buildSeatBtn(seatNum);
+  seatNum++; html += buildSeatBtn(seatNum);
+  html += `<div class="aisle"></div>`;
+  grid.innerHTML = html;
+}
+function buildSeatBtn(num){
+  const taken = window.NZOKO.TAKEN_SEATS.includes(num);
+  return `<button class="${taken ? 'seat taken' : 'seat'}" data-seat="${num}" ${taken ? 'disabled' : `onclick="toggleSeat(${num}, this)"`}>${num}</button>`;
+}
+
+/* =====================================================================
+   RÉSERVATION
+   ===================================================================== */
+window.openBooking = function(trip, date){
+  if(!window.NZOKO.currentUser){
+    window.NZOKO.pendingBooking = {trip, date};
+    if(window.openAuth) window.openAuth();
+    return;
+  }
+  window.NZOKO.currentTrip = trip;
+  window.NZOKO.currentDate = date || new Date().toISOString().split('T')[0];
+  window.NZOKO.selectedSeats = [];
+  document.getElementById('bookingTripInfo').textContent = `${trip.from} → ${trip.to} · ${trip.duration} · ${trip.price.toLocaleString('fr-FR')} FCFA / place`;
+  document.getElementById('sumTrip').textContent = `${trip.from} → ${trip.to}`;
+  document.getElementById('sumDate').textContent = new Date(window.NZOKO.currentDate).toLocaleDateString('fr-FR', {weekday:'long', day:'numeric', month:'long', year:'numeric'});
+  document.getElementById('sumSeats').textContent = '—';
+  document.getElementById('sumTotal').textContent = '0 FCFA';
+  document.getElementById('confirmBookingBtn').disabled = true;
+  document.getElementById('bookingMsg').style.display = 'none';
+  renderSeats();
+  openModal('bookingModal');
+};
+window.toggleSeat = function(num, btn){
+  const idx = window.NZOKO.selectedSeats.indexOf(num);
+  if(idx > -1){ window.NZOKO.selectedSeats.splice(idx, 1); btn.classList.remove('selected'); }
+  else {
+    if(window.NZOKO.selectedSeats.length >= 5){ alert('Maximum 5 places par réservation.'); return; }
+    window.NZOKO.selectedSeats.push(num);
+    btn.classList.add('selected');
+  }
+  if(window.NZOKO.selectedSeats.length){
+    document.getElementById('sumSeats').textContent = window.NZOKO.selectedSeats.slice().sort((a,b)=>a-b).join(', ');
+    document.getElementById('sumTotal').textContent = (window.NZOKO.selectedSeats.length * window.NZOKO.currentTrip.price).toLocaleString('fr-FR') + ' FCFA';
+    document.getElementById('confirmBookingBtn').disabled = false;
+  } else {
+    document.getElementById('sumSeats').textContent = '—';
+    document.getElementById('sumTotal').textContent = '0 FCFA';
+    document.getElementById('confirmBookingBtn').disabled = true;
+  }
+};
+window.confirmBooking = async function(){
+  if(!window.NZOKO.selectedSeats.length || !window.NZOKO.currentTrip) return;
+  const total = window.NZOKO.selectedSeats.length * window.NZOKO.currentTrip.price;
+  const ref = 'NZK-' + Date.now().toString().slice(-8);
+  const seats = window.NZOKO.selectedSeats.slice().sort((a,b)=>a-b);
+  if(window.firebaseDb && window.NZOKO.currentUser){
+    try {
+      const { doc, setDoc, serverTimestamp } = window.FB;
+      await setDoc(doc(window.firebaseDb, 'bookings', ref), {
+        userId: window.NZOKO.currentUser.uid,
+        userPhone: window.NZOKO.currentUser.phoneNumber,
+        userName: window.NZOKO.currentUser.displayName || 'Voyageur',
+        trip: window.NZOKO.currentTrip,
+        date: window.NZOKO.currentDate,
+        seats, total, reference: ref, status: 'pending',
+        createdAt: serverTimestamp()
+      });
+    } catch(e) { console.error('Erreur enregistrement:', e); }
+  }
+  document.getElementById('bookingMsg').innerHTML = `✓ Réservation enregistrée !<br>Statut : En cours de validation<br>Référence : <strong>${ref}</strong><br>${seats.length} place(s) : ${seats.join(', ')}<br>Total : ${total.toLocaleString('fr-FR')} FCFA<br>Un SMS a été envoyé au ${window.NZOKO.currentUser.phoneNumber || '+242'}`;
+  document.getElementById('bookingMsg').style.display = 'block';
+  document.getElementById('confirmBookingBtn').disabled = true;
+  seats.forEach(s => { if(!window.NZOKO.TAKEN_SEATS.includes(s)) window.NZOKO.TAKEN_SEATS.push(s); });
+  setTimeout(() => { document.querySelectorAll('.seat.selected').forEach(s => s.classList.remove('selected')); window.NZOKO.selectedSeats = []; }, 1500);
+};
+
+/* =====================================================================
+   MES RÉSERVATIONS
+   ===================================================================== */
+window.openMyBookings = async function(){
+  if(!window.NZOKO.currentUser){ openAuth(); return; }
+  const listEl = document.getElementById('myBookingsList');
+  listEl.innerHTML = `<div class="empty-state"><p>Chargement…</p></div>`;
+  openModal('myBookingsModal');
+  try {
+    const { collection, query, where, orderBy, getDocs } = await import('https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js');
+    const q = query(collection(window.firebaseDb, 'bookings'), where('userId', '==', window.NZOKO.currentUser.uid), orderBy('createdAt', 'desc'));
+    const snap = await getDocs(q);
+    if (snap.empty) {
+      listEl.innerHTML = `<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><p>Aucune réservation pour le moment</p><small>Vos futurs billets apparaîtront ici.</small></div>`;
+      return;
+    }
+    const bookings = [];
+    snap.forEach(d => bookings.push({ id: d.id, ...d.data() }));
+    listEl.innerHTML = bookings.map(b => renderBookingItem(b)).join('');
+    listEl.querySelectorAll('[data-cancel]').forEach(btn => { btn.onclick = () => cancelBooking(btn.dataset.cancel); });
+  } catch(e) {
+    console.error('Erreur:', e);
+    listEl.innerHTML = `<div class="empty-state"><p>Impossible de charger vos réservations.</p><small>Vérifiez votre connexion.</small></div>`;
+  }
+};
+function renderBookingItem(b){
+  const dateStr = new Date(b.date).toLocaleDateString('fr-FR', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+  const statusLabel = { confirmed:'Confirmée', pending:'En attente', cancelled:'Annulée' }[b.status || 'confirmed'];
+  const seatsHtml = (b.seats || []).map(s => `<i>${s}</i>`).join('');
+  return `<div class="booking-item"><div class="head"><span class="ref">${b.reference || b.id}</span><span class="status ${b.status || 'confirmed'}">${statusLabel}</span></div><div class="route">${b.trip.from} <span>→</span> ${b.trip.to}</div><div class="meta"><span>📅 ${dateStr}</span><span>🕐 ${b.trip.duration}</span><span>🎫 ${(b.seats||[]).length} place(s)</span></div><div class="seats-tag">${seatsHtml}</div><div class="total"><b>${(b.total||0).toLocaleString('fr-FR')} FCFA</b>${b.status !== 'cancelled' ? `<button data-cancel="${b.id}">Annuler</button>` : ''}</div></div>`;
+}
+window.cancelBooking = async function(bookingId){
+  if(!confirm('Voulez-vous vraiment annuler cette réservation ?')) return;
+  try {
+    const { doc, updateDoc } = await import('https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js');
+    await updateDoc(doc(window.firebaseDb, 'bookings', bookingId), { status: 'cancelled' });
+    openMyBookings();
+  } catch(e) { alert('Impossible d\'annuler pour le moment.'); }
+};
+
+/* =====================================================================
+   HEADER + MENU
+   ===================================================================== */
+const hd = document.getElementById('hd'), nv = document.getElementById('nv'), bg = document.getElementById('bg');
+addEventListener('scroll', () => hd.classList.toggle('solid', scrollY > 40), {passive:true});
+bg.onclick = () => {
+  const open = nv.classList.toggle('open');
+  bg.setAttribute('aria-expanded', open);
+  bg.textContent = open ? '✕' : '☰';
+};
+nv.onclick = e => { if(e.target.tagName === 'A'){ nv.classList.remove('open'); bg.textContent = '☰'; bg.setAttribute('aria-expanded','false'); } };
+
+/* =====================================================================
+   ANIMATIONS AU SCROLL
+   ===================================================================== */
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+}), {threshold:.12, rootMargin:'0px 0px -60px 0px'});
+document.querySelectorAll('.rv').forEach(e => io.observe(e));
+const groups = [
+  {sel:'.trips-grid', item:'.trip-card', step:120},
+  {sel:'.adv-grid', item:'.adv-card', step:100},
+  {sel:'.dest-grid', item:'.dest-card', step:60},
+  {sel:'.steps', item:'.step', step:120},
+  {sel:'.garages-grid', item:'.garage-card', step:100},
+  {sel:'.qs', item:'blockquote', step:130}
+];
+groups.forEach(g => {
+  const c = document.querySelector(g.sel);
+  if(!c) return;
+  const items = c.querySelectorAll(g.item);
+  const obs = new IntersectionObserver(es => es.forEach(e => {
+    if(e.isIntersecting){
+      items.forEach((it,i) => setTimeout(() => it.classList.add('in'), i * g.step));
+      obs.disconnect();
+    }
+  }), {threshold:0.15});
+  obs.observe(c);
+});
+const co = new IntersectionObserver(es => es.forEach(e => {
+  if(!e.isIntersecting) return;
+  co.unobserve(e.target);
+  const el = e.target, end = +el.dataset.n, sfx = el.dataset.s || '', t0 = performance.now();
+  (function f(t){
+    const p = Math.min((t - t0) / 1800, 1);
+    const eased = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.round(end * eased).toLocaleString('fr-FR') + sfx;
+    if(p < 1) requestAnimationFrame(f);
+  })(t0);
+}), {threshold:.6});
+document.querySelectorAll('[data-n]').forEach(e => co.observe(e));
+document.getElementById('fm').onsubmit = e => {
+  e.preventDefault();
+  const ok = document.getElementById('ok');
+  ok.style.display = 'block';
+  e.target.reset();
+  setTimeout(() => { ok.style.display = 'none'; }, 6000);
+};
+document.getElementById('date').min = new Date().toISOString().split('T')[0];
+</script>
+
+
+<script>
+/* =====================================================================
+   ESPACE CLIENT — Trajets · Garages · Mes billets · Tableau de bord
+   ===================================================================== */
+(function(){
+const N = window.NZOKO, $ = s => document.querySelector(s), A = $('#app');
+const ic = n => `<svg class="ap-ico"><use href="#i-${n}"/></svg>`;
+const fc = n => (n||0).toLocaleString('fr-FR') + ' FCFA';
+const ST = {pending:['En cours','wait'], confirmed:['Validé','ok'], cancelled:['Annulé','ko']};
+const st = b => b.status || 'confirmed';
+const TITLES = {trajets:'Trajets', garages:'Garages', billets:'Mes billets', dash:'Tableau de bord'};
+/* Horaires d'ouverture des garages — à adapter (jour 0 = dimanche) */
+const HOURS = {open:[5.5,19], sun:[7,14]};
+const DAYS = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+let view = 'trajets', filt = 'all', gcity = '', bookings = [], state = 'idle';
+
+A.innerHTML = `
+<aside class="ap-side">
+  <div class="ap-brand">${($('.logo svg')||{outerHTML:''}).outerHTML}<div><b>NZOKO</b><small>TRANSPORT</small></div></div>
+  <nav class="ap-nav"><div class="ap-lbl">Mon espace</div>
+    <button data-v="trajets">${ic('bus')}Trajets</button>
+    <button data-v="garages">${ic('pin')}Garages</button>
+    <button data-v="billets">${ic('ticket')}Mes billets<span class="n" id="apN" style="display:none">0</span></button>
+    <button data-v="dash">${ic('dash')}Tableau de bord</button>
+  </nav>
+  <div class="ap-user"><div class="ap-av" id="apAv">N</div><div><b id="apNm">Voyageur</b><small id="apPh">+242</small></div>
+    <button class="ap-lo" onclick="logout()" title="Déconnexion" aria-label="Déconnexion">${ic('out')}</button></div>
+</aside>
+<div class="ap-main">
+  <div class="ap-top"><h2 id="apT">Trajets</h2>
+    <div class="ap-pills"><span class="ap-pill"><i></i>En ligne</span><span class="ap-pill hd-m">${ic('cal')}<span id="apD"></span></span>
+    <button class="ap-lo ap-lo-m" onclick="logout()" aria-label="Déconnexion">${ic('out')}</button></div></div>
+  <div class="ap-body" id="apB">
+    <section class="ap-view" id="v-trajets"></section><section class="ap-view" id="v-garages"></section>
+    <section class="ap-view" id="v-billets"></section><section class="ap-view" id="v-dash"></section>
+  </div>
+</div>`;
+$('#apD').textContent = new Date().toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
+A.querySelectorAll('[data-v]').forEach(b => b.onclick = () => go(b.dataset.v));
+
+function go(v){
+  view = v;
+  A.querySelectorAll('[data-v]').forEach(b => b.classList.toggle('on', b.dataset.v === v));
+  A.querySelectorAll('.ap-view').forEach(s => s.classList.toggle('on', s.id === 'v-' + v));
+  $('#apT').textContent = TITLES[v]; $('#apB').scrollTop = 0;
+  ({trajets:rTrajets, garages:rGarages, billets:rBillets, dash:rDash})[v]();
+}
+const empty = (i,t,s) => `<div class="ap-empty">${ic(i)}<b>${t}</b>${s}</div>`;
+const cu = (el, end, sfx='') => { const t0 = performance.now(); (function f(t){ const p = Math.min((t-t0)/1500,1); el.textContent = Math.round(end*(1-Math.pow(1-p,3))).toLocaleString('fr-FR') + sfx; if(p<1) requestAnimationFrame(f); })(t0); };
+const fdate = d => new Date(d).toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
+
+/* ---------- TRAJETS ---------- */
+function rTrajets(){
+  const el = $('#v-trajets'), opts = CITIES.map(c => `<option>${c.name}</option>`).join('');
+  if(!el.dataset.ok){
+    el.dataset.ok = 1;
+    el.innerHTML = `<div class="ap-h"><h3>Où allez-vous ?</h3><p>Choisissez votre trajet puis votre place dans le bus.</p></div>
+    <div class="ap-card ap-search">
+      <div class="field"><label>${ic('pin')}Ville de départ</label><select id="tF"><option value="">Choisir…</option>${opts}</select></div>
+      <button class="ap-sw" id="tS" aria-label="Inverser">${ic('swap')}</button>
+      <div class="field"><label>Ville d'arrivée</label><select id="tT"><option value="">Choisir…</option>${opts}</select></div>
+      <div class="field"><label>Date de voyage</label><input type="date" id="tD"></div>
+      <button class="ap-go" id="tG">${ic('search')}Rechercher</button></div>
+    <div class="ap-grid" id="tR"></div>`;
+    $('#tD').min = $('#tD').value = new Date().toISOString().split('T')[0];
+    $('#tS').onclick = () => { const f = $('#tF'), t = $('#tT'); [f.value,t.value] = [t.value,f.value]; showTrips(); };
+    $('#tG').onclick = showTrips; $('#tF').onchange = $('#tT').onchange = showTrips;
+  }
+  showTrips();
+}
+function showTrips(){
+  const f = $('#tF').value, t = $('#tT').value, d = $('#tD').value;
+  let l = TRIPS.filter(x => (!f || x.from === f) && (!t || x.to === t));
+  $('#tR').innerHTML = l.length ? l.map((x,i) => `<div class="ap-card ap-it" style="animation-delay:${i*50}ms">
+    ${x.tag ? `<span class="ap-tag">${x.tag}</span>` : ''}
+    <div class="ap-rt">${x.from}${ic('arr')}${x.to}</div>
+    <div class="ap-mt"><span>${ic('clock')}${x.duration}</span><span>${ic('bus')}70 places</span></div>
+    <div class="ap-ft"><div><b>${x.price.toLocaleString('fr-FR')}</b> <small>FCFA / place</small></div><button data-i="${TRIPS.indexOf(x)}">Réserver</button></div></div>`).join('')
+    : empty('bus','Aucun trajet direct',(f && t) ? `Aucun bus ${f} → ${t} pour le moment. Essayez une autre destination.` : 'Modifiez votre recherche.');
+  $('#tR').querySelectorAll('[data-i]').forEach(b => b.onclick = () => openBooking(TRIPS[+b.dataset.i], d));
+}
+
+/* ---------- GARAGES ---------- */
+function gStatus(){
+  const n = new Date(), h = n.getHours() + n.getMinutes()/60, [o,c] = n.getDay() === 0 ? HOURS.sun : HOURS.open;
+  return h >= o && h < c ? [true, c] : [false, o];
+}
+const hh = h => String(Math.floor(h)).padStart(2,'0') + ':' + (h%1 ? '30' : '00');
+function rGarages(){
+  const cities = [...new Set(GARAGES.map(g => g.city))], [op, t] = gStatus(), today = new Date().getDay();
+  const l = GARAGES.filter(g => !gcity || g.city === gcity);
+  $('#v-garages').innerHTML = `<div class="ap-h"><h3>Nos garages</h3><p>Horaires d'ouverture et coordonnées de nos agences.</p></div>
+  <div class="ap-chips"><button class="ap-chip ${gcity ? '' : 'on'}" data-c="">Toutes <em>${GARAGES.length}</em></button>${cities.map(c => `<button class="ap-chip ${gcity === c ? 'on' : ''}" data-c="${c}">${ic('pin')}${c}</button>`).join('')}</div>
+  <div class="ap-grid">${l.map((g,i) => `<div class="ap-card ap-it" style="animation-delay:${i*60}ms">
+    <div style="display:flex;justify-content:space-between;gap:8px;align-items:center"><span class="ap-tag">${g.city}</span><span class="ap-st ${op ? 'open' : 'closed'}">${op ? 'Ouvert · ferme à ' + hh(t) : 'Fermé · ouvre à ' + hh(t)}</span></div>
+    <div class="ap-rt" style="font-size:1.1rem">${g.name}</div>
+    <div class="ap-mt" style="flex-direction:column;gap:8px"><span>${ic('pin')}${g.address}</span><span>${ic('phone')}${g.phone}</span></div>
+    <div class="ap-hr" style="border-top:1px dashed var(--line);padding-top:12px">
+      <div class="${today ? 'today' : ''}"><span>Lundi – Samedi</span><b>${hh(HOURS.open[0])} – ${hh(HOURS.open[1])}</b></div>
+      <div class="${today === 0 ? 'today' : ''}"><span>Dimanche</span><b>${hh(HOURS.sun[0])} – ${hh(HOURS.sun[1])}</b></div></div>
+  </div>`).join('') || empty('pin','Aucun garage','Aucune agence dans cette ville.')}</div>`;
+  $('#v-garages').querySelectorAll('[data-c]').forEach(b => b.onclick = () => { gcity = b.dataset.c; rGarages(); });
+}
+
+/* ---------- MES BILLETS ---------- */
+function rBillets(){
+  const cnt = k => k === 'all' ? bookings.length : bookings.filter(b => st(b) === k).length;
+  const l = bookings.filter(b => filt === 'all' || st(b) === filt);
+  const F = [['all','Tous'],['pending','En cours'],['confirmed','Validés'],['cancelled','Annulés']];
+  $('#v-billets').innerHTML = `<div class="ap-h"><h3>Mes billets</h3><p>Historique de vos réservations.</p></div>
+  <div class="ap-chips">${F.map(([k,n]) => `<button class="ap-chip ${filt === k ? 'on' : ''}" data-f="${k}">${n} <em>${cnt(k)}</em></button>`).join('')}</div>
+  <div class="ap-grid" style="grid-template-columns:repeat(auto-fill,minmax(380px,1fr))">${
+    state === 'load' ? '<div class="ap-sk"></div><div class="ap-sk"></div>' :
+    state === 'err' ? empty('ko','Chargement impossible','Vérifiez votre connexion puis réessayez.') :
+    l.map((b,i) => { const [lb,ico] = ST[st(b)], s = (b.seats||[]).map(x => `<i>${x}</i>`).join('');
+      return `<div class="ap-card ap-tk" style="animation-delay:${i*50}ms"><div class="ap-stub">${ic('ticket')}<small>${b.reference || b.id}</small></div>
+      <div class="ap-tkb"><div class="ap-tkh"><div class="ap-rt">${b.trip.from}${ic('arr')}${b.trip.to}</div><span class="ap-st ${st(b)}">${ic(ico)}${lb}</span></div>
+      <div class="ap-mt"><span>${ic('cal')}${fdate(b.date)}</span><span>${ic('clock')}${b.trip.duration}</span><span>${ic('users')}${(b.seats||[]).length} place(s)</span></div>
+      <div class="ap-seats">${s}</div>
+      <div class="ap-ft"><b>${fc(b.total)}</b>${st(b) === 'pending' ? `<button class="ap-x" data-x="${b.id}">Annuler</button>` : ''}</div></div></div>`; }).join('')
+    || empty('ticket','Aucun billet ici', filt === 'all' ? 'Vos réservations apparaîtront ici.' : 'Aucune réservation dans cette catégorie.')}</div>`;
+  $('#v-billets').querySelectorAll('[data-f]').forEach(b => b.onclick = () => { filt = b.dataset.f; rBillets(); });
+  $('#v-billets').querySelectorAll('[data-x]').forEach(b => b.onclick = () => cancel(b.dataset.x));
+}
+async function cancel(id){
+  if(!confirm('Voulez-vous vraiment annuler cette réservation ?')) return;
+  try {
+    const { doc, updateDoc } = await import('https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js');
+    await updateDoc(doc(window.firebaseDb,'bookings',id), {status:'cancelled'});
+    const b = bookings.find(x => x.id === id); if(b) b.status = 'cancelled';
+    badge(); view === 'dash' ? rDash() : rBillets();
+  } catch(e){ alert('Impossible d\'annuler pour le moment.'); }
+}
+function badge(){
+  const n = bookings.filter(b => st(b) === 'pending').length, e = $('#apN');
+  e.textContent = n; e.style.display = n ? '' : 'none';
+}
+
+/* ---------- TABLEAU DE BORD ---------- */
+function gauge(v, label, color, id){
+  return `<div class="ap-card ap-gauge" style="--c:${color}"><h4>${label}</h4>
+  <svg viewBox="0 0 120 72"><path class="tr" d="M10 62A50 50 0 0 1 110 62" pathLength="100"/><path class="tk" d="M3 62A57 57 0 0 1 117 62" pathLength="100"/>
+  <path class="gv" d="M10 62A50 50 0 0 1 110 62" pathLength="100" data-v="${v}"/><line class="nd" x1="60" y1="62" x2="60" y2="26" data-v="${v}"/><circle class="hb" cx="60" cy="62" r="5"/></svg>
+  <div class="v" data-n="${v}" data-s="%">0%</div></div>`;
+}
+function rDash(){
+  const act = bookings.filter(b => st(b) !== 'cancelled'), tot = bookings.length;
+  const spent = act.reduce((s,b) => s + (b.total||0), 0), seats = act.reduce((s,b) => s + (b.seats||[]).length, 0);
+  const c = {pending:0, confirmed:0, cancelled:0}; bookings.forEach(b => c[st(b)]++);
+  const pc = k => tot ? Math.round(c[k]/tot*100) : 0, goal = Math.min(100, Math.round(c.confirmed/10*100));
+  const today = new Date().toISOString().split('T')[0];
+  const next = act.filter(b => b.date >= today).sort((a,b) => a.date.localeCompare(b.date))[0];
+  /* dépenses par mois (6 derniers mois, selon la date de voyage) */
+  const M = [], now = new Date();
+  for(let i = 5; i >= 0; i--){ const d = new Date(now.getFullYear(), now.getMonth()-i, 1); M.push({k:d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0'), l:d.toLocaleDateString('fr-FR',{month:'short'}).replace('.',''), v:0}); }
+  act.forEach(b => { const m = M.find(x => x.k === (b.date||'').slice(0,7)); if(m) m.v += b.total||0; });
+  const mx = Math.max(...M.map(m => m.v), 1), bw = 36;
+  const bars = M.map((m,i) => { const h = Math.max(m.v/mx*120, m.v ? 4 : 2), x = 14 + i*58;
+    return `<rect class="ap-bar" x="${x}" y="${140-h}" width="${bw}" height="${h}" rx="6" fill="url(#bg)" style="transition-delay:${i*90}ms"><title>${fc(m.v)}</title></rect><text class="vl" x="${x+bw/2}" y="${134-h}" text-anchor="middle">${m.v ? Math.round(m.v/1000)+'k' : ''}</text><text x="${x+bw/2}" y="156" text-anchor="middle">${m.l}</text>`; }).join('');
+  /* destinations */
+  const D = {}; act.forEach(b => D[b.trip.to] = (D[b.trip.to]||0) + 1);
+  const top = Object.entries(D).sort((a,b) => b[1]-a[1]).slice(0,4), tm = top[0] ? top[0][1] : 1;
+  /* donut */
+  const seg = [['pending','var(--wn)','En cours'],['confirmed','var(--ok)','Validés'],['cancelled','var(--ko)','Annulés']]; let off = 0;
+  const don = seg.map(([k,col]) => { const p = tot ? c[k]/tot*100 : 0, o = off; off += p; return `<circle cx="21" cy="21" r="15.9155" stroke="${col}" data-p="${p}" stroke-dasharray="0 100" stroke-dashoffset="${-o}"/>`; }).join('');
+  const kp = (i,l,v,s,n,sf) => `<div class="ap-card ap-kpi"><div class="ib">${ic(i)}</div><span>${l}</span><b ${n !== undefined ? `data-n="${n}" data-s="${sf||''}">0` : '>' + v}</b><small>${s}</small></div>`;
+  $('#v-dash').innerHTML = `<div class="ap-h"><h3>Bonjour, ${(N.currentUser && N.currentUser.displayName || 'Voyageur').split(' ')[0]}</h3><p>Voici le résumé de vos voyages avec Nzoko Transport.</p></div>
+  <div class="ap-kpis">
+    ${kp('ticket','Billets réservés','',tot ? c.pending + ' en cours' : 'Aucun pour l\'instant',tot)}
+    ${kp('wallet','Total dépensé','',' hors annulations',spent,' FCFA')}
+    ${kp('users','Places réservées','','sur ' + act.length + ' voyage(s)',seats)}
+    ${kp('cal','Prochain voyage', next ? next.trip.from.slice(0,3).toUpperCase() + ' → ' + next.trip.to.slice(0,3).toUpperCase() : '—', next ? fdate(next.date) : 'Aucun voyage à venir')}
+  </div>
+  <div class="ap-g3">${gauge(pc('confirmed'),'Taux de validation','#2ecc71')}${gauge(goal,'Objectif · 10 voyages validés','#d4af37')}${gauge(pc('cancelled'),'Taux d\'annulation','#e74c3c')}</div>
+  <div class="ap-g2">
+    <div class="ap-card"><h4>Dépenses par mois <small>6 derniers mois · FCFA</small></h4>
+      <svg class="ap-bars" viewBox="0 0 350 162"><defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f5d76e"/><stop offset="1" stop-color="#b8860b"/></linearGradient></defs>
+      <g stroke="rgba(255,255,255,.07)"><path d="M0 140H350M0 100H350M0 60H350M0 20H350"/></g>${bars}</svg></div>
+    <div class="ap-card"><h4>Statut des billets</h4><div class="ap-don"><svg viewBox="0 0 42 42"><circle cx="21" cy="21" r="15.9155" stroke="rgba(255,255,255,.07)"/>${don}</svg>
+      <div class="ap-leg">${seg.map(([k,col,l]) => `<span><i style="background:${col}"></i>${l}<b>${c[k]}</b></span>`).join('')}</div></div></div>
+  </div>
+  <div class="ap-card"><h4>Destinations favorites ${ic('trend')}</h4><div class="ap-hb">${top.map(([n,v]) => `<div><div class="r">${n}<span>${v} voyage(s)</span></div><div class="t"><div class="f" data-w="${v/tm*100}"></div></div></div>`).join('') || '<span style="color:var(--muted);font-size:.85rem">Vos destinations apparaîtront après votre première réservation.</span>'}</div></div>`;
+  /* animations */
+  requestAnimationFrame(() => setTimeout(() => {
+    $('#v-dash').querySelectorAll('.gv').forEach(g => g.style.strokeDasharray = g.dataset.v + ' 100');
+    $('#v-dash').querySelectorAll('.nd').forEach(n => n.style.transform = `rotate(${n.dataset.v*1.8-90}deg)`);
+    $('#v-dash').querySelectorAll('[data-p]').forEach(d => d.style.strokeDasharray = d.dataset.p + ' ' + (100 - d.dataset.p));
+    $('#v-dash').querySelectorAll('[data-w]').forEach(f => f.style.width = f.dataset.w + '%');
+    $('#v-dash').querySelector('.ap-bars').classList.add('in');
+    $('#v-dash').querySelectorAll('[data-n]').forEach(e => cu(e, +e.dataset.n, e.dataset.s || ''));
+  }, 60));
+}
+
+/* ---------- DONNÉES ---------- */
+async function load(){
+  if(!window.firebaseDb || !N.currentUser) return;
+  state = 'load'; if(view === 'billets') rBillets();
+  try {
+    const { collection, query, where, getDocs } = await import('https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js');
+    const s = await getDocs(query(collection(window.firebaseDb,'bookings'), where('userId','==',N.currentUser.uid)));
+    bookings = s.docs.map(d => ({id:d.id, ...d.data()})).sort((a,b) => ((b.createdAt && b.createdAt.seconds) || 9e9) - ((a.createdAt && a.createdAt.seconds) || 9e9));
+    state = 'ok';
+  } catch(e){ console.error(e); state = 'err'; }
+  badge(); if(view === 'billets') rBillets(); else if(view === 'dash') rDash();
+}
+const oc = window.confirmBooking;
+window.confirmBooking = async function(){ await oc(); setTimeout(load, 700); };
+window.enterApp = function(){
+  if(document.body.classList.contains('app-on')) return;
+  const u = N.currentUser, nm = u.displayName || 'Voyageur';
+  $('#apNm').textContent = nm; $('#apPh').textContent = u.phoneNumber || '+242';
+  $('#apAv').textContent = nm.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
+  document.body.classList.add('app-on'); go('trajets'); load();
+};
+window.leaveApp = function(){ document.body.classList.remove('app-on'); bookings = []; state = 'idle'; filt = 'all'; };
+})();
+</script>
+
+<!-- ==================== SCRIPT FIREBASE (module) ==================== -->
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js';
+import { getAuth, RecaptchaVerifier, signInWithPhoneNumber, onAuthStateChanged, signOut, updateProfile } from 'https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js';
+import { getFirestore, doc, setDoc, getDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyClroC5HglFKrIiLVukXR64EVFjY-bs3NQ",
+  authDomain: "nzoko-transport-3627e.firebaseapp.com",
+  projectId: "nzoko-transport-3627e",
+  storageBucket: "nzoko-transport-3627e.firebasestorage.app",
+  messagingSenderId: "726613782848",
+  appId: "1:726613782848:web:f1f1d94dfa07c7a50a0aa5",
+  measurementId: "G-B4NDGH6STB"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+window.firebaseAuth = auth;
+window.firebaseDb = db;
+window.FB = { signInWithPhoneNumber, RecaptchaVerifier, signOut, updateProfile, doc, setDoc, getDoc, serverTimestamp };
+
+onAuthStateChanged(auth, async (user) => {
+  if (user) {
+    window.NZOKO.currentUser = user;
+    try {
+      const snap = await getDoc(doc(db, 'users', user.uid));
+      if (snap.exists()) window.NZOKO.currentUser.displayName = snap.data().name || user.displayName || 'Voyageur';
+    } catch(e){}
+    updateAuthUI(true);
+    closeModal('authModal');
+    if (window.NZOKO.pendingBooking) {
+      setTimeout(() => { openBooking(window.NZOKO.pendingBooking.trip, window.NZOKO.pendingBooking.date); window.NZOKO.pendingBooking = null; }, 300);
+    }
+  } else {
+    window.NZOKO.currentUser = null;
+    updateAuthUI(false);
+  }
+});
+
+function updateAuthUI(isLoggedIn){
+  const loginBtn = document.getElementById('loginBtn');
+  const logoutBtn = document.getElementById('logoutBtn');
+  const badge = document.getElementById('userBadge');
+  const user = window.NZOKO.currentUser;
+  if (isLoggedIn && user) {
+    if (window.enterApp) window.enterApp();
+    loginBtn.style.display = 'none';
+    logoutBtn.style.display = 'inline-flex';
+    badge.style.display = 'inline-flex';
+    document.getElementById('userPhone').textContent = user.phoneNumber || '+242';
+  } else {
+    if (window.leaveApp) window.leaveApp();
+    loginBtn.style.display = 'inline-flex';
+    logoutBtn.style.display = 'none';
+    badge.style.display = 'none';
+  }
+}
+
+window.openAuth = function(){
+  if (window.NZOKO.currentUser) { openMyBookings(); return; }
+  initRecaptcha();
+  openModal('authModal');
+};
+window.logout = async function(){
+  try { await signOut(auth); window.NZOKO.currentUser = null; updateAuthUI(false); } catch(e){}
+};
+
+function initRecaptcha(){
+  if (window.NZOKO.recaptchaVerifier) return;
+  let container = document.getElementById('recaptcha-container');
+  if (!container) {
+    container = document.createElement('div');
+    container.id = 'recaptcha-container';
+    document.body.appendChild(container);
+  }
+  window.NZOKO.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+    size:'invisible', callback:()=>{}, 'expired-callback':()=>{}
+  });
+}
+
+window.sendSmsCode = async function(){
+  const phone = document.getElementById('authPhone').value.trim();
+  const err = document.getElementById('authError');
+  err.style.display = 'none';
+  if (!phone || phone.replace(/\s/g,'').length < 6) {
+    err.textContent = 'Numéro invalide (min. 6 chiffres).';
+    err.style.display = 'block'; return;
+  }
+  if (window.NZOKO.authMode === 'signup') {
+    const name = document.getElementById('authName').value.trim();
+    if (!name) { err.textContent = 'Veuillez indiquer votre nom complet.'; err.style.display = 'block'; return; }
+  }
+  const fullPhone = '+242' + phone.replace(/\s/g, '');
+  const submitBtn = document.getElementById('authSubmit');
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Envoi en cours…';
+  try {
+    initRecaptcha();
+    window.NZOKO.confirmationResult = await signInWithPhoneNumber(auth, fullPhone, window.NZOKO.recaptchaVerifier);
+    document.getElementById('stepPhone').style.display = 'none';
+    document.getElementById('stepCode').style.display = 'block';
+    document.getElementById('authSubtitle').textContent = `Code envoyé au ${fullPhone}`;
+    document.getElementById('authCode').focus();
+  } catch (e) {
+    console.error(e);
+    err.textContent = mapFirebaseError(e.code);
+    err.style.display = 'block';
+    if (window.NZOKO.recaptchaVerifier) {
+      try { window.NZOKO.recaptchaVerifier.clear(); } catch(_){}
+      window.NZOKO.recaptchaVerifier = null;
+      const c = document.getElementById('recaptcha-container');
+      if (c) c.innerHTML = '';
+    }
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Recevoir le code';
+  }
+};
+
+window.verifySmsCode = async function(){
+  const code = document.getElementById('authCode').value.trim();
+  const err = document.getElementById('authError');
+  err.style.display = 'none';
+  if (!code || code.length < 6) { err.textContent = 'Entrez le code à 6 chiffres.'; err.style.display = 'block'; return; }
+  try {
+    const result = await window.NZOKO.confirmationResult.confirm(code);
+    const user = result.user;
+    if (window.NZOKO.authMode === 'signup') {
+      const name = document.getElementById('authName').value.trim() || 'Voyageur';
+      await updateProfile(user, { displayName: name });
+      await setDoc(doc(db, 'users', user.uid), { uid:user.uid, name, phone:user.phoneNumber, createdAt:serverTimestamp(), role:'user' }, { merge:true });
+    }
+  } catch (e) {
+    console.error(e);
+    err.textContent = mapFirebaseError(e.code);
+    err.style.display = 'block';
+  }
+};
+
+window.switchAuthTab = function(mode){
+  window.NZOKO.authMode = mode;
+  document.getElementById('tabLogin').classList.toggle('active', mode === 'login');
+  document.getElementById('tabSignup').classList.toggle('active', mode === 'signup');
+  document.getElementById('authTitle').textContent = mode === 'login' ? 'Connexion' : 'Créer un compte';
+  document.getElementById('authSubtitle').textContent = mode === 'login' ? 'Recevez un code par SMS' : 'Inscrivez-vous en 30 secondes';
+  document.getElementById('nameField').style.display = mode === 'signup' ? 'block' : 'none';
+  document.getElementById('stepPhone').style.display = 'block';
+  document.getElementById('stepCode').style.display = 'none';
+  document.getElementById('authError').style.display = 'none';
+  document.getElementById('authCode').value = '';
+};
+
+function mapFirebaseError(code){
+  const map = {
+    'auth/invalid-phone-number':'Numéro invalide.',
+    'auth/missing-phone-number':'Veuillez entrer un numéro.',
+    'auth/quota-exceeded':'Quota SMS dépassé.',
+    'auth/captcha-check-failed':'Échec reCAPTCHA.',
+    'auth/invalid-verification-code':'Code SMS incorrect.',
+    'auth/invalid-verification-id':'Session expirée. Renvoyez un code.',
+    'auth/too-many-requests':'Trop de tentatives.',
+    'auth/user-disabled':'Compte désactivé.',
+    'auth/network-request-failed':'Problème de connexion.',
+    'auth/operation-not-allowed':'Auth téléphone non activée.',
+    'auth/unauthorized-domain':'Domaine non autorisé.'
+  };
+  return map[code] || 'Une erreur est survenue.';
+}
+</script>
+</body>
+</html>
