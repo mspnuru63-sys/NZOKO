@@ -592,9 +592,12 @@ body.app-on{overflow:hidden!important}
 .ap-top{height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;border-bottom:1px solid var(--line);background:rgba(10,35,35,.7);backdrop-filter:blur(12px);flex-shrink:0;gap:12px}
 .ap-top h2{font-size:1.1rem;margin:0}
 .ap-pills{display:flex;gap:8px;align-items:center}
-.ap-pill{display:flex;align-items:center;gap:7px;padding:6px 12px;border:1px solid var(--line);border-radius:30px;font-size:.78rem;color:var(--muted);white-space:nowrap}
+.ap-pill{display:flex;align-items:center;gap:7px;padding:6px 12px;border:1px solid var(--line);border-radius:30px;font-size:.78rem;color:var(--muted);white-space:nowrap;transition:.3s}
 .ap-pill .ap-ico{width:15px;height:15px}
 .ap-pill i{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 rgba(46,204,113,.6);animation:apPulse 2s infinite}
+.ap-pill.live{color:var(--ok);border-color:rgba(46,204,113,.35);background:rgba(46,204,113,.08)}
+.ap-pill.flash{background:rgba(212,175,55,.22);border-color:var(--gold);color:var(--gold);animation:apFlash .8s ease}
+@keyframes apFlash{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
 @keyframes apPulse{70%{box-shadow:0 0 0 8px rgba(46,204,113,0)}100%{box-shadow:0 0 0 0 rgba(46,204,113,0)}}
 .ap-lo-m{display:none}
 .ap-body{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:24px;scroll-behavior:smooth}
@@ -666,6 +669,11 @@ body.app-on{overflow:hidden!important}
 .ap-hr div{display:flex;justify-content:space-between}.ap-hr b{color:#fff;font-weight:600}.ap-hr .today b{color:var(--gold)}
 .ap-tk{display:flex;padding:0;overflow:hidden;position:relative;animation:apIn .5s both}
 .ap-tk:hover{border-color:var(--gold)}
+.ap-tk.flash-new{animation:apTicketFlash 2s ease}
+@keyframes apTicketFlash{
+  0%{box-shadow:0 0 0 3px var(--gold), 0 0 24px rgba(212,175,55,.6)}
+  100%{box-shadow:none}
+}
 .ap-stub{width:92px;background:rgba(212,175,55,.08);border-right:2px dashed var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--gold);padding:12px 6px;text-align:center}
 .ap-stub small{font-size:.62rem;letter-spacing:.8px;font-weight:800;word-break:break-all}
 .ap-stub .ap-ico{width:28px;height:28px}
@@ -681,6 +689,21 @@ body.app-on{overflow:hidden!important}
 .ap-empty b{color:#fff;display:block;margin-bottom:4px}
 .ap-sk{height:120px;border-radius:14px;background:linear-gradient(90deg,var(--ink2) 25%,#1a4848 50%,var(--ink2) 75%);background-size:200% 100%;animation:apSk 1.3s infinite}
 @keyframes apSk{to{background-position:-200% 0}}
+/* ===== TOAST CLIENT (temps réel) ===== */
+.ap-toast{
+  position:fixed;bottom:calc(24px + env(safe-area-inset-bottom,0px));
+  left:50%;transform:translateX(-50%) translateY(80px);
+  background:var(--ink2);border:1px solid var(--gold);color:#fff;
+  padding:12px 20px;border-radius:10px;font-weight:600;font-size:.88rem;
+  box-shadow:var(--shadow-lg);z-index:950;
+  transition:transform .4s cubic-bezier(.2,.8,.2,1);
+  display:flex;align-items:center;gap:10px;max-width:calc(100% - 32px);
+}
+.ap-toast.on{transform:translateX(-50%) translateY(0)}
+.ap-toast.success{border-color:var(--ok);color:var(--ok)}
+.ap-toast.danger{border-color:var(--ko);color:var(--ko)}
+.ap-toast.info{border-color:var(--gold);color:var(--gold)}
+.ap-toast .ap-ico{width:20px;height:20px}
 @media(max-width:1000px){.ap-kpis{grid-template-columns:repeat(2,1fr)}.ap-g2{grid-template-columns:1fr}.ap-search{grid-template-columns:1fr 1fr}.ap-sw{display:none}.ap-go{grid-column:span 2}}
 @media(max-width:760px){
  #app{flex-direction:column-reverse}
@@ -712,50 +735,35 @@ body.app-on{overflow:hidden!important}
       </linearGradient>
     </defs>
 
-    <!-- === ÉLÉPHANT === -->
     <g stroke="url(#splashGold)" stroke-width="5.5" fill="none" stroke-linejoin="round" stroke-linecap="round">
-      <!-- Oreille gauche -->
       <path class="splash-stroke" d="M 75 120 L 120 62 L 178 52 L 218 100 L 198 175 L 148 218 L 88 198 Z"/>
-      <!-- Oreille droite -->
       <path class="splash-stroke" d="M 425 120 L 380 62 L 322 52 L 282 100 L 302 175 L 352 218 L 412 198 Z"/>
-      <!-- Tête -->
       <path class="splash-stroke" d="M 178 52 L 322 52 L 322 145 L 278 195 L 250 218 L 222 195 L 178 145 Z"/>
-      <!-- Détails oreille gauche -->
       <path class="splash-stroke" d="M 105 100 L 148 85 L 178 130"/>
-      <!-- Détails oreille droite -->
       <path class="splash-stroke" d="M 395 100 L 352 85 L 322 130"/>
-      <!-- Défense gauche -->
       <path class="splash-stroke" d="M 208 182 L 192 258 L 228 220"/>
-      <!-- Défense droite -->
       <path class="splash-stroke" d="M 292 182 L 308 258 L 272 220"/>
-      <!-- Trompe -->
       <path class="splash-stroke" d="M 225 215 C 218 295, 275 348, 348 322 C 390 306, 412 272, 392 248 C 378 230, 355 238, 350 262"/>
-      <!-- Ligne médiane trompe -->
       <path class="splash-stroke" d="M 250 218 C 248 288, 298 322, 352 305"/>
     </g>
 
-    <!-- Yeux -->
     <polygon class="splash-eye" points="194,118 214,128 194,138" fill="url(#splashGold)"/>
     <polygon class="splash-eye" points="306,118 286,128 306,138" fill="url(#splashGold)"/>
 
-    <!-- === NZOKO === -->
     <g fill="url(#splashGold)" font-family="'DM Sans', 'Helvetica Neue', Arial, sans-serif" font-weight="800" font-size="108" letter-spacing="-2">
       <text class="splash-char" x="55" y="405">N</text>
       <text class="splash-char" x="132" y="405">Z</text>
       <text class="splash-char" x="308" y="405">K</text>
     </g>
 
-    <!-- Premier O avec route -->
     <circle class="splash-o-1" cx="245" cy="368" r="44" stroke="url(#splashGold)" stroke-width="7" fill="none"/>
     <path class="splash-road-1" d="M 228 340 Q 248 368, 240 400" stroke="url(#splashGold)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
     <path class="splash-road-1" d="M 262 340 Q 244 368, 252 400" stroke="url(#splashGold)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
 
-    <!-- Deuxième O avec route -->
     <circle class="splash-o-2" cx="412" cy="368" r="44" stroke="url(#splashGold)" stroke-width="7" fill="none"/>
     <path class="splash-road-2" d="M 395 340 Q 415 368, 407 400" stroke="url(#splashGold)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
     <path class="splash-road-2" d="M 429 340 Q 411 368, 419 400" stroke="url(#splashGold)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
 
-    <!-- === TRANSPORT + tirets === -->
     <g class="splash-transport-text" fill="url(#splashGold)" font-family="'DM Sans', sans-serif" font-weight="600" font-size="26" letter-spacing="7">
       <text x="250" y="470" text-anchor="middle">TRANSPORT</text>
     </g>
@@ -1082,8 +1090,10 @@ body.app-on{overflow:hidden!important}
 <symbol id="i-trend" viewBox="0 0 24 24"><path d="m22 7-8.5 8.5-5-5L2 17"/><path d="M16 7h6v6"/></symbol>
 <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
 <symbol id="i-arr" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></symbol>
 </defs></svg>
 <div id="app" aria-label="Espace client Nzoko"></div>
+<div class="ap-toast" id="apToast" role="status" aria-live="polite"></div>
 
 <script>
 /* =====================================================================
@@ -1520,6 +1530,7 @@ document.getElementById('date').min = new Date().toISOString().split('T')[0];
 <script>
 /* =====================================================================
    ESPACE CLIENT — Trajets · Garages · Mes billets · Tableau de bord
+   ⚡ Mis à jour en temps réel via Firestore onSnapshot
    ===================================================================== */
 (function(){
 const N = window.NZOKO, $ = s => document.querySelector(s), A = $('#app');
@@ -1532,6 +1543,7 @@ const TITLES = {trajets:'Trajets', garages:'Garages', billets:'Mes billets', das
 const HOURS = {open:[5.5,19], sun:[7,14]};
 const DAYS = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
 let view = 'trajets', filt = 'all', gcity = '', bookings = [], state = 'idle';
+let bookingsUnsub = null;   // ⚡ listener temps réel des réservations du client
 
 A.innerHTML = `
 <aside class="ap-side">
@@ -1547,7 +1559,7 @@ A.innerHTML = `
 </aside>
 <div class="ap-main">
   <div class="ap-top"><h2 id="apT">Trajets</h2>
-    <div class="ap-pills"><span class="ap-pill"><i></i>En ligne</span><span class="ap-pill hd-m">${ic('cal')}<span id="apD"></span></span>
+    <div class="ap-pills"><span class="ap-pill live" id="apLive"><i></i>Temps réel</span><span class="ap-pill hd-m">${ic('cal')}<span id="apD"></span></span>
     <button class="ap-lo ap-lo-m" onclick="logout()" aria-label="Déconnexion">${ic('out')}</button></div></div>
   <div class="ap-body" id="apB">
     <section class="ap-view" id="v-trajets"></section><section class="ap-view" id="v-garages"></section>
@@ -1567,6 +1579,24 @@ function go(v){
 const empty = (i,t,s) => `<div class="ap-empty">${ic(i)}<b>${t}</b>${s}</div>`;
 const cu = (el, end, sfx='') => { const t0 = performance.now(); (function f(t){ const p = Math.min((t-t0)/1500,1); el.textContent = Math.round(end*(1-Math.pow(1-p,3))).toLocaleString('fr-FR') + sfx; if(p<1) requestAnimationFrame(f); })(t0); };
 const fdate = d => new Date(d).toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
+
+/* Toast dédié à l'espace client (indépendant du reste) */
+function apToast(msg, type = 'info') {
+  const el = document.getElementById('apToast');
+  if (!el) return;
+  const icoName = type === 'success' ? 'ok' : type === 'danger' ? 'ko' : 'bell';
+  el.className = 'ap-toast ' + type;
+  el.innerHTML = `<svg class="ap-ico"><use href="#i-${icoName}"/></svg><span>${msg}</span>`;
+  el.classList.add('on');
+  clearTimeout(el._to);
+  el._to = setTimeout(() => el.classList.remove('on'), 4000);
+}
+function apFlashLive(){
+  const el = document.getElementById('apLive');
+  if (!el) return;
+  el.classList.add('flash');
+  setTimeout(() => el.classList.remove('flash'), 800);
+}
 
 /* ---------- TRAJETS ---------- */
 function rTrajets(){
@@ -1626,13 +1656,13 @@ function rBillets(){
   const cnt = k => k === 'all' ? bookings.length : bookings.filter(b => st(b) === k).length;
   const l = bookings.filter(b => filt === 'all' || st(b) === filt);
   const F = [['all','Tous'],['pending','En cours'],['confirmed','Validés'],['cancelled','Annulés']];
-  $('#v-billets').innerHTML = `<div class="ap-h"><h3>Mes billets</h3><p>Historique de vos réservations.</p></div>
+  $('#v-billets').innerHTML = `<div class="ap-h"><h3>Mes billets</h3><p>Historique de vos réservations. <span style="color:var(--ok);font-weight:700">● Synchronisé</span></p></div>
   <div class="ap-chips">${F.map(([k,n]) => `<button class="ap-chip ${filt === k ? 'on' : ''}" data-f="${k}">${n} <em>${cnt(k)}</em></button>`).join('')}</div>
   <div class="ap-grid" style="grid-template-columns:repeat(auto-fill,minmax(380px,1fr))">${
     state === 'load' ? '<div class="ap-sk"></div><div class="ap-sk"></div>' :
     state === 'err' ? empty('ko','Chargement impossible','Vérifiez votre connexion puis réessayez.') :
     l.map((b,i) => { const [lb,ico] = ST[st(b)], s = (b.seats||[]).map(x => `<i>${x}</i>`).join('');
-      return `<div class="ap-card ap-tk" style="animation-delay:${i*50}ms"><div class="ap-stub">${ic('ticket')}<small>${b.reference || b.id}</small></div>
+      return `<div class="ap-card ap-tk" style="animation-delay:${i*50}ms" data-bid="${b.id}"><div class="ap-stub">${ic('ticket')}<small>${b.reference || b.id}</small></div>
       <div class="ap-tkb"><div class="ap-tkh"><div class="ap-rt">${b.trip.from}${ic('arr')}${b.trip.to}</div><span class="ap-st ${st(b)}">${ic(ico)}${lb}</span></div>
       <div class="ap-mt"><span>${ic('cal')}${fdate(b.date)}</span><span>${ic('clock')}${b.trip.duration}</span><span>${ic('users')}${(b.seats||[]).length} place(s)</span></div>
       <div class="ap-seats">${s}</div>
@@ -1648,8 +1678,7 @@ async function cancel(id){
     const b = bookings.find(x => x.id === id);
     await updateDoc(doc(window.firebaseDb,'bookings',id), {status:'cancelled'});
     if(b && b.status !== 'cancelled' && window.releaseSeats) await window.releaseSeats(b);
-    if(b) b.status = 'cancelled';
-    badge(); view === 'dash' ? rDash() : rBillets();
+    // Pas besoin de mettre à jour localement : onSnapshot va propager
   } catch(e){ alert('Impossible d\'annuler pour le moment.'); }
 }
 function badge(){
@@ -1671,21 +1700,18 @@ function rDash(){
   const pc = k => tot ? Math.round(c[k]/tot*100) : 0, goal = Math.min(100, Math.round(c.confirmed/10*100));
   const today = new Date().toISOString().split('T')[0];
   const next = act.filter(b => b.date >= today).sort((a,b) => a.date.localeCompare(b.date))[0];
-  /* dépenses par mois (6 derniers mois, selon la date de voyage) */
   const M = [], now = new Date();
   for(let i = 5; i >= 0; i--){ const d = new Date(now.getFullYear(), now.getMonth()-i, 1); M.push({k:d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0'), l:d.toLocaleDateString('fr-FR',{month:'short'}).replace('.',''), v:0}); }
   act.forEach(b => { const m = M.find(x => x.k === (b.date||'').slice(0,7)); if(m) m.v += b.total||0; });
   const mx = Math.max(...M.map(m => m.v), 1), bw = 36;
   const bars = M.map((m,i) => { const h = Math.max(m.v/mx*120, m.v ? 4 : 2), x = 14 + i*58;
     return `<rect class="ap-bar" x="${x}" y="${140-h}" width="${bw}" height="${h}" rx="6" fill="url(#bg)" style="transition-delay:${i*90}ms"><title>${fc(m.v)}</title></rect><text class="vl" x="${x+bw/2}" y="${134-h}" text-anchor="middle">${m.v ? Math.round(m.v/1000)+'k' : ''}</text><text x="${x+bw/2}" y="156" text-anchor="middle">${m.l}</text>`; }).join('');
-  /* destinations */
   const D = {}; act.forEach(b => D[b.trip.to] = (D[b.trip.to]||0) + 1);
   const top = Object.entries(D).sort((a,b) => b[1]-a[1]).slice(0,4), tm = top[0] ? top[0][1] : 1;
-  /* donut */
   const seg = [['pending','var(--wn)','En cours'],['confirmed','var(--ok)','Validés'],['cancelled','var(--ko)','Annulés']]; let off = 0;
   const don = seg.map(([k,col]) => { const p = tot ? c[k]/tot*100 : 0, o = off; off += p; return `<circle cx="21" cy="21" r="15.9155" stroke="${col}" data-p="${p}" stroke-dasharray="0 100" stroke-dashoffset="${-o}"/>`; }).join('');
   const kp = (i,l,v,s,n,sf) => `<div class="ap-card ap-kpi"><div class="ib">${ic(i)}</div><span>${l}</span><b ${n !== undefined ? `data-n="${n}" data-s="${sf||''}">0` : '>' + v}</b><small>${s}</small></div>`;
-  $('#v-dash').innerHTML = `<div class="ap-h"><h3>Bonjour, ${(N.currentUser && N.currentUser.displayName || 'Voyageur').split(' ')[0]}</h3><p>Voici le résumé de vos voyages avec Nzoko Transport.</p></div>
+  $('#v-dash').innerHTML = `<div class="ap-h"><h3>Bonjour, ${(N.currentUser && N.currentUser.displayName || 'Voyageur').split(' ')[0]}</h3><p>Voici le résumé de vos voyages avec Nzoko Transport. <span style="color:var(--ok);font-weight:700">● Temps réel</span></p></div>
   <div class="ap-kpis">
     ${kp('ticket','Billets réservés','',tot ? c.pending + ' en cours' : 'Aucun pour l\'instant',tot)}
     ${kp('wallet','Total dépensé','',' hors annulations',spent,' FCFA')}
@@ -1701,7 +1727,6 @@ function rDash(){
       <div class="ap-leg">${seg.map(([k,col,l]) => `<span><i style="background:${col}"></i>${l}<b>${c[k]}</b></span>`).join('')}</div></div></div>
   </div>
   <div class="ap-card"><h4>Destinations favorites ${ic('trend')}</h4><div class="ap-hb">${top.map(([n,v]) => `<div><div class="r">${n}<span>${v} voyage(s)</span></div><div class="t"><div class="f" data-w="${v/tm*100}"></div></div></div>`).join('') || '<span style="color:var(--muted);font-size:.85rem">Vos destinations apparaîtront après votre première réservation.</span>'}</div></div>`;
-  /* animations */
   requestAnimationFrame(() => setTimeout(() => {
     $('#v-dash').querySelectorAll('.gv').forEach(g => g.style.strokeDasharray = g.dataset.v + ' 100');
     $('#v-dash').querySelectorAll('.nd').forEach(n => n.style.transform = `rotate(${n.dataset.v*1.8-90}deg)`);
@@ -1712,20 +1737,74 @@ function rDash(){
   }, 60));
 }
 
-/* ---------- DONNÉES ---------- */
+/* ---------- ⚡ ÉCOUTE TEMPS RÉEL DES RÉSERVATIONS DU CLIENT ---------- */
 async function load(){
   if(!window.firebaseDb || !N.currentUser) return;
-  state = 'load'; if(view === 'billets') rBillets();
+
+  // Couper l'ancien listener s'il existe
+  if (bookingsUnsub) { try { bookingsUnsub(); } catch(_){} bookingsUnsub = null; }
+
+  state = 'load';
+  if(view === 'billets') rBillets();
+  if(view === 'dash') rDash();
+
   try {
-    const { collection, query, where, getDocs } = await import('https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js');
-    const s = await getDocs(query(collection(window.firebaseDb,'bookings'), where('userId','==',N.currentUser.uid)));
-    bookings = s.docs.map(d => ({id:d.id, ...d.data()})).sort((a,b) => ((b.createdAt && b.createdAt.seconds) || 9e9) - ((a.createdAt && a.createdAt.seconds) || 9e9));
-    state = 'ok';
-  } catch(e){ console.error(e); state = 'err'; }
-  badge(); if(view === 'billets') rBillets(); else if(view === 'dash') rDash();
+    const { collection, query, where, onSnapshot } = await import('https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js');
+    const q = query(collection(window.firebaseDb,'bookings'), where('userId','==',N.currentUser.uid));
+
+    // État initial avant le 1er snapshot
+    const prevStatus = {};      // id -> status
+    let firstSnapshot = true;
+    const seenIds = new Set();
+
+    bookingsUnsub = onSnapshot(q, (snap) => {
+      const prevIds = new Set(bookings.map(b => b.id));
+      const prevStat = Object.fromEntries(bookings.map(b => [b.id, st(b)]));
+
+      bookings = snap.docs.map(d => ({id: d.id, ...d.data()}))
+        .sort((a,b) => ((b.createdAt && b.createdAt.seconds) || 9e9) - ((a.createdAt && a.createdAt.seconds) || 9e9));
+
+      // Détection des changements de statut → notification
+      if (!firstSnapshot) {
+        let changed = false;
+        bookings.forEach(b => {
+          const old = prevStat[b.id];
+          if (old && old !== st(b)) {
+            changed = true;
+            const ref = b.reference || b.id;
+            const verb = st(b) === 'confirmed' ? 'validé ✓' : st(b) === 'cancelled' ? 'annulé' : 'remis en attente';
+            const type = st(b) === 'confirmed' ? 'success' : st(b) === 'cancelled' ? 'danger' : 'info';
+            apToast(`Billet ${ref} ${verb} par Nzoko`, type);
+            // Flash visuel sur la carte du billet si on est sur la vue billets
+            setTimeout(() => {
+              const card = document.querySelector(`.ap-tk[data-bid="${b.id}"]`);
+              if (card) { card.classList.add('flash-new'); setTimeout(() => card.classList.remove('flash-new'), 2200); }
+            }, 100);
+          }
+        });
+        if (changed) apFlashLive();
+      }
+      firstSnapshot = false;
+
+      state = 'ok';
+      badge();
+      if(view === 'billets') rBillets();
+      else if(view === 'dash') rDash();
+    }, (err) => {
+      console.error('onSnapshot bookings error:', err);
+      state = 'err';
+      if(view === 'billets') rBillets();
+    });
+  } catch(e){
+    console.error('Erreur import firestore:', e);
+    state = 'err';
+    if(view === 'billets') rBillets();
+  }
 }
+
 const oc = window.confirmBooking;
-window.confirmBooking = async function(){ await oc(); setTimeout(load, 700); };
+window.confirmBooking = async function(){ await oc(); /* le onSnapshot va recharger tout seul */ };
+
 window.enterApp = function(){
   if(document.body.classList.contains('app-on')) return;
   const u = N.currentUser, nm = u.displayName || 'Voyageur';
@@ -1733,7 +1812,10 @@ window.enterApp = function(){
   $('#apAv').textContent = nm.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
   document.body.classList.add('app-on'); go('trajets'); load();
 };
-window.leaveApp = function(){ document.body.classList.remove('app-on'); bookings = []; state = 'idle'; filt = 'all'; };
+window.leaveApp = function(){
+  if (bookingsUnsub) { try { bookingsUnsub(); } catch(_){} bookingsUnsub = null; }
+  document.body.classList.remove('app-on'); bookings = []; state = 'idle'; filt = 'all';
+};
 })();
 </script>
 
@@ -1772,7 +1854,6 @@ window.watchSeats = function(trip, date, onData, onErr){
     onData(Object.keys(taken).map(Number));
   }, err => { console.error(err); if (onErr) onErr(err); });
 };
-/* Réserve les places ET crée la réservation en une seule opération atomique : impossible de réserver 2 fois la même place */
 window.bookSeats = async function(ref, data){
   const mapRef = doc(db, 'seatmaps', seatKey(data.trip, data.date));
   await runTransaction(db, async tx => {
@@ -1942,6 +2023,7 @@ function mapFirebaseError(code){
   };
   return map[code] || 'Une erreur est survenue.';
 }
+
 </script>
 </body>
 </html>
