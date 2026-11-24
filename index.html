@@ -830,6 +830,154 @@ body.app-on{overflow:hidden!important}
  .ap-tk::before,.ap-tk::after{display:none}
 }
 @media(prefers-reduced-motion:reduce){#app *{animation:none!important;transition:none!important}}
+/* ============================================================
+   COLIS & FRET — Envoi, suivi, compte pro commerçant
+   (même thème : vert profond + or)
+   ============================================================ */
+.cl{max-width:1100px;margin:auto;text-align:left}
+.cl *{min-width:0}
+.cl-hero{position:relative;overflow:hidden;border-radius:18px;padding:clamp(22px,4vw,40px);margin-bottom:16px;background:linear-gradient(135deg,var(--ink2) 0%,#0a2323 100%);border:1px solid var(--line)}
+.cl-hero::after{content:'';position:absolute;right:clamp(-10px,2vw,30px);top:50%;width:clamp(110px,22vw,210px);aspect-ratio:1;transform:translateY(-50%);opacity:.12;pointer-events:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d4af37' stroke-width='.9' stroke-linejoin='round' stroke-linecap='round'%3E%3Cpath d='M21 8 12 3 3 8v8l9 5 9-5Z'/%3E%3Cpath d='m3 8 9 5 9-5M12 13v8M7.5 5.5l9 5'/%3E%3C/svg%3E") no-repeat center/contain}
+.cl-tag{display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border-radius:30px;border:1px solid rgba(212,175,55,.4);background:rgba(212,175,55,.1);color:var(--gold);font-size:var(--fs-micro);font-weight:800;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:14px}
+.cl-tag svg{width:14px;height:14px}
+.cl-hero h2{margin:0 0 10px;font-size:clamp(1.4rem,4.2vw,2.2rem)}
+.cl-hero h2 em{font-style:normal;color:var(--gold)}
+.cl-hero p{color:var(--muted);max-width:520px;font-size:var(--fs-body);line-height:1.65;position:relative;z-index:1}
+.cl-tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:6px;border-radius:14px;border:1px solid var(--line);background:rgba(10,35,35,.7);margin-bottom:16px}
+.cl-tabs button{display:flex;align-items:center;justify-content:center;gap:8px;padding:12px 10px;border-radius:10px;color:var(--muted);font-weight:700;font-size:var(--fs-small);letter-spacing:.4px;text-transform:uppercase;transition:.25s;text-align:center}
+.cl-tabs button svg{width:16px;height:16px;flex-shrink:0}
+.cl-tabs button:hover{color:#fff}
+.cl-tabs button.on{background:var(--gold);color:var(--ink)}
+.cl-card{background:var(--ink2);border:1px solid var(--line);border-radius:14px;padding:clamp(16px,3vw,24px);margin-bottom:14px}
+.cl-card h4{display:flex;align-items:center;gap:10px;font-size:1.02rem;color:#fff;margin:0 0 16px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.cl-n{width:24px;height:24px;border-radius:50%;background:var(--gold);color:var(--ink);display:grid;place-items:center;font-size:.76rem;font-weight:800;flex-shrink:0}
+.cl-row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.cl-row2.w{grid-template-columns:1fr 150px}
+.cl-lbl{font-size:var(--fs-micro);text-transform:uppercase;letter-spacing:1.3px;color:var(--gold);font-weight:700;margin:16px 0 8px;display:block}
+.cl-cats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cl-cat{display:flex;align-items:center;gap:12px;padding:12px;border-radius:10px;border:1px solid var(--line);background:rgba(13,43,43,.6);text-align:left;color:#fff;transition:.25s}
+.cl-cat:hover{border-color:rgba(212,175,55,.5)}
+.cl-cat.on{border-color:var(--gold);background:rgba(212,175,55,.1)}
+.cl-ci{width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,.07);color:var(--muted);display:grid;place-items:center;flex-shrink:0;transition:.25s}
+.cl-ci svg{width:19px;height:19px}
+.cl-cat.on .cl-ci{background:var(--gold);color:var(--ink)}
+.cl-cat b{display:block;font-size:.88rem;line-height:1.25}
+.cl-cat small{display:block;color:var(--muted);font-size:.74rem;margin-top:2px}
+.cl-hint{display:block;color:var(--muted);font-size:.74rem;margin-top:6px}
+.cl-pay{display:grid;grid-template-columns:230px 1fr;gap:20px;align-items:start}
+.cl-price{border-radius:14px;padding:22px 16px;text-align:center;background:linear-gradient(160deg,#0a2323,#133a3a);border:1px solid rgba(212,175,55,.35);position:sticky;top:0}
+.cl-price small{display:block;font-size:.68rem;letter-spacing:1.4px;text-transform:uppercase;font-weight:800;color:var(--muted)}
+.cl-price b{display:block;color:var(--gold);font-size:clamp(1.7rem,4vw,2.2rem);line-height:1.1;margin:10px 0 8px;letter-spacing:-.5px}
+.cl-price span{font-size:.78rem;color:var(--muted)}
+.cl-price em{display:block;font-style:normal;margin-top:10px;font-size:.72rem;color:var(--success);font-weight:700}
+.cl-opts{display:flex;flex-direction:column;gap:10px}
+.cl-opt{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:rgba(13,43,43,.6);text-align:left;color:#fff;transition:.25s;width:100%}
+.cl-opt:hover{border-color:rgba(212,175,55,.5)}
+.cl-opt.on{border-color:var(--gold);background:rgba(212,175,55,.1)}
+.cl-opt .t{flex:1}
+.cl-opt .t b{display:block;font-size:.9rem}
+.cl-opt .t small{display:block;color:var(--muted);font-size:.76rem;margin-top:1px}
+.cl-opt .ck{width:18px;height:18px;color:var(--gold);opacity:0;flex-shrink:0;transition:.2s}
+.cl-opt.on .ck{opacity:1}
+.cl-lg{width:46px;height:34px;border-radius:6px;display:grid;place-items:center;font-size:.62rem;font-weight:900;flex-shrink:0;line-height:1;text-align:center;letter-spacing:-.2px}
+.cl-lg.mtn{background:#ffcc00;color:#111}
+.cl-lg.air{background:#f0526f;color:#fff}
+.cl-lg.ic{background:rgba(255,255,255,.08);color:var(--gold)}
+.cl-lg svg{width:18px;height:18px}
+.cl-num{margin-top:4px;padding:14px;border-radius:10px;border:1px solid var(--line);background:rgba(10,35,35,.7)}
+.cl-foot{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:6px;padding:4px 2px 0}
+.cl-safe{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:.78rem}
+.cl-safe svg{width:16px;height:16px;color:var(--success);flex-shrink:0}
+.cl-err{color:var(--danger);font-size:var(--fs-small);width:100%;display:none;font-weight:600}
+.cl-err.on{display:block}
+.cl-ico{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+/* Reçu */
+.cl-done{text-align:center;padding:clamp(24px,5vw,44px) clamp(16px,3vw,28px)}
+.cl-done .big{width:64px;height:64px;border-radius:50%;background:rgba(46,204,113,.14);color:var(--success);display:grid;place-items:center;margin:0 auto 14px}
+.cl-done .big svg{width:34px;height:34px}
+.cl-ref{display:inline-block;margin:10px 0 18px;padding:10px 20px;border-radius:10px;border:1px dashed var(--gold);color:var(--gold);font-weight:800;letter-spacing:2px;font-size:1.15rem}
+.cl-sum{max-width:460px;margin:0 auto 20px;text-align:left;display:grid;gap:8px;font-size:.88rem}
+.cl-sum div{display:flex;justify-content:space-between;gap:14px;padding-bottom:8px;border-bottom:1px dashed var(--line);color:var(--muted)}
+.cl-sum b{color:#fff;text-align:right}
+.cl-sum .code b{color:var(--gold);letter-spacing:3px;font-size:1.05rem}
+.cl-acts{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+/* Suivi */
+.cl-find{display:flex;gap:10px;flex-wrap:wrap}
+.cl-find input{flex:1 1 220px;padding:13px 16px;border:1px solid rgba(255,255,255,.12);background:rgba(13,43,43,.7);color:#fff;font:inherit;border-radius:8px;text-transform:uppercase;letter-spacing:1px}
+.cl-find input::placeholder{color:#6b8399;text-transform:none;letter-spacing:0}
+.cl-find input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,175,55,.15)}
+.cl-res{margin-top:16px}
+.cl-tl{list-style:none;margin:18px 0 0;padding:0;position:relative}
+.cl-tl li{display:flex;gap:14px;padding-bottom:20px;position:relative;color:var(--muted)}
+.cl-tl li:last-child{padding-bottom:0}
+.cl-tl li::before{content:'';position:absolute;left:13px;top:28px;bottom:0;width:2px;background:var(--line)}
+.cl-tl li:last-child::before{display:none}
+.cl-tl i{width:28px;height:28px;border-radius:50%;border:2px solid var(--line);background:var(--ink);display:grid;place-items:center;flex-shrink:0;z-index:1}
+.cl-tl i svg{width:14px;height:14px;opacity:0}
+.cl-tl b{display:block;font-size:.9rem;color:var(--muted)}
+.cl-tl small{font-size:.76rem}
+.cl-tl li.ok i{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+.cl-tl li.ok i svg{opacity:1}
+.cl-tl li.ok::before{background:var(--gold)}
+.cl-tl li.ok b{color:#fff}
+.cl-tl li.now i{box-shadow:0 0 0 5px rgba(212,175,55,.2)}
+.cl-st{display:inline-flex;align-items:center;gap:6px;font-size:.68rem;font-weight:800;padding:4px 11px;border-radius:20px;text-transform:uppercase;letter-spacing:.7px;white-space:nowrap}
+.cl-st.wait{background:rgba(255,193,7,.14);color:var(--amber)}
+.cl-st.ok{background:rgba(46,204,113,.14);color:var(--success)}
+.cl-st.ko{background:rgba(231,76,60,.14);color:var(--danger)}
+.cl-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px;margin-top:16px}
+.cl-pc{text-align:left;display:flex;flex-direction:column;gap:10px;padding:16px;border-radius:14px;border:1px solid var(--line);background:var(--ink2);color:var(--text);transition:.3s}
+.cl-pc:hover{border-color:var(--gold);transform:translateY(-3px)}
+.cl-pc .h{display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap}
+.cl-pc .h span.r{font-size:.72rem;font-weight:800;letter-spacing:1px;color:var(--gold)}
+.cl-pc .rt{color:#fff;font-weight:700;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.cl-pc .m{display:flex;justify-content:space-between;color:var(--muted);font-size:.8rem;gap:8px;flex-wrap:wrap}
+.cl-pc .m b{color:var(--gold)}
+.cl-empty{text-align:center;padding:36px 14px;color:var(--muted)}
+.cl-empty b{display:block;color:#fff;margin-bottom:4px}
+/* Compte pro */
+.cl-pro-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;padding-bottom:18px;margin-bottom:18px;border-bottom:1px solid var(--line)}
+.cl-pro-id{display:flex;gap:14px;align-items:center;min-width:0}
+.cl-pro-ic{width:52px;height:52px;border-radius:12px;background:var(--gold);color:var(--ink);display:grid;place-items:center;flex-shrink:0}
+.cl-pro-ic svg{width:26px;height:26px}
+.cl-pro-id h3{margin:6px 0 0;font-size:1.25rem}
+.cl-pro-id small{color:var(--muted);font-size:.72rem;letter-spacing:.8px}
+.cl-bdg{display:inline-flex;align-items:center;gap:6px;font-size:.62rem;font-weight:800;letter-spacing:.8px;text-transform:uppercase;padding:3px 10px;border-radius:6px;margin-right:6px}
+.cl-bdg.g{background:rgba(212,175,55,.14);color:var(--gold)}
+.cl-bdg.v{background:rgba(46,204,113,.14);color:var(--success)}
+.cl-bdg.a{background:rgba(255,193,7,.14);color:var(--amber)}
+.cl-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.cl-kpi{border-radius:12px;padding:16px;border:1px solid var(--line);background:rgba(13,43,43,.6)}
+.cl-kpi small{display:block;font-size:.66rem;letter-spacing:1px;text-transform:uppercase;font-weight:800;color:var(--muted)}
+.cl-kpi b{display:block;color:#fff;font-size:clamp(1.4rem,3.4vw,1.9rem);margin:8px 0 6px;line-height:1.1}
+.cl-kpi b em{font-style:normal;font-size:.72rem;color:var(--success);font-weight:700;margin-left:6px}
+.cl-kpi span{font-size:.76rem;color:var(--muted)}
+.cl-kpi.ec{border-color:rgba(46,204,113,.35);background:rgba(46,204,113,.07)}
+.cl-kpi.ec b{color:var(--success)}
+.cl-kpi.fa{border-color:rgba(212,175,55,.5);background:linear-gradient(160deg,#0a2323,#133a3a)}
+.cl-kpi.fa b{color:var(--gold)}
+.cl-priv{border-radius:12px;padding:16px;border:1px solid rgba(212,175,55,.3);background:rgba(212,175,55,.06)}
+.cl-priv h5{font-size:.78rem;letter-spacing:1px;text-transform:uppercase;color:var(--gold);margin:0 0 12px;display:flex;align-items:center;gap:8px}
+.cl-priv div.g{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.cl-priv div.g span{display:flex;gap:10px;align-items:flex-start;font-size:.8rem;color:var(--text);line-height:1.45}
+.cl-priv div.g svg{width:16px;height:16px;color:var(--gold);margin-top:2px}
+.cl-new h4{border:0;padding:0;margin-bottom:6px}
+.cl-new p{color:var(--muted);font-size:.84rem;margin-bottom:16px}
+.cl-lock{text-align:center;padding:clamp(24px,5vw,40px) 16px}
+.cl-lock svg{width:42px;height:42px;color:var(--gold);margin:0 auto 12px;opacity:.8}
+.cl-lock p{color:var(--muted);max-width:420px;margin:0 auto 18px;font-size:.9rem}
+.cl-back{display:inline-flex;align-items:center;gap:6px;color:var(--gold);font-weight:700;font-size:.82rem;margin-bottom:12px;padding:6px 0}
+@media(max-width:860px){
+  .cl-pay{grid-template-columns:1fr}
+  .cl-price{position:static}
+  .cl-kpis{grid-template-columns:1fr}
+  .cl-priv div.g{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+  .cl-row2,.cl-row2.w,.cl-cats{grid-template-columns:1fr}
+  .cl-foot .btn{width:100%}
+  .cl-tabs button{font-size:.68rem;padding:11px 6px}
+}
 </style>
 </head>
 <body>
@@ -908,6 +1056,8 @@ body.app-on{overflow:hidden!important}
   <nav id="nv" aria-label="Navigation principale"><ul>
     <li><a href="#accueil">Accueil</a></li>
     <li><a href="#trajets">Trajets</a></li>
+    <li><a href="#colis">Envoyer un colis</a></li>
+    <li><a href="#suivi">Suivre un colis</a></li>
     <li><a href="#garages">Garages</a></li>
     <li><a href="#aide">Aide</a></li>
   </ul></nav>
@@ -1042,6 +1192,23 @@ body.app-on{overflow:hidden!important}
 </div></section>
 
 <!-- GARAGES -->
+<!-- COLIS & FRET -->
+<section id="colis"><div class="wrap">
+  <div id="colisPublic"></div>
+</div></section>
+
+<!-- SUIVI COLIS -->
+<section id="suivi" style="padding-top:0"><div class="wrap">
+  <div class="section-head rv">
+    <div>
+      <span class="eyebrow">Suivi en temps réel</span>
+      <h2>Suivre un colis</h2>
+      <p class="lead">Entrez la référence reçue lors de l'enregistrement pour connaître l'état de votre envoi.</p>
+    </div>
+  </div>
+  <div id="suiviPublic"></div>
+</div></section>
+
 <section id="garages"><div class="wrap">
   <div class="section-head rv">
     <div>
@@ -1118,7 +1285,7 @@ body.app-on{overflow:hidden!important}
       </div>
       <p style="color:var(--muted);font-size:var(--fs-small);line-height:1.7;max-width:340px">La plateforme de réservation de billets de bus qui connecte les villes du Congo depuis 2024.</p>
     </div>
-    <div><h4>Navigation</h4><ul><li><a href="#accueil">Accueil</a></li><li><a href="#trajets">Trajets</a></li><li><a href="#destinations">Destinations</a></li><li><a href="#garages">Garages</a></li></ul></div>
+    <div><h4>Navigation</h4><ul><li><a href="#accueil">Accueil</a></li><li><a href="#trajets">Trajets</a></li><li><a href="#colis">Envoyer un colis</a></li><li><a href="#suivi">Suivre un colis</a></li><li><a href="#destinations">Destinations</a></li><li><a href="#garages">Garages</a></li></ul></div>
     <div><h4>Aide</h4><ul><li><a href="#aide">Centre d'aide</a></li><li><a href="#aide">Nous contacter</a></li><li><a href="#">Conditions générales</a></li><li><a href="#">Confidentialité</a></li></ul></div>
     <div><h4>Contact</h4><ul><li>+242 06 XXX XX XX</li><li>contact@nzoko-transport.cg</li><li>Brazzaville, Congo</li><li>7j/7 · 6h–22h</li></ul></div>
   </div>
@@ -1235,6 +1402,8 @@ body.app-on{overflow:hidden!important}
 <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
 <symbol id="i-arr" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
 <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></symbol>
+<symbol id="i-box" viewBox="0 0 24 24"><path d="M21 8 12 3 3 8v8l9 5 9-5Z"/><path d="m3 8 9 5 9-5M12 13v8"/></symbol>
+<symbol id="i-track" viewBox="0 0 24 24"><circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/></symbol>
 </defs></svg>
 <div id="app" aria-label="Espace client Nzoko"></div>
 <div class="ap-toast" id="apToast" role="status" aria-live="polite"></div>
@@ -1727,6 +1896,434 @@ document.getElementById('date').min = new Date().toISOString().split('T')[0];
 
 <script>
 /* =====================================================================
+   COLIS & FRET — Envoyer · Suivre · Compte Pro Commerçant (-15%)
+   ===================================================================== */
+(function(){
+const N = window.NZOKO;
+const fc = n => (n||0).toLocaleString('fr-FR') + ' FCFA';
+const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const dig = s => String(s||'').replace(/\D/g,'');
+const FSURL = 'https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js';
+const fsm = () => import(FSURL);
+
+/* ---------- ⚙️ TARIFS (modifiables) ---------- */
+const PRO_RATE = 0.15;       // remise compte pro
+const PRO_MIN  = 10;         // envois/mois pour débloquer la remise
+const BASE_FALLBACK = 6000;  // prix de base si le trajet n'est pas dans TRIPS
+const CAT = {
+  doc:    {label:'Document / Pli',        sub:'Lettre, Dossier, Papiers',    ico:'doc',   mult:.35, incl:1,  w:1},
+  small:  {label:'Petit Colis (< 5kg)',   sub:'Sachet, Paquet compact',      ico:'box',   mult:.60, incl:5,  w:2},
+  carton: {label:'Carton / Sac (5-20kg)', sub:'Valise, Carton marchandise',  ico:'box',   mult:.94, incl:5,  w:5},
+  heavy:  {label:'Gros Matériel (> 20kg)',sub:'Équipement lourd, Gros sac',  ico:'truck', mult:1.6, incl:20, w:25}
+};
+const EXTRA_KG = 150; // FCFA par kg au-delà du poids inclus (sur une ligne à 8 500 FCFA)
+const STEPS = [
+  ['registered','Colis enregistré','Reçu officiel Nzoko émis'],
+  ['transit','En transit','Votre colis est en route'],
+  ['arrived',"Arrivé à l'agence",'Prêt à être retiré avec le code'],
+  ['delivered','Retiré / Livré','Remis au destinataire']
+];
+const STL = {registered:['Enregistré','wait'], transit:['En transit','wait'], arrived:['Arrivé','ok'], delivered:['Retiré','ok'], cancelled:['Annulé','ko']};
+
+function routeBase(a,b){
+  const t = TRIPS.find(x=>x.from===a&&x.to===b) || TRIPS.find(x=>x.from===b&&x.to===a);
+  return t ? t.price : BASE_FALLBACK;
+}
+function calcPrice(a,b,cat,w){
+  if(!a || !b || a===b) return 0;
+  const base = routeBase(a,b), c = CAT[cat];
+  const extra = Math.max(0, (+w||0) - c.incl);
+  const raw = base*c.mult + extra*(base/8500)*EXTRA_KG;
+  return Math.max(1000, Math.round(raw/500)*500);
+}
+
+/* ---------- Icônes ---------- */
+const I = {
+  box:'<path d="M21 8 12 3 3 8v8l9 5 9-5Z"/><path d="m3 8 9 5 9-5M12 13v8"/>',
+  doc:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5M9 13h6M9 17h6"/>',
+  truck:'<path d="M14 18V6a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9M19 18h2a1 1 0 0 0 1-1v-3.7a1 1 0 0 0-.2-.6l-3-3.7a1 1 0 0 0-.8-.4H14"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>',
+  ok:'<path d="m5 12 5 5L20 7"/>',
+  check:'<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>',
+  shield:'<path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6Z"/><path d="m9 12 2 2 4-4"/>',
+  user:'<circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/>',
+  phone:'<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/>',
+  bld:'<path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M10 21v-4h4v4"/>',
+  hand:'<path d="M11 14h3a2 2 0 0 0 0-4h-3.5a2 2 0 0 0-1.4.6L6 13.7"/><path d="m3 12 5 5 1-1M14 14l4.5-4.5a1.9 1.9 0 0 1 2.7 2.7L16 17.5 11 20l-4-2"/>',
+  dl:'<path d="M12 3v12M7 11l5 5 5-5M4 21h16"/>',
+  tag:'<path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8Z"/><circle cx="7.5" cy="7.5" r="1.2"/>',
+  pct:'<path d="m19 5-14 14"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/>',
+  inv:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5M9 13h6M9 17h4"/>',
+  bolt:'<path d="M13 2 4 14h7l-1 8 9-12h-7Z"/>',
+  store:'<path d="M3 9 5 4h14l2 5M3 9v11h18V9M3 9h18M9 20v-6h6v6"/>',
+  lock:'<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',
+  back:'<path d="m15 18-6-6 6-6"/>'
+};
+const ic = (n,c) => `<svg class="cl-ico ${c||''}" viewBox="0 0 24 24" aria-hidden="true">${I[n]||''}</svg>`;
+
+/* ---------- Toast (réutilise #apToast) ---------- */
+function toast(msg, type){
+  const el = document.getElementById('apToast'); if(!el) return alert(msg);
+  type = type || 'info';
+  el.className = 'ap-toast ' + type;
+  el.innerHTML = `<svg class="ap-ico"><use href="#i-${type==='success'?'ok':type==='danger'?'ko':'bell'}"/></svg><span>${esc(msg)}</span>`;
+  el.classList.add('on'); clearTimeout(el._to); el._to = setTimeout(()=>el.classList.remove('on'), 4200);
+}
+
+/* ---------- Stockage : Firestore (collection « parcels ») + secours local ---------- */
+const LS = 'nzoko_parcels';
+const lsGet = () => { try{ return JSON.parse(localStorage.getItem(LS)||'[]'); }catch(e){ return []; } };
+const lsSet = a => { try{ localStorage.setItem(LS, JSON.stringify(a)); }catch(e){} };
+async function saveParcel(p){
+  try{
+    if(!window.firebaseDb) throw new Error('no-db');
+    const { doc, setDoc, serverTimestamp } = await fsm();
+    await setDoc(doc(window.firebaseDb,'parcels',p.reference), {...p, createdAt: serverTimestamp()});
+    return 'cloud';
+  }catch(e){
+    console.error('Colis : enregistrement cloud impossible, copie locale', e);
+    const a = lsGet(); a.unshift(p); lsSet(a); return 'local';
+  }
+}
+async function myParcels(){
+  const U = N.currentUser; if(!U) return [];
+  const cloud = [];
+  try{
+    const { collection, query, where, getDocs } = await fsm();
+    const s = await getDocs(query(collection(window.firebaseDb,'parcels'), where('userId','==',U.uid)));
+    s.forEach(d => cloud.push(d.data()));
+  }catch(e){ console.error('Colis : lecture cloud', e); }
+  const loc = lsGet().filter(p => p.userId===U.uid && !cloud.some(c=>c.reference===p.reference));
+  return cloud.concat(loc).sort((a,b)=>(b.createdMs||0)-(a.createdMs||0));
+}
+async function findParcel(ref){
+  ref = String(ref||'').trim().toUpperCase();
+  let p = lsGet().find(x=>x.reference===ref) || null;
+  try{
+    const { doc, getDoc } = await fsm();
+    const s = await getDoc(doc(window.firebaseDb,'parcels',ref));
+    if(s.exists()) p = s.data();
+  }catch(e){ console.error('Colis : recherche', e); }
+  return p;
+}
+/* Profil Pro */
+const PK = uid => 'nzoko_pro_' + uid;
+async function getPro(){
+  const U = N.currentUser; if(!U) return null;
+  try{
+    const { doc, getDoc } = await fsm();
+    const s = await getDoc(doc(window.firebaseDb,'users',U.uid));
+    if(s.exists() && s.data().pro) return s.data().pro;
+  }catch(e){}
+  try{ return JSON.parse(localStorage.getItem(PK(U.uid))||'null'); }catch(e){ return null; }
+}
+async function setPro(o){
+  const U = N.currentUser;
+  try{ localStorage.setItem(PK(U.uid), JSON.stringify(o)); }catch(e){}
+  try{ const { doc, setDoc } = await fsm(); await setDoc(doc(window.firebaseDb,'users',U.uid), {pro:o}, {merge:true}); }catch(e){ console.error('Profil pro (local seulement)', e); }
+}
+
+/* ---------- Suivi : frise ---------- */
+const fdt = ms => ms ? new Date(ms).toLocaleDateString('fr-FR',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}) : '';
+function timeline(p){
+  const idx = Math.max(0, STEPS.findIndex(s=>s[0]===p.status));
+  const hist = {}; (p.history||[]).forEach(h => hist[h.s] = h.t);
+  if(p.status==='cancelled') return `<div class="cl-empty"><span class="cl-st ko">Annulé</span><p style="margin-top:10px">Ce colis a été annulé.</p></div>`;
+  return `<ul class="cl-tl">${STEPS.map((s,i)=>`<li class="${i<=idx?'ok':''} ${i===idx?'now':''}"><i>${ic('ok')}</i><div><b>${s[1]}</b><small>${i===0 ? fdt(p.createdMs) : (hist[s[0]] ? fdt(hist[s[0]]) : (i<=idx ? '' : s[2]))}${i===idx && i>0 ? ' · ' + s[2] : ''}</small></div></li>`).join('')}</ul>`;
+}
+function parcelCard(p){
+  return `<div class="cl-card" style="margin:0"><div class="h" style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center">
+    <div><small style="color:var(--gold);font-weight:800;letter-spacing:1.5px">${esc(p.reference)}</small>
+    <div style="color:#fff;font-weight:700;font-size:1.1rem;margin-top:2px">${esc(p.from)} → ${esc(p.to)}</div></div>
+    <span class="cl-st ${(STL[p.status]||STL.registered)[1]}">${(STL[p.status]||STL.registered)[0]}</span></div>
+    <div style="display:flex;gap:18px;flex-wrap:wrap;color:var(--muted);font-size:.82rem;margin-top:12px">
+      <span>Destinataire : <b style="color:#fff">${esc(p.receiver&&p.receiver.name)}</b></span>
+      <span>${esc(CAT[p.cat]?CAT[p.cat].label:'Colis')} · ${esc(p.weight)} kg</span>
+      <span>Frais : <b style="color:var(--gold)">${fc(p.price)}</b></span></div>
+    ${timeline(p)}</div>`;
+}
+
+/* =====================================================================
+   FORMULAIRE D'ENVOI  +  COMPTE PRO
+   ===================================================================== */
+const COLIS = window.COLIS = { draft:null, pendingGo:false };
+
+COLIS.mount = function(el){
+  const S = {mode:'part', proForm:false};
+  el.innerHTML = '';
+  const root = document.createElement('div'); root.className = 'cl'; el.appendChild(root);
+
+  root.innerHTML = `
+    <div class="cl-hero"><span class="cl-tag">${ic('box')}Service Nzoko Fret &amp; Colis Express</span>
+      <h2>Envoyez vos colis en toute <em>sécurité</em></h2>
+      <p>Expédiez vos plis, cartons et marchandises d'une ville à une autre avec un suivi en temps réel et un retrait sécurisé par code à l'agence de destination.</p></div>
+    <div class="cl-tabs" role="tablist">
+      <button class="on" data-m="part" role="tab">${ic('box')}Expédition particulière</button>
+      <button data-m="pro" role="tab">${ic('truck')}Compte pro commerçant (-15%)</button></div>
+    <div data-body></div>`;
+  const body = root.querySelector('[data-body]');
+  root.querySelectorAll('[data-m]').forEach(b => b.onclick = () => {
+    S.mode = b.dataset.m; S.proForm = false;
+    root.querySelectorAll('[data-m]').forEach(x => x.classList.toggle('on', x===b));
+    render();
+  });
+
+  function render(){ if(S.mode==='part') formView(false); else if(S.proForm) formView(true); else proView(); }
+
+  /* ---------- Formulaire ---------- */
+  function formView(pro){
+    const opts = CITIES.map(c => `<option>${esc(c.name)}</option>`).join('');
+    const U = N.currentUser;
+    let cat = 'carton', pay = pro ? 'b2b' : 'mtn';
+    body.innerHTML = `
+      ${pro ? `<button class="cl-back" data-back>${ic('back')}Retour au compte pro</button>` : ''}
+      <div class="cl-card"><h4><span class="cl-n">1</span>Itinéraire &amp; Type de colis</h4>
+        <div class="cl-row2">
+          <div class="field"><label>Ville d'expédition (départ)</label><select data-f="from">${opts}</select></div>
+          <div class="field"><label>Ville de destination (arrivée)</label><select data-f="to">${opts}</select></div></div>
+        <span class="cl-lbl">Catégorie du colis</span>
+        <div class="cl-cats">${Object.entries(CAT).map(([k,c]) => `<button type="button" class="cl-cat ${k===cat?'on':''}" data-cat="${k}"><span class="cl-ci">${ic(c.ico)}</span><span><b>${c.label}</b><small>${c.sub}</small></span></button>`).join('')}</div>
+        <div class="cl-row2 w" style="margin-top:16px">
+          <div class="field"><label>Description du contenu *</label><input data-f="desc" placeholder="Ex: Sac de vêtements, Pièces détachées, Documents administratifs" maxlength="120"></div>
+          <div class="field"><label>Poids estimé (kg)</label><input data-f="weight" type="number" min="0.1" max="200" step="0.5" value="${CAT[cat].w}"></div></div></div>
+      <div class="cl-row2" style="align-items:start">
+        <div class="cl-card"><h4><span class="cl-n">2</span>Expéditeur (Qui envoie)</h4>
+          <div class="field"><label>Nom &amp; prénom *</label><input data-f="sname" placeholder="Ex: Michel Ndoudi" autocomplete="name"></div>
+          <div class="field" style="margin-top:14px"><label>Numéro de téléphone *</label><input data-f="sphone" type="tel" inputmode="tel" placeholder="Ex: 06 600 12 34" autocomplete="tel-national"></div></div>
+        <div class="cl-card"><h4><span class="cl-n">3</span>Destinataire (Qui reçoit)</h4>
+          <div class="field"><label>Nom &amp; prénom *</label><input data-f="rname" placeholder="Ex: Grace Mavoungou"></div>
+          <div class="field" style="margin-top:14px"><label>Téléphone du destinataire *</label><input data-f="rphone" type="tel" inputmode="tel" placeholder="Ex: 05 510 98 76"><span class="cl-hint">Le numéro de suivi et le code de retrait sont à communiquer au destinataire.</span></div></div></div>
+      <div class="cl-card"><h4><span class="cl-n">4</span>Tarification &amp; Règlement</h4>
+        <div class="cl-pay">
+          <div class="cl-price"><small>Frais de transport colis</small><b data-price>—</b><span data-route></span>${pro?`<em>Remise -15% appliquée à la facturation dès ${PRO_MIN} envois/mois</em>`:''}</div>
+          <div>
+            <span class="cl-lbl" style="margin-top:0">Mode de règlement</span>
+            <div class="cl-opts" data-opts>
+              ${pro ? opt('b2b','ic','bld','Facturation mensuelle (B2B)','Réglé en fin de mois sur relevé unique') : ''}
+              ${opt('mtn','mtn','','MTN Mobile Money','Numéros commençant par 06')}
+              ${opt('airtel','air','','Airtel Money','Numéros commençant par 05 ou 04')}
+              ${opt('agence','ic','bld',"Paiement à l'agence",'Régler au guichet avant le départ')}
+              ${opt('dest','ic','hand','Payé par le destinataire','Le règlement est dû à la livraison')}
+              <div class="cl-num" data-numbox style="display:none"><div class="field"><label data-numlbl>Numéro MTN Mobile Money</label><input data-f="paynum" type="tel" inputmode="tel" placeholder="06 123 45 67"><span class="cl-hint">Ce numéro sera utilisé pour confirmer votre paiement.</span></div></div>
+            </div></div></div></div>
+      <div class="cl-foot"><span class="cl-safe">${ic('shield')}Colis enregistré et garanti avec reçu officiel Nzoko Transport.</span>
+        <button class="btn gold" data-go>Valider l'envoi du colis</button><p class="cl-err" data-err role="alert"></p></div>`;
+
+    const $f = f => body.querySelector(`[data-f="${f}"]`);
+    function opt(k, cls, icon, t, s){
+      const lg = cls==='mtn' ? '<span class="cl-lg mtn">MTN<br>MoMo</span>' : cls==='air' ? '<span class="cl-lg air">airtel<br>money</span>' : `<span class="cl-lg ic">${ic(icon)}</span>`;
+      return `<button type="button" class="cl-opt ${k===pay?'on':''}" data-pay="${k}">${lg}<span class="t"><b>${t}</b><small>${s}</small></span>${ic('ok','ck')}</button>`;
+    }
+    $f('from').value = 'Brazzaville'; $f('to').value = 'Pointe-Noire';
+    if(U){
+      $f('sname').value = U.displayName || '';
+      $f('sphone').value = (window.phoneOf ? window.phoneOf(U) : '').replace(/^\+242\s*/,'');
+    }
+
+    function price(){ return calcPrice($f('from').value, $f('to').value, cat, $f('weight').value); }
+    function upd(){
+      const p = price(), a = $f('from').value, b = $f('to').value;
+      body.querySelector('[data-price]').textContent = p ? fc(p).replace(' FCFA','') + ' FCFA' : '—';
+      body.querySelector('[data-route]').textContent = a===b ? 'Choisissez deux villes différentes' : `De ${a} vers ${b}`;
+    }
+    function showPay(){
+      body.querySelectorAll('[data-pay]').forEach(x => x.classList.toggle('on', x.dataset.pay===pay));
+      const box = body.querySelector('[data-numbox]'), m = pay==='mtn', a = pay==='airtel';
+      box.style.display = (m||a) ? '' : 'none';
+      body.querySelector('[data-numlbl]').textContent = m ? 'Numéro MTN Mobile Money' : 'Numéro Airtel Money';
+      $f('paynum').placeholder = m ? '06 123 45 67' : '05 123 45 67';
+    }
+    body.querySelectorAll('[data-cat]').forEach(b => b.onclick = () => {
+      cat = b.dataset.cat; $f('weight').value = CAT[cat].w;
+      body.querySelectorAll('[data-cat]').forEach(x => x.classList.toggle('on', x===b)); upd();
+    });
+    body.querySelectorAll('[data-pay]').forEach(b => b.onclick = () => { pay = b.dataset.pay; showPay(); });
+    ['from','to','weight'].forEach(f => { $f(f).addEventListener('input', upd); $f(f).addEventListener('change', upd); });
+    const back = body.querySelector('[data-back]'); if(back) back.onclick = () => { S.proForm = false; render(); };
+
+    /* Brouillon conservé si l'utilisateur doit se connecter */
+    const D = COLIS.draft;
+    if(D && D.pro === pro){
+      cat = D.cat; pay = D.pay;
+      ['from','to','desc','weight','sname','sphone','rname','rphone','paynum'].forEach(f => { if(D[f]!=null) $f(f).value = D[f]; });
+      body.querySelectorAll('[data-cat]').forEach(x => x.classList.toggle('on', x.dataset.cat===cat));
+      COLIS.draft = null;
+    }
+    showPay(); upd();
+
+    const err = body.querySelector('[data-err]');
+    const fail = m => { err.textContent = m; err.classList.add('on'); err.scrollIntoView({behavior:'smooth',block:'center'}); };
+    body.querySelector('[data-go]').onclick = async function(){
+      err.classList.remove('on');
+      const v = f => $f(f).value.trim(), from = v('from'), to = v('to'), w = parseFloat(v('weight'));
+      const sp = dig(v('sphone')), rp = dig(v('rphone')), pn = dig(v('paynum'));
+      if(from===to) return fail('Choisissez deux villes différentes.');
+      if(!v('desc')) return fail('Décrivez le contenu du colis.');
+      if(!(w>0) || w>200) return fail('Indiquez un poids valide (0,1 à 200 kg).');
+      if(!v('sname')) return fail("Indiquez le nom de l'expéditeur.");
+      if(sp.length<9) return fail("Numéro de l'expéditeur invalide (9 chiffres).");
+      if(!v('rname')) return fail('Indiquez le nom du destinataire.');
+      if(rp.length<9) return fail('Numéro du destinataire invalide (9 chiffres).');
+      if(pay==='mtn' && !(pn.length===9 && pn.startsWith('06'))) return fail('Numéro MTN invalide : 9 chiffres commençant par 06.');
+      if(pay==='airtel' && !(pn.length===9 && (pn.startsWith('05')||pn.startsWith('04')))) return fail('Numéro Airtel invalide : 9 chiffres commençant par 05 ou 04.');
+      if(!N.currentUser){
+        COLIS.draft = {pro, cat, pay, from, to, desc:v('desc'), weight:v('weight'), sname:v('sname'), sphone:v('sphone'), rname:v('rname'), rphone:v('rphone'), paynum:v('paynum')};
+        COLIS.pendingGo = true;
+        toast('Connectez-vous pour valider votre envoi.', 'info');
+        if(window.openAuth) window.openAuth();
+        return;
+      }
+      const U2 = N.currentUser, now = Date.now();
+      const p = {
+        reference: 'NZC-' + String(now).slice(-8),
+        code: String(Math.floor(1000 + Math.random()*9000)),
+        userId: U2.uid, userName: U2.displayName || 'Client',
+        userPhone: window.phoneOf ? window.phoneOf(U2) : '',
+        from, to, cat, desc: v('desc'), weight: w,
+        sender:{name:v('sname'), phone:'+242 '+sp}, receiver:{name:v('rname'), phone:'+242 '+rp},
+        pay, payNumber: (pay==='mtn'||pay==='airtel') ? '+242 '+pn : '',
+        price: price(), account: pro ? 'pro' : 'part',
+        status:'registered', history:[{s:'registered', t:now}], createdMs: now
+      };
+      this.disabled = true; this.textContent = 'Enregistrement…';
+      const where = await saveParcel(p);
+      if(where==='local') toast('Colis enregistré sur cet appareil (synchronisation indisponible).', 'info');
+      done(p, pro);
+    };
+  }
+
+  function done(p, pro){
+    const PAYL = {mtn:'MTN Mobile Money', airtel:'Airtel Money', agence:"Paiement à l'agence", dest:'Payé par le destinataire', b2b:'Facturation mensuelle (B2B)'};
+    body.innerHTML = `<div class="cl-card cl-done"><div class="big">${ic('check')}</div>
+      <h3 style="margin:0">Colis enregistré !</h3><p style="color:var(--muted);font-size:.9rem">Conservez votre référence pour suivre votre colis.</p>
+      <div class="cl-ref">${esc(p.reference)}</div>
+      <div class="cl-sum">
+        <div><span>Trajet</span><b>${esc(p.from)} → ${esc(p.to)}</b></div>
+        <div><span>Colis</span><b>${esc(CAT[p.cat].label)} · ${esc(p.weight)} kg</b></div>
+        <div><span>Destinataire</span><b>${esc(p.receiver.name)}</b></div>
+        <div><span>Règlement</span><b>${PAYL[p.pay]}</b></div>
+        <div><span>Frais de transport</span><b>${fc(p.price)}</b></div>
+        <div class="code"><span>Code de retrait</span><b>${p.code}</b></div></div>
+      <div class="cl-acts"><button class="btn gold" data-copy>Copier la référence</button>
+        <button class="btn line" data-new>${pro ? 'Nouvel envoi pro' : 'Nouvel envoi'}</button>
+        ${pro ? '<button class="btn dark" data-dash>Mon compte pro</button>' : ''}</div></div>`;
+    body.querySelector('[data-copy]').onclick = () => { try{ navigator.clipboard.writeText(p.reference); toast('Référence copiée.','success'); }catch(e){ toast(p.reference,'info'); } };
+    body.querySelector('[data-new]').onclick = () => formView(pro);
+    const d = body.querySelector('[data-dash]'); if(d) d.onclick = () => { S.proForm = false; render(); };
+    body.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  /* ---------- Compte pro ---------- */
+  function lock(msg, btn, fn){
+    body.innerHTML = `<div class="cl-card cl-lock">${ic('lock')}<h4 style="border:0;padding:0;justify-content:center;margin-bottom:8px">Compte pro commerçant</h4><p>${msg}</p><button class="btn gold">${btn}</button></div>`;
+    body.querySelector('button').onclick = fn;
+  }
+  async function proView(){
+    if(!N.currentUser) return lock('Connectez-vous pour accéder à votre compte pro : -15% automatique dès 10 envois par mois et facturation groupée en fin de mois.', 'Connexion', () => { COLIS.pendingGo = true; if(window.openAuth) window.openAuth(); });
+    body.innerHTML = '<div class="cl-card cl-empty">Chargement de votre compte pro…</div>';
+    const [pro, list] = await Promise.all([getPro(), myParcels()]);
+    if(S.mode!=='pro' || S.proForm) return;
+    if(!pro){
+      body.innerHTML = `<div class="cl-card"><h4><span class="cl-n">★</span>Activer mon compte pro commerçant</h4>
+        <div class="cl-row2"><div class="field"><label>Nom de l'entreprise *</label><input data-f="co" placeholder="Ex: Ets Congo Commerce General" maxlength="80"></div>
+        <div class="field"><label>N° RCCM (facultatif)</label><input data-f="rccm" placeholder="Ex: CG-BZV-2024-B1092" maxlength="40"></div></div>
+        <p class="cl-err" data-err role="alert" style="margin-top:12px"></p>
+        <button class="btn gold" style="margin-top:16px" data-act>Activer mon compte pro</button></div>`;
+      body.querySelector('[data-act]').onclick = async function(){
+        const co = body.querySelector('[data-f="co"]').value.trim(), rc = body.querySelector('[data-f="rccm"]').value.trim();
+        const e = body.querySelector('[data-err]');
+        if(co.length<2){ e.textContent = "Indiquez le nom de l'entreprise."; e.classList.add('on'); return; }
+        this.disabled = true; await setPro({name:co, rccm:rc, since:Date.now()}); proView();
+      };
+      return;
+    }
+    const now = new Date(), y = now.getFullYear(), m = now.getMonth();
+    const inM = (ms, yy, mm) => { const d = new Date(ms||0); return d.getFullYear()===yy && d.getMonth()===mm; };
+    const pros = list.filter(p => p.account==='pro' && p.status!=='cancelled');
+    const cur = pros.filter(p => inM(p.createdMs, y, m));
+    const prev = pros.filter(p => inM(p.createdMs, m===0?y-1:y, m===0?11:m-1));
+    const n = cur.length, active = n >= PRO_MIN;
+    const gross = cur.reduce((s,p)=>s+p.price, 0);
+    const save = active ? cur.reduce((s,p)=>s+Math.round(p.price*PRO_RATE), 0) : 0;
+    const net = gross - save, last = new Date(y, m+1, 0).getDate();
+    const trend = prev.length ? Math.round((n-prev.length)/prev.length*100) : null;
+    body.innerHTML = `<div class="cl-card">
+      <div class="cl-pro-top"><div class="cl-pro-id"><span class="cl-pro-ic">${ic('store')}</span><div>
+        <span class="cl-bdg g">Compte pro commerçant B2B</span>${active ? `<span class="cl-bdg v">Remise volume -15% active</span>` : `<span class="cl-bdg a">Remise -15% dès ${PRO_MIN} envois · ${n}/${PRO_MIN}</span>`}
+        <h3>${esc(pro.name)}</h3>${pro.rccm ? `<small>RCCM : ${esc(pro.rccm)}</small>` : ''}</div></div>
+        <button class="btn gold sm" data-csv>${ic('dl')}Télécharger relevé mensuel (CSV)</button></div>
+      <div class="cl-kpis">
+        <div class="cl-kpi"><small>Colis expédiés ce mois</small><b>${n}${trend!==null ? `<em>${trend>=0?'▲ +':'▼ '}${trend}% vs M-1</em>` : ''}</b><span>${active ? `Seuil minimal (${PRO_MIN} colis/mois) atteint !` : `Encore ${PRO_MIN-n} colis pour débloquer -15%`}</span></div>
+        <div class="cl-kpi ec"><small>Économies réalisées (-15%)</small><b>${fc(save)}</b><span>Déduites automatiquement de la facture.</span></div>
+        <div class="cl-kpi fa"><small>Montant facturé · facturation mensuelle</small><b>${fc(net)}</b><span>Facture globale arrêtée au ${last} du mois.</span></div></div>
+      <div class="cl-priv"><h5>${ic('bolt')}Privilèges expédition pro commerçant</h5><div class="g">
+        <span>${ic('tag')}Étiquette « PRIORITÉ COMMERÇANT » sur les colis</span>
+        <span>${ic('pct')}Remise automatique de 15% dès ${PRO_MIN} envois/mois</span>
+        <span>${ic('inv')}Facturation regroupée en fin de mois (B2B)</span></div></div></div>
+      <div class="cl-card cl-new"><h4>Nouvel envoi sous compte pro</h4><p>La remise de 15% sera appliquée automatiquement et l'envoi sera rattaché au relevé mensuel de votre entreprise.</p>
+        <button class="btn gold" data-new>Remplir le bordereau d'expédition pro</button></div>`;
+    body.querySelector('[data-new]').onclick = () => { S.proForm = true; render(); };
+    body.querySelector('[data-csv]').onclick = () => csv(pro, cur, active);
+  }
+  function csv(pro, rows, active){
+    const q = s => '"' + String(s==null?'':s).replace(/"/g,'""') + '"';
+    const head = ['Référence','Date','Départ','Arrivée','Contenu','Poids (kg)','Expéditeur','Destinataire','Montant brut (FCFA)','Remise (FCFA)','Net (FCFA)','Statut'];
+    let tb = 0, tr = 0;
+    const lines = rows.slice().sort((a,b)=>a.createdMs-b.createdMs).map(p => {
+      const r = active ? Math.round(p.price*PRO_RATE) : 0; tb += p.price; tr += r;
+      return [p.reference, new Date(p.createdMs).toLocaleDateString('fr-FR'), p.from, p.to, p.desc, p.weight, p.sender.name, p.receiver.name, p.price, r, p.price-r, (STL[p.status]||STL.registered)[0]].map(q).join(';');
+    });
+    lines.push(['TOTAL','','','','','','','',tb,tr,tb-tr,''].map(q).join(';'));
+    const txt = '\ufeff' + [q('Relevé mensuel — ' + pro.name)].join('') + '\r\n' + head.map(q).join(';') + '\r\n' + lines.join('\r\n');
+    const d = new Date(), a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([txt], {type:'text/csv;charset=utf-8'}));
+    a.download = `releve-nzoko-${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}.csv`;
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href), 2000);
+  }
+
+  render();
+  return { refresh(){ if(S.mode==='pro' && !S.proForm) proView(); } };
+};
+
+/* =====================================================================
+   SUIVI DE COLIS
+   ===================================================================== */
+COLIS.mountTrack = function(el, mine){
+  el.innerHTML = `<div class="cl"><div class="cl-card" style="margin:0"><h4 style="border:0;padding:0;margin-bottom:12px">Numéro de suivi</h4>
+    <div class="cl-find"><input data-q placeholder="Ex : NZC-12345678" maxlength="20" autocomplete="off"><button class="btn gold" data-s>Suivre</button></div>
+    <div class="cl-res" data-r></div></div>${mine ? '<div data-mine></div>' : ''}</div>`;
+  const q = el.querySelector('[data-q]'), r = el.querySelector('[data-r]');
+  async function search(){
+    const v = q.value.trim(); if(!v){ r.innerHTML = ''; return; }
+    r.innerHTML = '<div class="cl-empty">Recherche…</div>';
+    const p = await findParcel(v);
+    r.innerHTML = p ? parcelCard(p).replace('class="cl-card" style="margin:0"','class="cl-card" style="margin:0;background:rgba(13,43,43,.6)"')
+      : `<div class="cl-empty"><b>Aucun colis trouvé</b>Vérifiez la référence (format NZC-12345678).</div>`;
+  }
+  el.querySelector('[data-s]').onclick = search;
+  q.addEventListener('keydown', e => { if(e.key==='Enter') search(); });
+  async function list(){
+    const box = el.querySelector('[data-mine]'); if(!box) return;
+    if(!N.currentUser){ box.innerHTML = ''; return; }
+    box.innerHTML = '<div class="cl-empty">Chargement de vos colis…</div>';
+    const l = await myParcels();
+    box.innerHTML = `<h4 style="color:#fff;margin:22px 0 4px">Mes colis <span style="color:var(--muted);font-weight:500;font-size:.8rem">(${l.length})</span></h4>` +
+      (l.length ? `<div class="cl-list">${l.map(p => `<button class="cl-pc" data-ref="${esc(p.reference)}"><div class="h"><span class="r">${esc(p.reference)}</span><span class="cl-st ${(STL[p.status]||STL.registered)[1]}">${(STL[p.status]||STL.registered)[0]}</span></div>
+        <div class="rt">${esc(p.from)} → ${esc(p.to)}</div><div class="m"><span>${new Date(p.createdMs||0).toLocaleDateString('fr-FR')}</span><b>${fc(p.price)}</b></div></button>`).join('')}</div>`
+        : '<div class="cl-empty"><b>Aucun colis pour l\'instant</b>Vos envois apparaîtront ici.</div>');
+    box.querySelectorAll('[data-ref]').forEach(b => b.onclick = () => { q.value = b.dataset.ref; search(); q.scrollIntoView({behavior:'smooth',block:'center'}); });
+  }
+  list();
+  return { refresh: list };
+};
+
+/* ---------- Montage sur la page publique ---------- */
+const pub = document.getElementById('colisPublic'); if(pub) COLIS.mount(pub);
+const sui = document.getElementById('suiviPublic'); if(sui) COLIS.mountTrack(sui, false);
+})();
+</script>
+
+<script>
+/* =====================================================================
    ESPACE CLIENT — Trajets · Garages · Mes billets · Tableau de bord
    ⚡ Mis à jour en temps réel via Firestore onSnapshot
    ===================================================================== */
@@ -1736,7 +2333,7 @@ const ic = n => `<svg class="ap-ico"><use href="#i-${n}"/></svg>`;
 const fc = n => (n||0).toLocaleString('fr-FR') + ' FCFA';
 const ST = {pending:['En cours','wait'], confirmed:['Validé','ok'], cancelled:['Annulé','ko']};
 const st = b => b.status || 'confirmed';
-const TITLES = {trajets:'Trajets', garages:'Garages', billets:'Mes billets', dash:'Tableau de bord'};
+const TITLES = {trajets:'Trajets', garages:'Garages', billets:'Mes billets', colis:'Envoyer un colis', suivi:'Suivi des colis', dash:'Tableau de bord'};
 const HOURS = {open:[5.5,19], sun:[7,14]};
 const DAYS = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
 let view = 'trajets', filt = 'all', gcity = '', bookings = [], state = 'idle';
@@ -1749,6 +2346,8 @@ A.innerHTML = `
     <button data-v="trajets">${ic('bus')}Trajets</button>
     <button data-v="garages">${ic('pin')}Garages</button>
     <button data-v="billets">${ic('ticket')}Mes billets<span class="n" id="apN" style="display:none">0</span></button>
+    <button data-v="colis">${ic('box')}Colis</button>
+    <button data-v="suivi">${ic('track')}Suivi colis</button>
     <button data-v="dash">${ic('dash')}Tableau de bord</button>
   </nav>
   <div class="ap-user"><div class="ap-av" id="apAv">N</div><div><b id="apNm">Voyageur</b><small id="apPh">+242</small></div>
@@ -1760,7 +2359,8 @@ A.innerHTML = `
     <button class="ap-lo ap-lo-m" onclick="logout()" aria-label="Déconnexion">${ic('out')}</button></div></div>
   <div class="ap-body" id="apB">
     <section class="ap-view" id="v-trajets"></section><section class="ap-view" id="v-garages"></section>
-    <section class="ap-view" id="v-billets"></section><section class="ap-view" id="v-dash"></section>
+    <section class="ap-view" id="v-billets"></section><section class="ap-view" id="v-colis"></section>
+    <section class="ap-view" id="v-suivi"></section><section class="ap-view" id="v-dash"></section>
   </div>
 </div>`;
 $('#apD').textContent = new Date().toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
@@ -1771,7 +2371,7 @@ function go(v){
   A.querySelectorAll('[data-v]').forEach(b => b.classList.toggle('on', b.dataset.v === v));
   A.querySelectorAll('.ap-view').forEach(s => s.classList.toggle('on', s.id === 'v-' + v));
   $('#apT').textContent = TITLES[v]; $('#apB').scrollTop = 0;
-  ({trajets:rTrajets, garages:rGarages, billets:rBillets, dash:rDash})[v]();
+  ({trajets:rTrajets, garages:rGarages, billets:rBillets, colis:rColis, suivi:rSuivi, dash:rDash})[v]();
 }
 const empty = (i,t,s) => `<div class="ap-empty">${ic(i)}<b>${t}</b>${s}</div>`;
 const cu = (el, end, sfx='') => { const t0 = performance.now(); (function f(t){ const p = Math.min((t-t0)/1500,1); el.textContent = Math.round(end*(1-Math.pow(1-p,3))).toLocaleString('fr-FR') + sfx; if(p<1) requestAnimationFrame(f); })(t0); };
@@ -1823,6 +2423,16 @@ function showTrips(){
     <div class="ap-ft"><div><b>${x.price.toLocaleString('fr-FR')}</b> <small>FCFA / place</small></div><button data-i="${TRIPS.indexOf(x)}">Réserver</button></div></div>`).join('')
     : empty('bus','Aucun trajet direct',(f && t) ? `Aucun bus ${f} → ${t} pour le moment. Essayez une autre destination.` : 'Modifiez votre recherche.');
   $('#tR').querySelectorAll('[data-i]').forEach(b => b.onclick = () => openBooking(TRIPS[+b.dataset.i], d));
+}
+
+/* ---------- COLIS ---------- */
+function rColis(){
+  const el = $('#v-colis');
+  if(!el.dataset.ok){ el.dataset.ok = 1; el.__cl = window.COLIS.mount(el); } else el.__cl.refresh();
+}
+function rSuivi(){
+  const el = $('#v-suivi');
+  if(!el.dataset.ok){ el.dataset.ok = 1; el.__ct = window.COLIS.mountTrack(el, true); } else el.__ct.refresh();
 }
 
 /* ---------- GARAGES ---------- */
@@ -1997,11 +2607,12 @@ window.enterApp = function(){
   const u = N.currentUser, nm = u.displayName || 'Voyageur';
   $('#apNm').textContent = nm; $('#apPh').textContent = (window.phoneOf ? window.phoneOf(u) : u.phoneNumber) || '+242';
   $('#apAv').textContent = nm.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
-  document.body.classList.add('app-on'); go('trajets'); load();
+  document.body.classList.add('app-on'); const gc = window.COLIS && window.COLIS.pendingGo; if(gc) window.COLIS.pendingGo = false; go(gc ? 'colis' : 'trajets'); load();
 };
 window.leaveApp = function(){
   if (bookingsUnsub) { try { bookingsUnsub(); } catch(_){} bookingsUnsub = null; }
   document.body.classList.remove('app-on'); bookings = []; state = 'idle'; filt = 'all';
+  ['#v-colis','#v-suivi'].forEach(sl => { const e = $(sl); e.dataset.ok = ''; e.innerHTML = ''; });
 };
 })();
 </script>
